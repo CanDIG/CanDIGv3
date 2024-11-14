@@ -1,4 +1,7 @@
-# Backing up and restoring CanDIG data
+---
+title: Backing up and restoring CanDIG data
+description: Guide to backing up and restoring data stored in CanDIG
+---
 
 There are three kinds of data stored in CanDIG that we recommend backing up regularly.
 1. Clinical and Genomic metadata stored in CanDIGs's postgres databases
@@ -104,6 +107,17 @@ docker start candigv2_htsget_1
 ```
 
 You should be able to see the restored data in the data portal.
+
+:::tip
+If restoring data after updating to a new version of the stack or micoservive (particularly katsu), it is possible that the data that is restored back to the database will be invalid against the updated version. This may not be immediately obvious but will cause errors in the data portal attempts to retrieve data with invalid values. We don't currently have a great way for you to check if your data is valid against the latest stack but some options are:
+- Pay attention to the [MoHCCN data model changes](https://www.marathonofhopecancercentres.ca/researcher-hub/policies-and-guidelines) and be aware if the data in your system is affected by any updates
+- Retain the `map.json`s that were used for ingest and run them through the script [validate_coverage.py](https://github.com/CanDIG/clinical_ETL_code/blob/develop/src/clinical_etl/validate_coverage.py) to check for any new validation errors and warnings
+
+Depending on your comfort levels, to update your data to be compatible with the running version of the stack, you may want to:
+- Use SQL to update tables/values directly in the katsu postgresql database
+- Search/Replace values or create scripts to update the `map.json`s to be compatible with the latest model and reingest the updated data
+- Perform a full clinical_etl process by updating csvs and mapping template
+:::
 
 ## Backing up Secrets and Authorization data
 
