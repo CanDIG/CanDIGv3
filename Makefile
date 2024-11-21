@@ -259,7 +259,7 @@ clean-secrets:
 
 
 #>>>
-# remove all peristant volumes and local data
+# remove all persistent volumes and local data
 # make clean-volumes
 
 #<<<
@@ -360,7 +360,7 @@ docker-push:
 
 #<<<
 .PHONY: docker-secrets
-docker-secrets: mkdir authx-secrets data-secrets #minio-secrets
+docker-secrets: mkdir authx-secrets data-secrets
 
 
 data-secrets: mkdir
@@ -383,11 +383,12 @@ authx-secrets: mkdir
 
 minio-secrets: mkdir
 	@echo "making minio secrets"
-	@echo $(DEFAULT_ADMIN_USER) > tmp/secrets/minio-access-key
+	@echo $(DEFAULT_ADMIN_USER) > lib/minio/access-key
 	$(MAKE) secret-minio-secret-key
-	@echo '[default]' > tmp/secrets/aws-credentials
-	@echo "aws_access_key_id=`cat tmp/secrets/minio-access-key`" >> tmp/secrets/aws-credentials
-	@echo "aws_secret_access_key=`cat tmp/secrets/minio-secret-key`" >> tmp/secrets/aws-credentials
+	mv tmp/secrets/minio-secret-key lib/minio/secret-key
+	@echo '[default]' > lib/minio/aws-credentials
+	@echo "aws_access_key_id=`cat lib/minio/access-key`" >> lib/minio/aws-credentials
+	@echo "aws_secret_access_key=`cat lib/minio/secret-key`" >> lib/minio/aws-credentials
 
 
 #>>>
@@ -399,8 +400,6 @@ minio-secrets: mkdir
 docker-volumes:
 	docker volume create grafana-data --label candigv2=volume
 	docker volume create jupyter-data --label candigv2=volume
-	# docker volume create minio-config --label candigv2=volume
-	# docker volume create minio-data $(MINIO_VOLUME_OPT) --label candigv2=volume
 	docker volume create prometheus-data --label candigv2=volume
 	docker volume create toil-jobstore --label candigv2=volume
 	docker volume create keycloak-data --label candigv2=volume
@@ -423,6 +422,17 @@ init-authx: mkdir
 	$(MAKE) docker-volumes
 	$(MAKE) authx-secrets
 	$(foreach MODULE, $(CANDIG_AUTH_MODULES), $(MAKE) build-$(MODULE); $(MAKE) compose-$(MODULE); python settings.py;)
+
+
+#>>>
+# create a minio container (that won't be removed as part of clean-all)
+# make init-minio
+
+#<<<
+init-minio: minio-secrets
+	docker volume create minio-config
+	docker volume create minio-data $(MINIO_VOLUME_OPT)
+	docker compose -f lib/candigv2/docker-compose.yml -f lib/minio/docker-compose.yml --compatibility up -d 2>&1 | tee -a $(ERRORLOG)
 
 
 #>>>
