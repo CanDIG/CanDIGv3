@@ -164,7 +164,7 @@ def test_add_remove_program_authorization(user, dataset):
 
     # try adding a user to the program:
     test_data = {
-        "email": ENV["CANDIG_NOT_ADMIN_USER"],
+        "email": ENV[f"{user}_USER"],
         "program": dataset
     }
 
@@ -173,7 +173,7 @@ def test_add_remove_program_authorization(user, dataset):
     print(f"{response.json()}, {response.status_code}")
     assert response.status_code == 200
 
-    assert test_data["program"] in get_katsu_datasets("CANDIG_NOT_ADMIN")
+    assert test_data["program"] in get_katsu_datasets(user)
 
     # remove the user
     response = requests.delete(f"{ENV['CANDIG_URL']}/ingest/program/{test_data['program']}/email/{test_data['email']}", headers=headers)
