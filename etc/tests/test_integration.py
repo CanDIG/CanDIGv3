@@ -88,6 +88,7 @@ def user_auth_datasets():
         ("CANDIG_NOT_ADMIN2", "PROGRAM-2"),
         ("CANDIG_NOT_ADMIN", "PROGRAM-1"),
         ("CANDIG_NOT_ADMIN", "TEST_2"),
+        ("CANDIG_SITE_ADMIN", "TEST_3"),
     ]
 
 def get_katsu_datasets(user):
@@ -233,7 +234,7 @@ def test_user_authorizations(user, dataset):
 
     # see if user can access dataset before authorizing
     katsu_datasets = get_katsu_datasets(user)
-    assert dataset not in katsu_datasets
+    assert dataset not in katsu_datasets or user == "CANDIG_SITE_ADMIN"
 
     # add dataset to user's authz
     from datetime import date
