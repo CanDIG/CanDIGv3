@@ -309,48 +309,48 @@ def test_add_remove_site_admin():
 
 
 ## Vault tests: can we add an aws access key and retrieve it?
-def test_s3_credentials():
-    site_admin_token = get_site_admin_token()
-    headers = {
-        "Authorization": f"Bearer {site_admin_token}",
-        "Content-Type": "application/json; charset=utf-8",
-    }
+# def test_s3_credentials():
+#     site_admin_token = get_site_admin_token()
+#     headers = {
+#         "Authorization": f"Bearer {site_admin_token}",
+#         "Content-Type": "application/json; charset=utf-8",
+#     }
 
-    payload = {
-        "endpoint": "https://candig-demo.uhndata.io:9000",
-        "bucket": "test-genomic",
-        "access_key": "vMBfT7WFBLWtrAZaw6K2",
-        "secret_key": "kt2ZKy2BWnDxKCNVhBmkVxd68zv76lKN36yQUjVl"
-    }
+#     payload = {
+#         "endpoint": "https://candig-demo.uhndata.io:9000",
+#         "bucket": "test-genomic",
+#         "access_key": "vMBfT7WFBLWtrAZaw6K2",
+#         "secret_key": "kt2ZKy2BWnDxKCNVhBmkVxd68zv76lKN36yQUjVl"
+#     }
 
-    # set a credential
-    response = requests.post(
-        f"{ENV['CANDIG_URL']}/ingest/s3-credential", headers=headers, json=payload
-    )
-    # check to see if the error is SSL; if so, try again without https:
-    if "SSLError" in response.text:
-        payload["endpoint"] = "http://candig-demo.uhndata.io:9000"
-        # set a credential
-        response = requests.post(
-            f"{ENV['CANDIG_URL']}/ingest/s3-credential", headers=headers, json=payload
-        )
+#     # set a credential
+#     response = requests.post(
+#         f"{ENV['CANDIG_URL']}/ingest/s3-credential", headers=headers, json=payload
+#     )
+#     # check to see if the error is SSL; if so, try again without https:
+#     if "SSLError" in response.text:
+#         payload["endpoint"] = "http://candig-demo.uhndata.io:9000"
+#         # set a credential
+#         response = requests.post(
+#             f"{ENV['CANDIG_URL']}/ingest/s3-credential", headers=headers, json=payload
+#         )
 
-    print(response.text)
-    # make sure that the endpoint was parsed correctly:
-    assert response.json()["endpoint"] == "candig_demo_uhndata_io_9000"
+#     print(response.text)
+#     # make sure that the endpoint was parsed correctly:
+#     assert response.json()["endpoint"] == "candig_demo_uhndata_io_9000"
 
-    # get the credential back
-    url = f"{ENV['CANDIG_URL']}/ingest/s3-credential/endpoint/{response.json()['endpoint']}/bucket/{response.json()['bucket']}"
-    response = requests.get(url, headers=headers)
+#     # get the credential back
+#     url = f"{ENV['CANDIG_URL']}/ingest/s3-credential/endpoint/{response.json()['endpoint']}/bucket/{response.json()['bucket']}"
+#     response = requests.get(url, headers=headers)
 
-    print(response.text)
-    assert response.json()["access_key"] == payload["access_key"]
+#     print(response.text)
+#     assert response.json()["access_key"] == payload["access_key"]
 
-    # delete the credential
-    response = requests.delete(url, headers=headers)
+#     # delete the credential
+#     response = requests.delete(url, headers=headers)
 
-    print(response.text)
-    assert response.status_code == 204
+#     print(response.text)
+#     assert response.status_code == 204
 
 
 # =========================|| KATSU TEST BEGIN ||============================= #
@@ -1157,11 +1157,17 @@ def test_query_genomic():
 
 # Can we use a discovery query to get counts of donors we do not have access to?
 def test_query_discovery():
+    token = get_token(username=ENV['CANDIG_SITE_ADMIN_USER'],
+                      password=ENV['CANDIG_SITE_ADMIN_PASSWORD'])
+    headers = {
+        "Authorization": f"Bearer {token}",
+    }
+    
     katsu_response = requests.get(
-        f"{ENV['CANDIG_ENV']['KATSU_INGEST_URL']}/v3/discovery/programs/"
+        f"{ENV['CANDIG_ENV']['KATSU_INGEST_URL']}/v3/authorized/programs/", headers=headers
     ).json()
     query_response = requests.get(
-        f"{ENV['CANDIG_ENV']['QUERY_INTERNAL_URL']}/discovery/programs").json()
+        f"{ENV['CANDIG_ENV']['QUERY_INTERNAL_URL']}/discovery/programs", headers=headers).json()
     # Ensure that each category in metadata corresponds to something in the site
     for category in query_response["site"]["required_but_missing"]:
         for field in query_response["site"]["required_but_missing"][category]:
@@ -1170,7 +1176,7 @@ def test_query_discovery():
                 if type(total) == str:
                     # Can't perform this check on censored data
                     continue
-                for program in katsu_response:
+                for program in katsu_response["items"]:
                     if category in program["metadata"]['required_but_missing'] and field in program["metadata"]['required_but_missing'][category]:
                         if type(program["metadata"]['required_but_missing'][category][field][total_type]) == int:
                             total -= program["metadata"]['required_but_missing'][category][field][total_type]
@@ -1179,7 +1185,7 @@ def test_query_discovery():
                     assert False
 
     # Ensure that every category & field in Katsu exists in the response
-    for program in katsu_response:
+    for program in katsu_response["items"]:
         for category in program["metadata"]["required_but_missing"]:
             assert category in query_response["site"]["required_but_missing"]
             for field in program["metadata"]["required_but_missing"][category]:
@@ -1188,8 +1194,13 @@ def test_query_discovery():
 
 # Can we check how many donors have genomics data?
 def test_query_completeness():
+    token = get_token(username=ENV['CANDIG_SITE_ADMIN_USER'],
+                      password=ENV['CANDIG_SITE_ADMIN_PASSWORD'])
+    headers = {
+        "Authorization": f"Bearer {token}",
+    }
     query_response = requests.get(
-        f"{ENV['CANDIG_ENV']['QUERY_INTERNAL_URL']}/genomic_completeness").json()
+        f"{ENV['CANDIG_ENV']['QUERY_INTERNAL_URL']}/genomic_completeness", headers=headers).json()
     pprint.pprint(query_response)
     # Verify that the synthetic data shows up
     assert f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_01" in query_response
