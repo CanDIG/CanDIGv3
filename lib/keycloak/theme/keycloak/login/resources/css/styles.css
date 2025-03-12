@@ -1,0 +1,5 @@
+/* Override global primary colors and fonts*/
+:root {
+    --pf-global--primary-color--100: #00434F;
+    --pf-global--primary-color--200: #00434F;
+}

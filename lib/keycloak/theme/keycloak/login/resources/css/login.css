@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 /* Patternfly CSS places a "bg-login.jpg" as the background on this ".login-pf" class.
    This clashes with the "keycloak-bg.png' background defined on the body below.
    Therefore the Patternfly background must be set to none. */
@@ -9,6 +11,8 @@
     background: url("../img/keycloak-bg.png") no-repeat center center fixed;
     background-size: cover;
     height: 100%;
+    font-family: "Montserrat";
+    color: var(--pf-global--primary-color--100);
 }
 
 textarea.pf-c-form-control {
@@ -93,7 +97,7 @@ div.kc-logo-text span {
 }
 
 #kc-header {
-    color: #ededed;
+    color: var(--pf-global--primary-color--100);
     overflow: visible;
     white-space: nowrap;
 }
