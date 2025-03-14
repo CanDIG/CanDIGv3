@@ -5,6 +5,8 @@ description: Modifications needed when deploying to a production server
 
 import { Code } from '@astrojs/starlight/components';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Steps } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 
 Apart from the basic steps in the [Local Deployment Guide](local) to get the CanDIG stack up and running, there are additional settings and security recommendations that need to set up in a production level environment. We provide the following as general advice, but it is important for all CanDIG deployers to also consult with their institutional infrastructure security personnel to ensure that their deployment meets the necessary level of data security.
 
@@ -152,13 +154,13 @@ export TOKEN=$(echo $CURL_OUTPUT | grep -Eo 'access_token":"[a-zA-Z0-9._\-]+' | 
 4. Set the role of the real user to a site admin with the following curl command:
 
 ```bash
-curl -X POST $CANDIG_URL'/ingest/site-role/admin/email/<YOUR-EMAIL-ADDRESS>' -H 'Authorization: Bearer '$TOKEN
+curl -X POST $CANDIG_URL'/ingest/site-role/admin/user_id/<YOUR-EMAIL-ADDRESS>' -H 'Authorization: Bearer '$TOKEN
 ```
 
 5. Check the role assignment was successful by verifying the following command returns `True`:
 
 ```bash
-curl -X GET $CANDIG_URL'/ingest/site-role/admin/email/<YOUR-EMAIL-ADDRESS>' -H 'Authorization: Bearer '$TOKEN
+curl -X GET $CANDIG_URL'/ingest/site-role/admin/user_id/<YOUR-EMAIL-ADDRESS>' -H 'Authorization: Bearer '$TOKEN
 ```
 
 6. Delete the default site admin user using your new real user site admin token
@@ -180,10 +182,10 @@ export TOKEN=$(echo $CURL_OUTPUT | grep -Eo 'access_token":"[a-zA-Z0-9._\-]+' | 
 ```
 
 ```bash
-curl -X DELETE $CANDIG_URL'/ingest/site-role/admin/email/site_admin@test.ca' -H 'Authorization: Bearer '$TOKEN
+curl -X DELETE $CANDIG_URL'/ingest/site-role/admin/user_id/site_admin@test.ca' -H 'Authorization: Bearer '$TOKEN
 ```
 
-Comment out or remove the value of DEFAULT_SITE_ADMIN_USER in your .env file:
+Comment out the value of DEFAULT_SITE_ADMIN_USER in your .env file:
 ```
 # default name for built-in site admin
 #DEFAULT_SITE_ADMIN_USER=site_admin@test.ca
