@@ -38,7 +38,8 @@ class AuthzRequest:
 ## Does Keycloak respond?
 def test_keycloak():
     response = requests.get(
-        f"{ENV['KEYCLOAK_PUBLIC_URL']}/auth/realms/{ENV['KEYCLOAK_REALM']}/.well-known/openid-configuration"
+        f"{ENV['KEYCLOAK_PUBLIC_URL']}/realms/{ENV['KEYCLOAK_REALM']}/.well-known/openid-configuration"
+    )
     assert response.status_code == 200
     assert "grant_types_supported" in response.json()
 
