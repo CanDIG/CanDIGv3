@@ -147,7 +147,7 @@
             "algorithm": "",
             "header": "",
             "secret": "",
-            "allowed_clock_skew": 0,
+            "allowed_clock_skew": ${TYK_CLOCK_SKEW_LEEWAY},
             "error_code": 0,
             "error_message": ""
         }
