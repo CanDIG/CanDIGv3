@@ -7,8 +7,8 @@
 
     "enable_signature_checking": false,
 
-    "jwt_issued_at_validation_skew": 0,
-    "jwt_expires_at_validation_skew": 0,
+    "jwt_issued_at_validation_skew": ${TYK_CLOCK_SKEW_LEEWAY},
+    "jwt_expires_at_validation_skew": ${TYK_CLOCK_SKEW_LEEWAY},
     "upstream_certificates": {},
     "use_keyless": false,
     "enable_coprocess_auth": false,
@@ -123,7 +123,7 @@
     "use_oauth2": false,
     "jwt_source": "",
     "jwt_signing_method": "",
-    "jwt_not_before_validation_skew": 0,
+    "jwt_not_before_validation_skew": ${TYK_CLOCK_SKEW_LEEWAY},
     "jwt_identity_base_field": "",
 
     "session_provider": {
