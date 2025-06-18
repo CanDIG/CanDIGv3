@@ -57,33 +57,30 @@ ifndef CONDA_INSTALL
 endif
 	@printf "\nOutput of bin-conda:\n" | tee -a $(LOGFILE)
 ifeq ($(VENV_OS), linux)
-	curl -Lo bin/miniconda_install.sh \
-		https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-	bash bin/miniconda_install.sh -f -b -u -p $(CONDA_INSTALL)
+	curl -Lo bin/miniforge_install.sh \
+		https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh
+	bash bin/miniforge_install.sh -f -b -u -p $(CONDA_INSTALL)
 	# init is needed to create bash aliases for conda but it won't work
 	# until you source the script that ships with conda
 	source $(CONDA_ENV_SETTINGS) && $(CONDA) init
 endif
 ifeq ($(VENV_OS), darwin)
-	curl -Lo bin/miniconda_install.sh \
-		https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
-	bash bin/miniconda_install.sh -f -b -u -p $(CONDA_INSTALL)
+	curl -Lo bin/miniforge_install.sh \
+		https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-x86_64.sh
+	bash bin/miniforge_install.sh -f -b -u -p $(CONDA_INSTALL)
 	# init is needed to create bash aliases for conda but it won't work
 	# until you source the script that ships with conda
 	source $(CONDA_ENV_SETTINGS) && $(CONDA) init
 endif
 ifeq ($(VENV_OS), arm64mac)
-	curl -Lo bin/miniconda_install.sh \
-		https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
-	bash bin/miniconda_install.sh -f -b -u -p $(CONDA_INSTALL)
+	curl -Lo bin/miniforge_install.sh \
+		https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh
+	bash bin/miniforge_install.sh -f -b -u -p $(CONDA_INSTALL)
 	# init is needed to create bash aliases for conda but it won't work
 	# until you source the script that ships with conda
 	source $(CONDA_ENV_SETTINGS) && $(CONDA) init zsh
 endif
-	$(CONDA) config --remove channels defaults
-	$(CONDA) config --add channels conda-forge
-	$(CONDA) config --set channel_priority strict
-
+	echo `$(CONDA) config --show-sources`
 
 #>>>
 # make build-all -P
@@ -302,7 +299,20 @@ compose-%:
 	if [ -f lib/$*/$*_setup.sh ]; then \
 	source lib/$*/$*_setup.sh 2>&1 | tee -a $(LOGFILE); \
 	fi
+	-chmod -R $(DIR_PERMISSIONS) tmp/ 2>/dev/null || true
+	-chmod -R 777 tmp/logs 2>/dev/null || true
 
+#>>>
+# Combines the make clean/build/compose steps (and re-creates docker volumes)
+# $module is the name of the sub-folder in lib/
+# make recompose-$module
+
+#<<<
+recompose-%:
+	$(MAKE) clean-$*
+	$(MAKE) docker-volumes
+	$(MAKE) build-$*
+	$(MAKE) compose-$*
 
 #>>>
 # Combines the make clean/build/compose steps (and re-creates docker volumes)
@@ -542,9 +552,9 @@ test-integration:
 	mkdir -p tmp/test
 	python ./settings.py
 ifeq ($(KEEP_TEST_DATA),true)
-	source ./env.sh; pytest -v --color=yes ./etc/tests -k 'not test_clean_up' $(ARGS) --report-log=./tmp/test/test-integration_$(shell date +"%Y-%m-%d_%Hh%Mm%Ss").jsonl
+	source ./env.sh; pytest -v --color=yes ./etc/tests/integration -k 'not test_clean_up' $(ARGS) --report-log=./tmp/test/test-integration_$(shell date +"%Y-%m-%d_%Hh%Mm%Ss").jsonl
 else
-	source ./env.sh; pytest -v --color=yes ./etc/tests $(ARGS) --report-log=./tmp/test/test-integration_$(shell date +"%Y-%m-%d_%Hh%Mm%Ss").jsonl
+	source ./env.sh; pytest -v --color=yes ./etc/tests/integration $(ARGS) --report-log=./tmp/test/test-integration_$(shell date +"%Y-%m-%d_%Hh%Mm%Ss").jsonl
 endif
 
 # Run a single test by using its name and print out results whether failing or passing
@@ -554,6 +564,28 @@ endif
 test-integration-%:
 	mkdir -p tmp/test
 	python ./settings.py; source ./env.sh; pytest -v --color=yes ./etc/tests -s -rP -k '$*' --report-log=./tmp/test/test-integration_$(shell date +"%Y-%m-%d_%Hh%Mm%Ss").jsonl
+
+#>>>
+# run local federation setup tests
+# these aren't really federation tests, but instead setup datasets for another site to test their federation
+
+#<<<
+.PHONY: test-local-federation
+test-local-federation:
+	mkdir -p tmp/test
+	python ./settings.py
+	source ./env.sh; pytest -v --color=yes ./etc/tests/federation -k "all or local" $(ARGS) --report-log=./tmp/test/test-federation_$(shell date +"%Y-%m-%d_%Hh%Mm%Ss").jsonl
+
+#>>>
+# run querying federation setup tests
+# these require other, federated sites to have run test-local-federation
+
+#<<<
+.PHONY: test-querying-federation
+test-querying-federation:
+	mkdir -p tmp/test
+	python ./settings.py
+	source ./env.sh; pytest -v --color=yes ./etc/tests/federation -k "all or querying_site" $(ARGS) --report-log=./tmp/test/test-federation_$(shell date +"%Y-%m-%d_%Hh%Mm%Ss").jsonl
 
 # stop all docker containers
 .PHONY: stop-all
@@ -567,6 +599,7 @@ start-all:
 
 #>>>
 # rebuild the entire stack without touching the data containers, defined in .env
+### $(MAKE) clean-all CANDIG_MODULES="$(CANDIG_MODULES)"
 #<<<
 
 .PHONY: rebuild-keep-data

@@ -45,6 +45,7 @@ def get_env():
     vars["CANDIG_URL"] = get_env_value("TYK_LOGIN_TARGET_URL")
     vars["CANDIG_CLIENT_ID"] = get_env_value("KEYCLOAK_CLIENT_ID")
     vars["KEYCLOAK_PUBLIC_URL"] = get_env_value("KEYCLOAK_PUBLIC_URL")
+    vars["KEYCLOAK_AUTH_PREFIX"] = get_env_value("KEYCLOAK_AUTH_PREFIX")
     vars["KEYCLOAK_REALM_URL"] = get_env_value("KEYCLOAK_REALM_URL")
     vars["KEYCLOAK_ISSUER_URL"] = get_env_value("KEYCLOAK_ISSUER_URL")
     vars["KEYCLOAK_REALM"] = get_env_value("KEYCLOAK_REALM")
@@ -69,6 +70,8 @@ def get_env():
     vars["POSTGRES_PASSWORD_FILE"] = os.path.abspath(f"tmp/postgres/db-secret")
     vars["CANDIG_ENV"] = INTERPOLATED_ENV
     vars["DB_PATH"] = "postgres-db"
+    vars["FEDERATION_SELF_SERVER_ID"] = get_env_value("FEDERATION_SELF_SERVER_ID")
+    vars["CANDIG_SITE_LOCATION"] = get_env_value("CANDIG_SITE_LOCATION")
 
     # test users:
     if get_env_value("DEFAULT_SITE_ADMIN_USER") is not None:

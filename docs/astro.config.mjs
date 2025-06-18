@@ -32,9 +32,9 @@ export default defineConfig({
             src: './src/assets/my-logo.png',
             replacesTitle: true,
         },
-        social: {
-            github: 'https://github.com/candig/CanDIGv2',
-        },
+        social: [{
+            icon: 'github', label: 'GitHub', href:'https://github.com/candig/CanDIGv2',
+        },],
     plugins: [
         starlightUtils({
             navLinks: {
@@ -48,7 +48,7 @@ export default defineConfig({
             {
                 base: 'technical/ingest-api',
                 label: 'ingest api',
-                schema: 'https://raw.githubusercontent.com/CanDIG/candigv2-ingest/refs/heads/develop/ingest_openapi.yaml',
+                schema: 'https://raw.githubusercontent.com/CanDIG/candigv2-ingest/refs/heads/stable/ingest_openapi.yaml',
                 collapsed: true
             },
             {
@@ -83,7 +83,7 @@ export default defineConfig({
             },
         {
                 base: 'technical/federation-api',
-                label: 'htsget operations api',
+                label: 'federation api',
                 schema: 'https://raw.githubusercontent.com/CanDIG/federation_service/refs/heads/develop/candig_federation/federation.yaml',
                 collapsed: true
             },
@@ -114,6 +114,7 @@ export default defineConfig({
                         { label: 'Logging', slug: 'deployment/logging'},
                         { label: 'Back up/Restore', slug: 'deployment/backup-restore-candig'},
                         { label: 'Troubleshooting', slug: 'deployment/stack-troubleshooting'}, 
+                        { label: 'Update CanDIG', slug: 'deployment/update-candig'}
                     ]
                 }
             ]

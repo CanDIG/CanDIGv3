@@ -4,6 +4,7 @@ PostToSlack () {
     # Single quoting the string breaks formatting, so instead we rely on the \" -> \\" to make sure this doesn't break the curl
     # SAFE_TEXT=${1@Q}
     SAFE_TEXT=${1//\"/\\\"}
+    echo $SAFE_TEXT
     curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$SAFE_TEXT\"}" $HOOK_URL
 }
 
@@ -64,7 +65,7 @@ TYK_TESTS=""
 TRIES=0
 while [ -z "$TYK_TESTS" ];
 do
-    TYK_TESTS=$(make test-integration ARGS='-k "test_tyk" etc/tests/test_integration.py' | grep "1 passed")
+    TYK_TESTS=$(make test-integration ARGS='-k "test_tyk" etc/tests/integration/test_integration.py' | grep "1 passed")
     sleep 15
     TRIES=$TRIES+1
     if [[ $TRIES -gt 120 ]]; then
@@ -73,7 +74,7 @@ do
     fi
 done
 
-make test-integration >tmp/integration-build.txt 2<&1
+make test-integration ARGS="--color=no" >tmp/integration-build.txt 2<&1
 if [ $? -ne 0 ]; then
     PostToSlack "Integration tests failed:\n\`\`\`$(tail tmp/integration-build.txt)\`\`\`"
     exit
@@ -81,6 +82,10 @@ fi
 
 source env.sh
 
+export TOKEN=$(python site_admin_token.py)
+
 cd $BUILD_PATH
 
 PostToSlack "\`\`\`\nBuild success:\n$TYK_LOGIN_TARGET_URL\nusername: $CANDIG_SITE_ADMIN_USER\npassword $CANDIG_SITE_ADMIN_PASSWORD\nusername: $CANDIG_NOT_ADMIN_USER\npassword $CANDIG_NOT_ADMIN_PASSWORD\nusername: $CANDIG_NOT_ADMIN2_USER\npassword $CANDIG_NOT_ADMIN2_PASSWORD\n\`\`\`"
+FEDERATE_STRING="federate $TOKEN|$CANDIG_CLIENT_ID|$CANDIG_URL|$CANDIG_CLIENT_ID|ON|ca-on|$FEDERATION_SELF_SERVER_ID|$KEYCLOAK_PUBLIC_URL/auth/realms/$KEYCLOAK_REALM"
+PostToSlack "\`\`\`$FEDERATE_STRING\`\`\`"

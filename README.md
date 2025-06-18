@@ -22,14 +22,6 @@ CanDIG uses a make-based deployment process, with services containerized in Dock
 
 See [Interact using Make](https://candig.github.io/CanDIGv2/deployment/interact-with-the-stack/) for a guide to additional options or view all Makefile options with `make help`.
 
-## Installation
-
-CanDIG uses a make-based deployment process, with services containerized in Docker. To deploy CanDIGv2, follow the installation guides in `docs/`:
-
-* [CanDIG Deployment Guide](./docs/install-candig.md)
-
-See [Interact with the stack](docs/interact-with-the-stack.md) for a guide to additional options or view all Makefile options with `make help`.
-
 ## Project Structure
 
 ```plaintext

@@ -13,6 +13,11 @@ LOGFILE=$PWD/tmp/progress.txt
 
 # TODO: this image uses temp dir inside the lib/tyk which deviates from convention of this repo
 # see Makefile.authx for other details.
+
+# recreate a secret:
+echo "Recreating Tyk secrets"  | tee -a $LOGFILE
+make secret-tyk-secret-key; make secret-tyk-analytics-admin-key
+
 export CONFIG_DIR="$PWD/lib/tyk/tmp"
 
 KEYCLOAK_SECRET_VAL=$(cat $PWD/tmp/keycloak/client-secret)
@@ -57,9 +62,6 @@ mkdir -p $CONFIG_DIR $CONFIG_DIR/apps $CONFIG_DIR/policies $CONFIG_DIR/middlewar
 
 echo "Working on tyk.conf"  | tee -a $LOGFILE
 envsubst < ${PWD}/lib/tyk/configuration_templates/tyk.conf.tpl > ${CONFIG_DIR}/tyk.conf
-
-echo "Working on authMiddleware.js" | tee -a $LOGFILE
-envsubst < ${PWD}/lib/tyk/configuration_templates/authMiddleware.js > ${CONFIG_DIR}/middleware/authMiddleware.js
 
 echo "Working on backendAuthMiddleware.js" | tee -a $LOGFILE
 envsubst < ${PWD}/lib/tyk/configuration_templates/backendAuthMiddleware.js > ${CONFIG_DIR}/middleware/backendAuthMiddleware.js

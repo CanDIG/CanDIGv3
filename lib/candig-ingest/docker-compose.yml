@@ -15,8 +15,10 @@ services:
         tag: "{{.Name}}"
     environment:
       KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_PUBLIC_URL}
+      KEYCLOAK_AUTH_PREFIX: ${KEYCLOAK_AUTH_PREFIX}
       KATSU_URL: ${KATSU_PRIVATE_URL}
       HTSGET_URL: ${HTSGET_PRIVATE_URL}
+      RNAGET_URL: ${RNAGET_PRIVATE_URL}
       CANDIG_URL: "http://${CANDIG_DOMAIN}:5080"
       VAULT_URL: ${VAULT_PRIVATE_URL}
       OPA_URL: ${OPA_PRIVATE_URL}
@@ -28,6 +30,7 @@ services:
       CANDIG_CLIENT_ID: ${KEYCLOAK_CLIENT_ID}
     extra_hosts:
       - "${CANDIG_DOMAIN}:${LOCAL_IP_ADDR}"
+      - "${ECS_DOMAIN}:${ECS_IP_ADDR}"
     secrets:
       - source: keycloak-client-secret
         target: /run/secrets/client_secret

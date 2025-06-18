@@ -21,13 +21,16 @@ services:
     environment:
       HTSGET_TEST_KEY: "hoodlebug"
       HTSGET_URL: ${TYK_LOGIN_TARGET_URL}/${TYK_HTSGET_API_LISTEN_PATH}
+      KEYCLOAK_PUBLIC_URL: ${KEYCLOAK_PUBLIC_URL}
+      KEYCLOAK_AUTH_PREFIX: ${KEYCLOAK_AUTH_PREFIX}
       OPA_URL: ${OPA_PRIVATE_URL}
       VAULT_URL: ${VAULT_PRIVATE_URL}
       DEBUG_MODE: ${CANDIG_DEBUG_MODE}
       DB_PATH: "postgres-db"
       SERVER_LOCAL_DATA: /app/htsget_server/data
-      INDEXING_PATH: /home/candig/tmp
+      INDEXING_PATH: /home/candig/tmp/indexer
       INDEXING_SWITCH_FILE: /home/candig/indexer_on
+      SEARCH_PATH: /home/candig/tmp/search
       TESTENV_URL: ${HTSGET_PRIVATE_URL}
       POSTGRES_DATABASE: "genomic"
       POSTGRES_HOST_FILE: "postgres-db"
@@ -38,8 +41,15 @@ services:
       SERVICE_NAME: ${SERVICE_NAME}
     extra_hosts:
       - "${CANDIG_DOMAIN}:${LOCAL_IP_ADDR}"
+      - "${ECS_DOMAIN}:${ECS_IP_ADDR}"
     healthcheck:
-      test: ["CMD", "curl", "--fail", "${HTSGET_PRIVATE_URL}/ga4gh/drs/v1/service-info"]
+      test:
+        [
+          "CMD",
+          "curl",
+          "--fail",
+          "${HTSGET_PRIVATE_URL}/ga4gh/drs/v1/service-info",
+        ]
       interval: 30s
       timeout: 10s
       retries: 3

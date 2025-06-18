@@ -25,8 +25,8 @@ trap handle_error ERR
 ####################################################
 KEYCLOAK_ADMIN=${DEFAULT_ADMIN_USER}
 KEYCLOAK_ADMIN_PASSWORD=$(cat tmp/keycloak/admin-password)
-READY_CHECK_URL="${KEYCLOAK_PUBLIC_URL}/auth/health/ready"
-KC_ADMIN_URL="${KEYCLOAK_PUBLIC_URL}/auth"
+READY_CHECK_URL="${KEYCLOAK_PUBLIC_URL}${KEYCLOAK_AUTH_PREFIX}/health/ready"
+KC_ADMIN_URL="${KEYCLOAK_PUBLIC_URL}${KEYCLOAK_AUTH_PREFIX}"
 DEBUG_MODE=false
 #####################################################
 
@@ -90,6 +90,6 @@ fi
 
 # copy custom theming
 docker cp lib/keycloak/theme/keycloak candigv2_keycloak_1:/opt/keycloak/themes/
-KCADM update realms/candig -s "loginTheme=keycloak"
+KCADM update realms/$KEYCLOAK_REALM -s "loginTheme=keycloak"
 
 echo -e "🎉🎉🎉 ${GREEN}KEYCLOAK SETUP DONE!${DEFAULT} 🎉🎉🎉"
