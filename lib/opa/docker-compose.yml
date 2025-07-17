@@ -32,7 +32,7 @@ services:
       args:
         venv_python: "${VENV_PYTHON}"
         alpine_version: "${ALPINE_VERSION}"
-        katsu_url: "${KATSU_PUBLIC_URL}"
+        katsu_url: "${CANDIG_API_PUBLIC_URL}"
         idp: "${KEYCLOAK_PUBLIC_URL}/auth/realms/${KEYCLOAK_REALM}"
     image: ${DOCKER_REGISTRY}/opa-runner:${OPA_VERSION:-latest}
     labels:
