@@ -18,7 +18,7 @@
 	url = https://github.com/bento-platform/takuan.git
 [submodule "lib/candig-api/candig-api"]
 	path = lib/candig-api/candig-api
-	url = git@github.com:CanDIG/candig-api.git
+	url = https://github.com/CanDIG/candig-api.git
 [submodule "lib/candig-data-portal/candig-data-portal"]
 	path = lib/candig-data-portal/candig-data-portal
-	url = git@github.com:CanDIG/candig-data-portal.git
+	url = https://github.com/CanDIG/candig-data-portal.git
