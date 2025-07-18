@@ -90,13 +90,13 @@ envsubst < ${PWD}/lib/tyk/configuration_templates/api_auth.json.tpl > ${CONFIG_D
 echo "Creating policies.json.tpl"
 cp lib/tyk/configuration_templates/policies.json.tpl lib/tyk/tmp/policies.json.tpl
 
-echo "Working on api_katsu.json"
-envsubst < ${PWD}/lib/tyk/configuration_templates/api_katsu.json.tpl > ${CONFIG_DIR}/apps/${TYK_KATSU_API_ID}.json
+echo "Working on api_candig_api.json"
+envsubst < ${PWD}/lib/tyk/configuration_templates/api_candig_api.json.tpl > ${CONFIG_DIR}/apps/${TYK_CANDIG_API_ID}.json
 cat lib/tyk/tmp/policies.json.tpl | jq '.["${TYK_POLICY_ID}"]["access_rights"] +=
-{"${TYK_KATSU_API_ID}": {
+{"${TYK_CANDIG_API_ID}": {
     "allowed_urls": [],
-    "api_id": "${TYK_KATSU_API_ID}",
-    "api_name": "${TYK_KATSU_API_SLUG}",
+    "api_id": "${TYK_CANDIG_API_ID}",
+    "api_name": "${TYK_CANDIG_API_SLUG}",
     "versions": [
         "Default"
     ]
@@ -195,21 +195,6 @@ cat lib/tyk/tmp/policies.json.tpl | jq '.["${TYK_POLICY_ID}"]["access_rights"] +
 ' > lib/tyk/tmp/tmp_policies.json.tpl
 mv lib/tyk/tmp/tmp_policies.json.tpl lib/tyk/tmp/policies.json.tpl
 
-echo "Working on api_query.json" | tee -a $LOGFILE
-envsubst < ${PWD}/lib/tyk/configuration_templates/api_query.json.tpl > ${CONFIG_DIR}/apps/${TYK_QUERY_API_ID}.json
-cat lib/tyk/tmp/policies.json.tpl | jq '.["${TYK_POLICY_ID}"]["access_rights"] +=
-{"${TYK_QUERY_API_ID}": {
-    "allowed_urls": [],
-    "api_id": "${TYK_QUERY_API_ID}",
-    "api_name": "${TYK_QUERY_API_SLUG}",
-    "versions": [
-        "Default"
-    ]
-}
-}
-' > lib/tyk/tmp/tmp_policies.json.tpl
-mv lib/tyk/tmp/tmp_policies.json.tpl lib/tyk/tmp/policies.json.tpl
-
 echo "Working on api_rnaget.json"
 envsubst < ${PWD}/lib/tyk/configuration_templates/api_rnaget.json.tpl > ${CONFIG_DIR}/apps/${TYK_RNAGET_API_ID}.json
 cat lib/tyk/tmp/policies.json.tpl | jq '.["${TYK_POLICY_ID}"]["access_rights"] +=
@@ -225,8 +210,8 @@ cat lib/tyk/tmp/policies.json.tpl | jq '.["${TYK_POLICY_ID}"]["access_rights"] +
 ' > lib/tyk/tmp/tmp_policies.json.tpl
 mv lib/tyk/tmp/tmp_policies.json.tpl lib/tyk/tmp/policies.json.tpl
 
-echo "Working on api_query.json" | tee -a $LOGFILE
-envsubst < ${PWD}/lib/tyk/configuration_templates/api_query.json.tpl > ${CONFIG_DIR}/apps/${TYK_QUERY_API_ID}.json
+#echo "Working on api_query.json" | tee -a $LOGFILE
+#envsubst < ${PWD}/lib/tyk/configuration_templates/api_query.json.tpl > ${CONFIG_DIR}/apps/${TYK_QUERY_API_ID}.json
 
 # Extra APIs can be added here
 # echo "Working on api_example.json"

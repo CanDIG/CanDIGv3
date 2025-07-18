@@ -1,9 +1,9 @@
 {
-    "api_id": "${TYK_QUERY_API_ID}",
-    "name": "${TYK_QUERY_API_SLUG}",
+    "api_id": "${TYK_CANDIG_API_ID}",
+    "name": "${TYK_CANDIG_API_SLUG}",
     "use_openid": true,
     "active": true,
-    "slug": "${TYK_QUERY_API_SLUG}",
+    "slug": "${TYK_CANDIG_API_SLUG}",
 
     "enable_signature_checking": false,
 
@@ -15,10 +15,10 @@
     "base_identity_provided_by": "",
 
     "proxy": {
-        "target_url": "${TYK_QUERY_API_TARGET}",
+        "target_url": "${TYK_CANDIG_API_TARGET}",
         "strip_listen_path": true,
         "disable_strip_slash": false,
-        "listen_path": "/${TYK_QUERY_API_LISTEN_PATH}",
+        "listen_path": "/${TYK_CANDIG_API_LISTEN_PATH}",
         "transport": {
             "ssl_insecure_skip_verify": false,
             "ssl_ciphers": [],

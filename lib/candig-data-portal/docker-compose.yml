@@ -5,7 +5,7 @@ services:
     build:
       context: $PWD/lib/candig-data-portal/candig-data-portal
       args:
-        katsu_api_target_url: "${TYK_KATSU_API_TARGET}"
+        katsu_api_target_url: "${TYK_CANDIG_API_TARGET}"
     image: ${DOCKER_REGISTRY}/candig-data-portal:${CANDIG_DATA_PORTAL_VERSION:-latest}
     ports:
       - "${CANDIG_DATA_PORTAL_PORT}:2543"
@@ -16,7 +16,7 @@ services:
     extra_hosts:
         - "${CANDIG_DOMAIN}:${LOCAL_IP_ADDR}"
     environment:
-      - REACT_APP_KATSU_API_SERVER=${KATSU_PUBLIC_URL}
+      - REACT_APP_KATSU_API_SERVER=${CANDIG_API_PUBLIC_URL}
       - REACT_APP_HTSGET_SERVER=${HTSGET_PUBLIC_URL}
       - REACT_APP_FEDERATION_API_SERVER=${FEDERATION_PUBLIC_URL}
       - REACT_APP_INGEST_SERVER=${CANDIG_INGEST_PUBLIC_URL}

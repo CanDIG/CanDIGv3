@@ -4,12 +4,6 @@
 [submodule "lib/federation-service/federation_service"]
 	path = lib/federation/federation
 	url = https://github.com/CanDIG/federation_service
-[submodule "lib/katsu/katsu_service"]
-	path = lib/katsu/katsu_service
-	url = https://github.com/CanDIG/katsu.git
-[submodule "lib/candig-data-portal/candig-data-portal"]
-	path = lib/candig-data-portal/candig-data-portal
-	url = https://github.com/CanDIG/candig-data-portal.git
 [submodule "lib/opa/opa"]
 	path = lib/opa/opa
 	url = https://github.com/CanDIG/candig-opa.git
@@ -19,9 +13,12 @@
 [submodule "lib/candig-ingest/candigv2-ingest"]
 	path = lib/candig-ingest/candigv2-ingest
 	url = https://github.com/CanDIG/candigv2-ingest
-[submodule "lib/query/query"]
-	path = lib/query/query
-	url = https://github.com/CanDIG/candigv2-query
 [submodule "lib/rnaget/rnaget"]
 	path = lib/rnaget/rnaget
 	url = https://github.com/bento-platform/takuan.git
+[submodule "lib/candig-api/candig-api"]
+	path = lib/candig-api/candig-api
+	url = https://github.com/CanDIG/candig-api.git
+[submodule "lib/candig-data-portal/candig-data-portal"]
+	path = lib/candig-data-portal/candig-data-portal
+	url = https://github.com/CanDIG/candig-data-portal.git
