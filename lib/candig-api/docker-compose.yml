@@ -2,8 +2,35 @@
 # Use a minimal image
 # This module only provides database setup scripts
 
+# services:
+#   candig-api:
+#     image: hello-world:latest
+#     labels:
+#       - "candigv2=candig-api"
+
 services:
   candig-api:
-    image: hello-world:latest
+    build:
+      context: $PWD/lib/candig-api/candig-api
+      args:
+        venv_python: "${VENV_PYTHON}"
+    logging:
+      driver: "fluentd"
+      options:
+        tag: "{{.Name}}"
+    ports:
+      - "${CANDIG_API_PORT}:8000"
+    extra_hosts:
+      - "${CANDIG_DOMAIN}:${LOCAL_IP_ADDR}"
+    environment:
+      - DB_USER=${DEFAULT_ADMIN_USER}
+      - DB_PASSWORD_FILE=/run/secrets/postgres_db_secret
+      - DB_HOST=postgres-db
+      - DB_PORT=5432
+      - DB_NAME=candig_api
+
+    secrets:
+      - source: postgres-db-secret
+        target: postgres_db_secret
     labels:
-      - "candigv2=candig-api"
+      - "candigv3=candig-api"
