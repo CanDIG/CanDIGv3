@@ -3,9 +3,9 @@ set -e
 
 # --- Configuration ---
 CONTAINER_NAME_PATTERN="postgres-db"
-DB_USER="admin"
-DB_NAME="omop"
-CDM_SCHEMA="public"
+DB_USER="${DEFAULT_ADMIN_USER:-admin}"
+DB_NAME="candig_api"
+CDM_SCHEMA="omop"
 
 # --- SQL Files ---
 DDL_FILE="ddl/ddl.sql"
