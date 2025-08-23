@@ -4,7 +4,7 @@ set -e
 # --- Configuration ---
 CONTAINER_NAME_PATTERN="postgres-db"
 DB_USER="${DEFAULT_ADMIN_USER:-admin}"
-DB_NAME="candig_api"
+DB_NAME="clinical"
 CDM_SCHEMA="omop"
 
 # --- SQL Files ---
@@ -52,12 +52,17 @@ echo "Step 3: Checking if database '${DB_NAME}' already exists..."
 if docker exec "${OMOP_CONTAINER_NAME}" psql -U "${DB_USER}" -lqt | cut -d \| -f 1 | grep -qw "${DB_NAME}"; then
     echo "Database '${DB_NAME}' already exists. Skipping setup."
     unset PGPASSWORD
-    exit 0
 else
     echo "Database '${DB_NAME}' not found. Proceeding with creation..."
     docker exec "${OMOP_CONTAINER_NAME}" createdb -U "${DB_USER}" "${DB_NAME}"
     echo "Database '${DB_NAME}' created successfully."
 fi
+
+echo "---"
+echo "Step 4: Creating OMOP schema..."
+docker exec "${OMOP_CONTAINER_NAME}" psql -U "${DB_USER}" -d "${DB_NAME}" -c "CREATE SCHEMA IF NOT EXISTS ${CDM_SCHEMA};"
+echo "Schema '${CDM_SCHEMA}' created successfully."
+echo "---"
 
 TEMP_DIR=$(mktemp -d)
 
