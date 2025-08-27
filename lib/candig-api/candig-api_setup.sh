@@ -4,7 +4,7 @@ set -e
 # --- Configuration ---
 CONTAINER_NAME_PATTERN="postgres-db"
 DB_USER="${DEFAULT_ADMIN_USER:-admin}"
-DB_NAME="clinical"
+DB_NAME="candig_api"
 CDM_SCHEMA="omop"
 
 # --- SQL Files ---
