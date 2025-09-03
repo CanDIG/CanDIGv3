@@ -1,13 +1,7 @@
 #!/bin/bash
 set -e
 
-# --- Configuration ---
-CONTAINER_NAME_PATTERN="postgres-db"
-DB_USER="${DEFAULT_ADMIN_USER:-admin}"
-DB_NAME="candig_api"
-CDM_SCHEMA="omop"
-
-# --- SQL Files ---
+# --- OMOP SQL Files ---
 DDL_FILE="ddl/ddl.sql"
 PK_FILE="ddl/primary_keys.sql"
 FK_FILE="ddl/constraints.sql"
@@ -30,38 +24,45 @@ export PGPASSWORD=$(cat "${PASSWORD_FILE}")
 echo "---"
 
 echo "Step 2: Find db container by name"
-OMOP_CONTAINER_NAME=$(docker ps --filter "name=${CONTAINER_NAME_PATTERN}" --format "{{.Names}}")
+DB_CONTAINER_NAME=$(docker ps --filter "name=${DB_HOST}" --format "{{.Names}}")
 
-if [ -z "${OMOP_CONTAINER_NAME}" ]; then
-  echo "Error: No running container found with a name matching '${CONTAINER_NAME_PATTERN}'."
+if [ -z "${DB_CONTAINER_NAME}" ]; then
+  echo "Error: No running container found with a name matching '${DB_HOST}'."
   exit 1
 fi
 
 # Wait for db container to be ready
 echo "Waiting for db to be ready..."
-until docker exec "${OMOP_CONTAINER_NAME}" pg_isready -h localhost -p 5432 -U "${DB_USER}"; do
+until docker exec "${DB_CONTAINER_NAME}" pg_isready -h localhost -p "${DB_PORT}" -U "${DEFAULT_ADMIN_USER}"; do
   echo "Waiting for the database to be ready..."
   sleep 1
 done
 echo "PostgreSQL is ready."
 echo "---"
 
-# Check if the database already exists. If yes, stop.
+# Check if the database already exists. If not, create
 echo "Step 3: Checking if database '${DB_NAME}' already exists..."
 
-if docker exec "${OMOP_CONTAINER_NAME}" psql -U "${DB_USER}" -lqt | cut -d \| -f 1 | grep -qw "${DB_NAME}"; then
+if docker exec "${DB_CONTAINER_NAME}" psql -U "${DEFAULT_ADMIN_USER}" -lqt | cut -d \| -f 1 | grep -qw "${DB_NAME}"; then
     echo "Database '${DB_NAME}' already exists. Skipping setup."
     unset PGPASSWORD
 else
     echo "Database '${DB_NAME}' not found. Proceeding with creation..."
-    docker exec "${OMOP_CONTAINER_NAME}" createdb -U "${DB_USER}" "${DB_NAME}"
+    docker exec "${DB_CONTAINER_NAME}" createdb -U "${DEFAULT_ADMIN_USER}" "${DB_NAME}"
     echo "Database '${DB_NAME}' created successfully."
 fi
 
+# Check if the schema already exists. If not, create
 echo "---"
-echo "Step 4: Creating OMOP schema..."
-docker exec "${OMOP_CONTAINER_NAME}" psql -U "${DB_USER}" -d "${DB_NAME}" -c "CREATE SCHEMA IF NOT EXISTS ${CDM_SCHEMA};"
-echo "Schema '${CDM_SCHEMA}' created successfully."
+echo "Step 4: Checking if schema '${CDM_SCHEMA}' already exists..."
+
+if docker exec "${DB_CONTAINER_NAME}" psql -U "${DEFAULT_ADMIN_USER}" -d "${DB_NAME}" -t -c "SELECT schema_name FROM information_schema.schemata WHERE schema_name = '${CDM_SCHEMA}';" | grep -qw "${CDM_SCHEMA}"; then
+    echo "Schema '${CDM_SCHEMA}' already exists. Skipping creation."
+else
+    echo "Schema '${CDM_SCHEMA}' not found. Proceeding with creation..."
+    docker exec "${DB_CONTAINER_NAME}" psql -U "${DEFAULT_ADMIN_USER}" -d "${DB_NAME}" -c "CREATE SCHEMA ${CDM_SCHEMA};"
+    echo "Schema '${CDM_SCHEMA}' created successfully."
+fi
 echo "---"
 
 TEMP_DIR=$(mktemp -d)
@@ -80,11 +81,12 @@ run_sql_file() {
 
   sed "s/@cdmDatabaseSchema\./${CDM_SCHEMA}\./g" "$full_input_path" > "$processed_file"
 
-  cat "$processed_file" | docker exec -i "${OMOP_CONTAINER_NAME}" psql -U "${DB_USER}" -d "${DB_NAME}" --quiet
+  cat "$processed_file" | docker exec -i "${DB_CONTAINER_NAME}" psql -U "${DEFAULT_ADMIN_USER}" -d "${DB_NAME}" --quiet
 
   echo "Successfully ${description}."
 }
 
+# Run SQL files
 run_sql_file "Creating Tables (DDL)" "$DDL_FILE"
 run_sql_file "Adding Primary Keys" "$PK_FILE"
 run_sql_file "Adding Foreign Key Constraints" "$FK_FILE"
@@ -95,6 +97,6 @@ rm -rf "${TEMP_DIR}"
 echo "Cleaned up temporary files."
 
 echo "--- OMOP Setup Complete! ---"
-echo "Database '${DB_NAME}' is ready on container '${OMOP_CONTAINER_NAME}'."
+echo "Database '${DB_NAME}' is ready on container '${DB_CONTAINER_NAME}'."
 
 unset PGPASSWORD
