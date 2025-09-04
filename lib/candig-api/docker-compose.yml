@@ -19,6 +19,7 @@ services:
       - DB_PORT=${DB_PORT}
       - DB_NAME=${DB_NAME}
       - CANDIG_SCHEMA=${CANDIG_SCHEMA}
+      - CDM_SCHEMA=${CDM_SCHEMA}
 
     secrets:
       - source: postgres-db-secret
