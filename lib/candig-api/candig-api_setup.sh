@@ -2,9 +2,6 @@
 set -e
 
 
-# LOAD_SYNTH_DATA="false"
-# LOAD_VOCAB_DATA="false"
-
 # --- OMOP SQL Files ---
 DDL_FILE="ddl/ddl.sql"
 PK_FILE="ddl/primary_keys.sql"
