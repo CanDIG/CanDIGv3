@@ -6,13 +6,15 @@ CONTAINER_NAME_PATTERN="postgres-db"
 DB_USER="${DEFAULT_ADMIN_USER:-admin}"
 DB_NAME="candig_api"
 CDM_SCHEMA="omop"
-LOAD_SYNTH_DATA="true"
+LOAD_VOCAB_DATA="false"
+LOAD_SYNTH_DATA="false" # if true, will load vocabs as well because it is needed
 
 # --- SQL Files ---
 DDL_FILE="ddl/ddl.sql"
 PK_FILE="ddl/primary_keys.sql"
 FK_FILE="ddl/constraints.sql"
 INDICES_FILE="ddl/indices.sql"
+VOCAB_DATA_FILE="ddl/load_vocab_data.sql"
 SYNTH_DATA_FILE="ddl/load_synth_data.sql"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -88,14 +90,23 @@ run_sql_file() {
 }
 
 run_sql_file "Creating Tables (DDL)" "$DDL_FILE"
-if [[ $LOAD_SYNTH_DATA == "true" ]]; then
+
+if [[ $LOAD_SYNTH_DATA == "true" ] || [ $LOAD_VOCAB_DATA == "true" ]]; then
   echo "Cloning synthetic data repo"
   mkdir tmp/omopdata
   git clone https://github.com/OHDSI/Tutorial-ETL.git tmp/omopdata
   docker exec -i "${OMOP_CONTAINER_NAME}" mkdir tmp/omopdata
+fi
+if [[ $LOAD_SYNTH_DATA == "true" ]]; then
   for f in tmp/omopdata/data/syntheaCDM/*csv; do docker cp $f "${OMOP_CONTAINER_NAME}":/tmp/omopdata/; done
   for f in tmp/omopdata/data/vocabulary/*csv; do docker cp $f "${OMOP_CONTAINER_NAME}":/tmp/omopdata/; done
+  run_sql_file "Loading vocabularies" "$VOCAB_DATA_FILE"
   run_sql_file "Loading synthetic data" "$SYNTH_DATA_FILE"
+  docker exec -i "${OMOP_CONTAINER_NAME}" rm -rf tmp/omopdata
+  rm -rf tmp/omopdata
+elif [[ $LOAD_VOCAB_DATA == "true" ]]; then
+  for f in tmp/omopdata/data/vocabulary/*csv; do docker cp $f "${OMOP_CONTAINER_NAME}":/tmp/omopdata/; done
+  run_sql_file "Loading vocabularies" "$VOCAB_DATA_FILE"
   docker exec -i "${OMOP_CONTAINER_NAME}" rm -rf tmp/omopdata
   rm -rf tmp/omopdata
 fi
