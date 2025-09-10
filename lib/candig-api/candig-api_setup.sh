@@ -2,15 +2,15 @@
 set -e
 
 
-LOAD_SYNTH_DATA="false"
-LOAD_VOCAB_DATA="false"
+# LOAD_SYNTH_DATA="false"
+# LOAD_VOCAB_DATA="false"
 
 # --- OMOP SQL Files ---
 DDL_FILE="ddl/ddl.sql"
 PK_FILE="ddl/primary_keys.sql"
 FK_FILE="ddl/constraints.sql"
 INDICES_FILE="ddl/indices.sql"
-VOCAB_DATA_FILE="ddl/load_vocab_data.sql"
+VOCAB_DATA_FILE="ddl/load_vocabulary.sql"
 SYNTH_DATA_FILE="ddl/load_synth_data.sql"
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
@@ -95,23 +95,23 @@ run_sql_file() {
 # Run SQL files
 run_sql_file "Creating Tables (DDL)" "$DDL_FILE"
 
-if [[ $LOAD_SYNTH_DATA == "true" ] || [ $LOAD_VOCAB_DATA == "true" ]]; then
+if [[ $LOAD_SYNTH_DATA == "true" ]] || [[ $LOAD_VOCAB == "true" ]]; then
   echo "Cloning synthetic data repo"
   mkdir tmp/omopdata
   git clone https://github.com/OHDSI/Tutorial-ETL.git tmp/omopdata
-  docker exec -i "${OMOP_CONTAINER_NAME}" mkdir tmp/omopdata
+  docker exec -i "${DB_CONTAINER_NAME}" mkdir tmp/omopdata
 fi
 if [[ $LOAD_SYNTH_DATA == "true" ]]; then
-  for f in tmp/omopdata/data/syntheaCDM/*csv; do docker cp $f "${OMOP_CONTAINER_NAME}":/tmp/omopdata/; done
-  for f in tmp/omopdata/data/vocabulary/*csv; do docker cp $f "${OMOP_CONTAINER_NAME}":/tmp/omopdata/; done
-  run_sql_file "Loading vocabularies" "$VOCAB_DATA_FILE"
-  run_sql_file "Loading synthetic data" "$SYNTH_DATA_FILE"
-  docker exec -i "${OMOP_CONTAINER_NAME}" rm -rf tmp/omopdata
+  for f in tmp/omopdata/data/syntheaCDM/*csv; do docker cp $f "${DB_CONTAINER_NAME}":/tmp/omopdata/; done
+  for f in tmp/omopdata/data/vocabulary/*csv; do docker cp $f "${DB_CONTAINER_NAME}":/tmp/omopdata/; done
+  run_sql_file "Loading vocabularies." "$VOCAB_DATA_FILE"
+  run_sql_file "Loading synthetic data." "$SYNTH_DATA_FILE"
+  docker exec -i "${DB_CONTAINER_NAME}" rm -rf tmp/omopdata
   rm -rf tmp/omopdata
-elif [[ $LOAD_VOCAB_DATA == "true" ]]; then
-  for f in tmp/omopdata/data/vocabulary/*csv; do docker cp $f "${OMOP_CONTAINER_NAME}":/tmp/omopdata/; done
-  run_sql_file "Loading vocabularies" "$VOCAB_DATA_FILE"
-  docker exec -i "${OMOP_CONTAINER_NAME}" rm -rf tmp/omopdata
+elif [[ $LOAD_VOCAB == "true" ]]; then
+  for f in tmp/omopdata/data/vocabulary/*csv; do docker cp $f "${DB_CONTAINER_NAME}":/tmp/omopdata/; done
+  run_sql_file "Loading vocabularies only." "$VOCAB_DATA_FILE"
+  docker exec -i "${DB_CONTAINER_NAME}" rm -rf tmp/omopdata
   rm -rf tmp/omopdata
 fi
 run_sql_file "Adding Primary Keys" "$PK_FILE"
