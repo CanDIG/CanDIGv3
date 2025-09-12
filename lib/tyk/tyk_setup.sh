@@ -36,9 +36,9 @@ generate_key() {
       "quota_remaining": -1,
       "quota_renewal_rate": 60,
       "access_rights": {
-          "'"${TYK_KATSU_API_ID}"'": {
-              "api_id": "'"${TYK_KATSU_API_ID}"'",
-              "api_name": "'"${TYK_KATSU_API_SLUG}"'",
+          "'"${TYK_CANDIG_API_ID}"'": {
+              "api_id": "'"${TYK_CANDIG_API_ID}"'",
+              "api_name": "'"${TYK_CANDIG_API_SLUG}"'",
               "Versions": ["Default"]
           },
           "'"${TYK_CANDIG_DATA_PORTAL_API_ID}"'": {
@@ -64,11 +64,6 @@ generate_key() {
           "'"${TYK_INGEST_API_ID}"'": {
               "api_id": "'"${TYK_INGEST_API_ID}"'",
               "api_name": "'"${TYK_INGEST_API_SLUG}"'",
-              "Versions": ["Default"]
-          },
-          "'"${TYK_QUERY_API_ID}"'": {
-              "api_id": "'"${TYK_QUERY_API_ID}"'",
-              "api_name": "'"${TYK_QUERY_API_SLUG}"'",
               "Versions": ["Default"]
           },
           "'"${TYK_RNAGET_API_ID}"'": {

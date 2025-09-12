@@ -1,9 +1,30 @@
-# docker-compose.yml file for candig-api
-# Use a minimal image
-# This module only provides database setup scripts
-
 services:
   candig-api:
-    image: hello-world:latest
+    build:
+      context: $PWD/lib/candig-api/candig-api
+      args:
+        venv_python: "${VENV_PYTHON}"
+    logging:
+      driver: "fluentd"
+      options:
+        tag: "{{.Name}}"
+    ports:
+      - "${CANDIG_API_PORT}:8000"
+    extra_hosts:
+      - "${CANDIG_DOMAIN}:${LOCAL_IP_ADDR}"
+    environment:
+      - DB_USER=${DEFAULT_ADMIN_USER}
+      - DB_PASSWORD_FILE=/run/secrets/postgres_db_secret
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_NAME=${DB_NAME}
+      - CANDIG_SCHEMA=${CANDIG_SCHEMA}
+      - CDM_SCHEMA=${CDM_SCHEMA}
+      - LOAD_VOCAB=${LOAD_VOCAB}
+      - LOAD_SYNTH_DATA=${LOAD_SYNTH_DATA}
+
+    secrets:
+      - source: postgres-db-secret
+        target: postgres_db_secret
     labels:
-      - "candigv2=candig-api"
+      - "candigv3=candig-api"
