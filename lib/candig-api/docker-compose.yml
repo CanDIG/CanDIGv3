@@ -20,8 +20,6 @@ services:
       - DB_NAME=${DB_NAME}
       - CANDIG_SCHEMA=${CANDIG_SCHEMA}
       - CDM_SCHEMA=${CDM_SCHEMA}
-      - LOAD_VOCAB=${LOAD_VOCAB}
-      - LOAD_SYNTH_DATA=${LOAD_SYNTH_DATA}
 
     secrets:
       - source: postgres-db-secret
