@@ -57,10 +57,14 @@ if [ ! -f "${BACKUP_PATH}" ]; then
 fi
 
 # Restore
-docker exec -i \
+if ! docker exec -i \
   -e PGPASSWORD="${PGPASSWORD}" \
   "${DB_CONTAINER_NAME}" \
-  pg_restore -U "${DEFAULT_ADMIN_USER}" -d "${DB_NAME}" -v < "${BACKUP_PATH}"
+  pg_restore -U "${DEFAULT_ADMIN_USER}" -d "${DB_NAME}" -v --no-owner < "${BACKUP_PATH}"; then
+  
+  echo -e "🚨🚨🚨 ${RED}ERROR: Database restore failed!${DEFAULT} 🚨🚨🚨"
+  exit 1
+fi
 
 echo -e "${GREEN}Database restore complete. ✅${DEFAULT}"
 echo -e "🎉🎉🎉 ${GREEN}--- OMOP SETUP COMPLETE! ---${DEFAULT} 🎉🎉🎉"
