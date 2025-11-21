@@ -11,7 +11,13 @@ DEFAULT='\033[0m'
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 PROJECT_ROOT=$(cd "${SCRIPT_DIR}/../.." && pwd)
 PASSWORD_FILE="${PROJECT_ROOT}/tmp/postgres/db-secret"
-BACKUP_PATH="${SCRIPT_DIR}/db/${BACKUP_FILE}"
+BACKUP_PATH="${SCRIPT_DIR}/db/VOCAB_bak.dump" # change to the backup you want
+
+# Check LOAD_DB_BACKUP to process
+if [ "${LOAD_DB_BACKUP}" = "false" ]; then
+  echo -e "${YELLOW}LOAD_DB_BACKUP is set to false. Skipping OMOP DB setup.${DEFAULT}"
+  exit 0
+fi
 
 echo
 echo -e "🚧🚧🚧 ${YELLOW}OMOP DB SETUP BEGIN${DEFAULT} 🚧🚧🚧"
