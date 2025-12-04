@@ -84,6 +84,10 @@ fi
 "${SCRIPT_DIR}/add_cascades.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CDM_SCHEMA}"
 
 
+# Add LIMITs
+"${SCRIPT_DIR}/add_limits.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CDM_SCHEMA}"
+
+
 echo -e "🎉🎉🎉 ${GREEN}--- OMOP SETUP COMPLETE! ---${DEFAULT} 🎉🎉🎉"
 
 unset PGPASSWORD
