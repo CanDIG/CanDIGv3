@@ -72,7 +72,22 @@ if ! docker exec -i \
   exit 1
 fi
 
-echo -e "${GREEN}Database restore complete. ✅${DEFAULT}"
+# echo -e "${GREEN}Database restore complete. ✅${DEFAULT}"
+
+# Create dataset tables
+"${SCRIPT_DIR}/add_tables.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CANDIG_SCHEMA}"
+
+# Add identities to columns
+"${SCRIPT_DIR}/add_identities.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CDM_SCHEMA}"
+
+# Add CASCADE to foreign keys
+"${SCRIPT_DIR}/add_cascades.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CDM_SCHEMA}"
+
+
+# Add LIMITs
+"${SCRIPT_DIR}/add_limits.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CDM_SCHEMA}"
+
+
 echo -e "🎉🎉🎉 ${GREEN}--- OMOP SETUP COMPLETE! ---${DEFAULT} 🎉🎉🎉"
 
 unset PGPASSWORD
