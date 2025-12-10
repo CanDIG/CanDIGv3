@@ -15,7 +15,7 @@ BACKUP_PATH="${SCRIPT_DIR}/db/VOCAB_bak.dump" # change to the backup you want
 
 # Check LOAD_DB_BACKUP to process
 if [ "${LOAD_DB_BACKUP}" = "false" ]; then
-  echo -e "⚠️  ${YELLOW}LOAD_DB_BACKUP is set to false. Skipping OMOP DB setup.${DEFAULT}"
+  echo -e "⚠️  ${YELLOW}LOAD_DB_BACKUP is set to FALSE. Skipping OMOP DB setup.${DEFAULT}"
   exit 0
 fi
 
@@ -54,8 +54,7 @@ fi
   docker exec "${DB_CONTAINER_NAME}" createdb -U "${DEFAULT_ADMIN_USER}" "${DB_NAME}"
 echo -e "${YELLOW}---${DEFAULT}"
 
-# Check that the backup file exists
-# Make sure the backup file in db folder, e.g: db/clinical_backup.dump
+# Check that the backup file exists, e.g: candig-api/db/VOCAB_bak.dump
 echo -e "${BLUE}Step 2: Restore database from backup '${BACKUP_FILE}'...${DEFAULT}"
 if [ ! -f "${BACKUP_PATH}" ]; then
   echo -e "🚨🚨🚨 ${RED}ERROR: Backup file not found at '${BACKUP_PATH}'.${DEFAULT} 🚨🚨🚨"
@@ -72,21 +71,14 @@ if ! docker exec -i \
   exit 1
 fi
 
-# echo -e "${GREEN}Database restore complete. ✅${DEFAULT}"
-
 # Create dataset tables
-"${SCRIPT_DIR}/add_tables.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CANDIG_SCHEMA}"
+"${SCRIPT_DIR}/add_tables.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CANDIG_SCHEMA}" "${CDM_SCHEMA}"
 
 # Add identities to columns
 "${SCRIPT_DIR}/add_identities.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CDM_SCHEMA}"
 
 # Add CASCADE to foreign keys
 "${SCRIPT_DIR}/add_cascades.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CDM_SCHEMA}"
-
-
-# Add LIMITs
-"${SCRIPT_DIR}/add_limits.sh" "${DB_CONTAINER_NAME}" "${DEFAULT_ADMIN_USER}" "${DB_NAME}" "${CDM_SCHEMA}"
-
 
 echo -e "🎉🎉🎉 ${GREEN}--- OMOP SETUP COMPLETE! ---${DEFAULT} 🎉🎉🎉"
 
