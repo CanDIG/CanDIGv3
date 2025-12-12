@@ -13,6 +13,7 @@ DB_CONTAINER_NAME="$1"
 DEFAULT_ADMIN_USER="$2"
 DB_NAME="$3"
 CANDIG_SCHEMA="$4"
+CDM_SCHEMA="$5"
 
 echo -e "${BLUE}Step 3: Add tables to schema '${CANDIG_SCHEMA}'...${DEFAULT}"
 
@@ -41,7 +42,8 @@ CREATE TABLE IF NOT EXISTS ${CANDIG_SCHEMA}.person_in_dataset (
     dataset_id VARCHAR(64) NOT NULL,
     person_id INTEGER UNIQUE NOT NULL,
     PRIMARY KEY (dataset_id, person_id),
-    FOREIGN KEY (dataset_id) REFERENCES ${CANDIG_SCHEMA}.dataset(id) ON DELETE CASCADE
+    FOREIGN KEY (dataset_id) REFERENCES ${CANDIG_SCHEMA}.dataset(id) ON DELETE CASCADE,
+    FOREIGN KEY (person_id) REFERENCES ${CDM_SCHEMA}.person(person_id) ON DELETE CASCADE
 );
 EOF
 RESULT=$?
