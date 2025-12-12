@@ -20,7 +20,10 @@ services:
       - DB_NAME=${DB_NAME}
       - CANDIG_SCHEMA=${CANDIG_SCHEMA}
       - CDM_SCHEMA=${CDM_SCHEMA}
-
+      # Info for the Beacon endpoint
+      - CANDIG_API_PUBLIC_URL=${CANDIG_API_PUBLIC_URL}
+      - CANDIG_SITE_LOCATION=${CANDIG_SITE_LOCATION}
+      - CANDIG_DATA_PORTAL_SUPPORT_EMAIL=${CANDIG_DATA_PORTAL_SUPPORT_EMAIL}
     secrets:
       - source: postgres-db-secret
         target: postgres_db_secret
