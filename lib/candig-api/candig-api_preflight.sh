@@ -14,7 +14,7 @@ PASSWORD_FILE="${PROJECT_ROOT}/tmp/postgres/db-secret"
 BACKUP_PATH="${SCRIPT_DIR}/db/VOCAB_bak.dump" # change to the backup you want
 
 # Check LOAD_DB_BACKUP to process
-if [ "${LOAD_DB_BACKUP,,}" = "false" ]; then
+if [ "$(echo "${LOAD_DB_BACKUP}" | tr '[:upper:]' '[:lower:]')" = "false" ]; then
   echo -e "⚠️  ${YELLOW}LOAD_DB_BACKUP is set to FALSE. Skipping OMOP DB setup.${DEFAULT}"
   exit 0
 fi
