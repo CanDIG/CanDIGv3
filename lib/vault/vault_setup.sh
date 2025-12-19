@@ -7,8 +7,8 @@ LOGFILE=tmp/progress.txt
 # make sure we have all the env vars:
 source env.sh
 
-# this is the name of the ingest service (in case it changes)
-ingest="candig-ingest"
+# this is the name of the api service (in case it changes)
+api="candig-api"
 
 # This script runs after the container is composed.
 
@@ -150,14 +150,14 @@ curl --request POST --header "X-Vault-Token: ${key_root}" --data "{\"value\": \"
 curl --request POST --header "X-Vault-Token: ${key_root}" --data "{\"value\": \"$CANDIG_CLIENT_ID\"}" $VAULT_SERVICE_PUBLIC_URL/v1/keycloak/client-id
 
 ## SPECIAL STORES ACCESS
-# Ingest needs access to the opa store's programs path:
-docker exec $vault sh -c "echo 'path \"opa/programs\" {capabilities = [\"update\", \"read\", \"create\"]}' >> ${ingest}-policy.hcl; echo 'path \"opa/programs/*\" {capabilities = [\"create\", \"update\", \"read\", \"delete\"]}' >> ${ingest}-policy.hcl; echo 'path \"opa/site_roles\" {capabilities = [\"create\", \"update\", \"read\", \"delete\"]}' >> ${ingest}-policy.hcl; echo 'path \"opa/users/*\" {capabilities = [\"create\", \"update\", \"read\", \"delete\"]}' >> ${ingest}-policy.hcl; echo 'path \"opa/pending_users\" {capabilities = [ \"update\", \"read\", \"create\"]}' >> ${ingest}-policy.hcl; echo 'path \"opa/preapproved_users\" {capabilities = [ \"update\", \"read\", \"create\"]}' >> ${ingest}-policy.hcl; vault policy write ${ingest} ${ingest}-policy.hcl"
+# api needs access to the opa store's programs path:
+docker exec $vault sh -c "echo 'path \"opa/programs\" {capabilities = [\"update\", \"read\", \"create\"]}' >> ${api}-policy.hcl; echo 'path \"opa/programs/*\" {capabilities = [\"create\", \"update\", \"read\", \"delete\"]}' >> ${api}-policy.hcl; echo 'path \"opa/site_roles\" {capabilities = [\"create\", \"update\", \"read\", \"delete\"]}' >> ${api}-policy.hcl; echo 'path \"opa/users/*\" {capabilities = [\"create\", \"update\", \"read\", \"delete\"]}' >> ${api}-policy.hcl; echo 'path \"opa/pending_users\" {capabilities = [ \"update\", \"read\", \"create\"]}' >> ${api}-policy.hcl; echo 'path \"opa/preapproved_users\" {capabilities = [ \"update\", \"read\", \"create\"]}' >> ${api}-policy.hcl; vault policy write ${api} ${api}-policy.hcl"
 
 # Federation needs access to the opa store's data path (to add servers):
 docker exec $vault sh -c "echo 'path \"opa/data\" {capabilities = [\"update\", \"read\", \"delete\"]}' >> federation-policy.hcl; vault policy write federation federation-policy.hcl"
 
-# Htsget needs access to the ingest store's aws path:
-docker exec $vault sh -c "echo 'path \"candig-ingest/aws/*\" {capabilities = [\"read\"]}' >> htsget-policy.hcl; vault policy write htsget htsget-policy.hcl"
+# Htsget needs access to the api store's aws path:
+docker exec $vault sh -c "echo 'path \"candig-api/aws/*\" {capabilities = [\"read\"]}' >> htsget-policy.hcl; vault policy write htsget htsget-policy.hcl"
 
 docker restart $vault_runner
 

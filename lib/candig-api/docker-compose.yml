@@ -20,7 +20,16 @@ services:
       - DB_NAME=${DB_NAME}
       - CANDIG_SCHEMA=${CANDIG_SCHEMA}
       - CDM_SCHEMA=${CDM_SCHEMA}
-
+      - KEYCLOAK_PUBLIC_URL=${KEYCLOAK_PUBLIC_URL}
+      - KEYCLOAK_AUTH_PREFIX=${KEYCLOAK_AUTH_PREFIX}
+      - CANDIG_URL="http://${CANDIG_DOMAIN}:5080"
+      - VAULT_URL=${VAULT_PRIVATE_URL}
+      - OPA_URL=${OPA_PRIVATE_URL}
+      - SERVICE_NAME=${SERVICE_NAME}
+      - DEFAULT_SITE_ADMIN_USER=${DEFAULT_SITE_ADMIN_USER}
+      - CANDIG_USER_KEY=${CANDIG_USER_KEY}
+      - DEBUG_MODE=${CANDIG_DEBUG_MODE}
+      - CANDIG_CLIENT_ID=${KEYCLOAK_CLIENT_ID}
     secrets:
       - source: postgres-db-secret
         target: postgres_db_secret
