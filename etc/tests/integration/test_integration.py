@@ -95,7 +95,8 @@ def test_tyk():
     }
     endpoints = {
         # all of these endpoints should return JSON
-        "htsget": f"{ENV['CANDIG_ENV']['TYK_HTSGET_API_LISTEN_PATH']}/ga4gh/drs/v1/service-info",
+        "htsget": f"{ENV['CANDIG_ENV']['TYK_HTSGET_API_LISTEN_PATH']}/htsget/v1/reads/service-info",
+        "drs": f"{ENV['CANDIG_ENV']['TYK_DRS_API_LISTEN_PATH']}/ga4gh/drs/v1/service-info",
         "candig-api": f"{ENV['CANDIG_ENV']['TYK_CANDIG_API_LISTEN_PATH']}/v1/service-info",
         "rnaget": f"{ENV['CANDIG_ENV']['TYK_RNAGET_API_LISTEN_PATH']}/service-info",
         "federation": f"federation/v1/service-info",

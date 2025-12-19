@@ -48,7 +48,7 @@ services:
           "CMD",
           "curl",
           "--fail",
-          "${HTSGET_PRIVATE_URL}/ga4gh/drs/v1/service-info",
+          "${HTSGET_PRIVATE_URL}/htsget/v1/reads/service-info",
         ]
       interval: 30s
       timeout: 10s
