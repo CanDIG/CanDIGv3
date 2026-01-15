@@ -122,11 +122,11 @@ def test_tyk():
 ## Opa tests:
 ## Test DAC user authorizations
 
-## Can we get the correct program response for each user?
-def user_auth_programs():
+## Can we get the correct dataset response for each user?
+def user_auth_datasets():
     return [
-        ("CANDIG_NOT_ADMIN2", "PROGRAM-2"),
-        ("CANDIG_NOT_ADMIN", "PROGRAM-1"),
+        ("CANDIG_NOT_ADMIN2", "DATASET-2"),
+        ("CANDIG_NOT_ADMIN", "DATASET-1"),
         ("CANDIG_NOT_ADMIN", "TEST_2"),
         ("CANDIG_SITE_ADMIN", "TEST_3"),
     ]
@@ -147,7 +147,7 @@ def user_auth_programs():
 #     return response
 #
 #
-def add_program_authorization(program: str, curators: list,
+def add_dataset_authorization(dataset: str, curators: list,
                               team_members: list):
     token = get_site_admin_token()
     headers = {
@@ -155,15 +155,15 @@ def add_program_authorization(program: str, curators: list,
         "Content-Type": "application/json; charset=utf-8",
     }
 
-    # create a program and its authorizations:
-    test_program = {
-        "program_id": program,
-        "program_curators": curators,
+    # create a dataset and its authorizations:
+    test_dataset = {
+        "dataset_id": dataset,
+        "dataset_curators": curators,
         "team_members": team_members
     }
 
-    print(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/program")
-    response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/program", headers=headers, json=test_program)
+    print(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/dataset")
+    response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/dataset", headers=headers, json=test_dataset)
     print(response.text)
     # if the site user is the default user, there should be a warning
     if ENV['CANDIG_SITE_ADMIN_USER'] == ENV['CANDIG_ENV']['DEFAULT_SITE_ADMIN_USER']:
@@ -172,106 +172,106 @@ def add_program_authorization(program: str, curators: list,
     return response.json()
 
 
-def delete_program_authorization(program: str):
+def delete_dataset_authorization(dataset: str):
     token = get_site_admin_token()
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json; charset=utf-8",
     }
-    response = requests.delete(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/program/{program}", headers=headers)
+    response = requests.delete(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/dataset/{dataset}", headers=headers)
     print(response.text)
     return response
 
 
-## Can we add a program authorization and modify it?
-@pytest.mark.parametrize("user, program", user_auth_programs())
-def test_add_remove_program_authorization(user, program):
-    add_program_authorization(program, [], [])
+## Can we add a dataset authorization and modify it?
+@pytest.mark.parametrize("user, dataset", user_auth_datasets())
+def test_add_remove_dataset_authorization(user, dataset):
+    add_dataset_authorization(dataset, [], [])
     token = get_site_admin_token()
     headers = {
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json; charset=utf-8",
     }
 
-    # remove the program
-    response = delete_program_authorization(program)
+    # remove the dataset
+    response = delete_dataset_authorization(dataset)
     assert response.status_code == 200
 
-    response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/program/{program}", headers=headers)
+    response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/dataset/{dataset}", headers=headers)
     assert response.status_code == 404
 
-#
-# @pytest.mark.parametrize("user, program", user_auth_programs())
-# def test_user_authorizations(user, program):
-#     # set up these programs to exist at all:
-#     add_program_authorization(program, [], [])
-#
-#     # remove user from system
-#     username = ENV[f"{user}_USER"]
-#     clean_up_user(username)
-#
-#     # add user to pending users
-#     safe_name = urllib.parse.quote_plus(username)
-#     password = ENV[f"{user}_PASSWORD"]
-#     token = get_token(username=username, password=password)
-#     headers = {
-#         "Authorization": f"Bearer {token}",
-#         "Content-Type": "application/json; charset=utf-8"
-#     }
-#
-#     response = requests.post(
-#         f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/pending/request",
-#         headers=headers
-#     )
-#     print(response.text, response.status_code)
-#     assert response.status_code in [200, 201]
-#     headers = {
-#         "Authorization": f"Bearer {get_site_admin_token()}",
-#         "Content-Type": "application/json; charset=utf-8"
-#     }
-#     if response.status_code in [200, 201]:
-#         # approve user
-#         response = requests.post(
-#             f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/pending/{safe_name}",
-#             headers=headers
-#         )
-#         assert response.status_code == 200
-#     else:
-#         # check to see if the user is authorized
-#         response = requests.get(
-#             f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/{safe_name}",
-#             headers=headers
-#         )
-#         assert response.status_code == 200
-#
-#     # see if user can access program before authorizing
-#     katsu_datasets = get_katsu_datasets(user)
-#     assert program not in katsu_datasets or user == "CANDIG_SITE_ADMIN"
-#
-#     # add program to user's authz
-#     from datetime import date
-#
-#     TODAY = date.today()
-#     THE_FUTURE = str(date(TODAY.year + 1, TODAY.month, TODAY.day))
-#
-#     response = requests.post(
-#         f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/{safe_name}/dac_authorization",
-#         headers=headers,
-#         json={"program_id": program, "start_date": "2000-01-01", "end_date": THE_FUTURE}
-#     )
-#     print(f"hi {response.text}")
-#     assert response.status_code == 200
-#
-#     # see if user can access program now
-#     katsu_datasets = get_katsu_datasets(user)
-#     assert program in katsu_datasets
-#
-#     # remove the program
-#     response = requests.delete(
-#         f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/{safe_name}/dac_authorization/{program}",
-#         headers=headers
-#     )
-#     assert response.status_code == 200
+
+@pytest.mark.parametrize("user, dataset", user_auth_datasets())
+def test_user_authorizations(user, dataset):
+    # set up these datasets to exist at all:
+    add_dataset_authorization(dataset, [], [])
+
+    # remove user from system
+    username = ENV[f"{user}_USER"]
+    clean_up_user(username)
+
+    # add user to pending users
+    safe_name = urllib.parse.quote_plus(username)
+    password = ENV[f"{user}_PASSWORD"]
+    token = get_token(username=username, password=password)
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8"
+    }
+
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/pending/request",
+        headers=headers
+    )
+    print(response.text, response.status_code)
+    assert response.status_code in [200, 201]
+    headers = {
+        "Authorization": f"Bearer {get_site_admin_token()}",
+        "Content-Type": "application/json; charset=utf-8"
+    }
+    if response.status_code in [200, 201]:
+        # approve user
+        response = requests.post(
+            f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/pending/{safe_name}",
+            headers=headers
+        )
+        assert response.status_code == 200
+    else:
+        # check to see if the user is authorized
+        response = requests.get(
+            f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/{safe_name}",
+            headers=headers
+        )
+        assert response.status_code == 200
+
+    # # see if user can access dataset before authorizing
+    # katsu_datasets = get_katsu_datasets(user)
+    # assert dataset not in katsu_datasets or user == "CANDIG_SITE_ADMIN"
+
+    # add dataset to user's authz
+    from datetime import date
+
+    TODAY = date.today()
+    THE_FUTURE = str(date(TODAY.year + 1, TODAY.month, TODAY.day))
+
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/{safe_name}/dac_authorization",
+        headers=headers,
+        json={"dataset_id": dataset, "start_date": "2000-01-01", "end_date": THE_FUTURE}
+    )
+    print(response.text)
+    assert response.status_code == 200
+
+    # # see if user can access dataset now
+    # katsu_datasets = get_katsu_datasets(user)
+    # assert dataset in katsu_datasets
+
+    # remove the dataset
+    response = requests.delete(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/authz/user/{safe_name}/dac_authorization/{dataset}",
+        headers=headers
+    )
+    assert response.status_code == 200
 
 
 ## Is the user a site admin?
@@ -391,10 +391,10 @@ def clean_up_user(user_name):
     assert (delete_response.status_code == 200 or delete_response.status_code == HTTPStatus.NO_CONTENT or delete_response.status_code == HTTPStatus.NOT_FOUND)
 
 
-def clean_up_program(test_id):
+def clean_up_dataset(test_id):
     """
-    Deletes a program and all related objects in katsu, htsget and opa. Expected either
-    successful delete or not found if the programs are not ingested.
+    Deletes a dataset and all related objects in omop, htsget and opa. Expected either
+    successful delete or not found if the datasets are not ingested.
     """
     print(f"deleting {test_id}")
     site_admin_token = get_site_admin_token()
@@ -403,10 +403,10 @@ def clean_up_program(test_id):
         "Content-Type": "application/json; charset=utf-8",
     }
 
-    # delete program
-    delete_response = requests.delete(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/program/{test_id}",
+    # delete dataset
+    delete_response = requests.delete(f"{ENV['CANDIG_URL']}/candig-api/v1/authz/datasets/{test_id}",
                                       headers=headers)
-    print(f"program delete response status code: {delete_response.status_code}")
+    print(f"dataset delete response status code: {delete_response.status_code}")
     assert (delete_response.status_code == 200 or delete_response.status_code == HTTPStatus.NO_CONTENT or delete_response.status_code == HTTPStatus.NOT_FOUND)
 
 
@@ -1217,10 +1217,10 @@ def test_federation_call():
 #
 #
 # def test_clean_up():
-#     clean_up_program(f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_01")
-#     clean_up_program(f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_02")
-#     clean_up_program(f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_03")
-#     clean_up_program(f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_04")
+#     clean_up_dataset(f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_01")
+#     clean_up_dataset(f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_02")
+#     clean_up_dataset(f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_03")
+#     clean_up_dataset(f"{ENV['CANDIG_ENV']['CANDIG_SITE_LOCATION']}-SYNTH_04")
 #
 #     clean_up_user(ENV['CANDIG_NOT_ADMIN_USER'])
 #     clean_up_user(ENV['CANDIG_NOT_ADMIN2_USER'])
