@@ -46,27 +46,21 @@ export default defineConfig({
         }),
         starlightOpenAPI([
             {
-                base: 'technical/ingest-api',
-                label: 'ingest api',
-                schema: 'https://raw.githubusercontent.com/CanDIG/candigv2-ingest/refs/heads/stable/ingest_openapi.yaml',
+                base: 'technical/candig-api/operations',
+                label: 'candig api operations',
+                schema: 'https://raw.githubusercontent.com/CanDIG/candig-api/refs/heads/develop/schema.yml',
                 collapsed: true
             },
             {
-                base: 'technical/query-api',
-                label: 'query api',
-                schema: 'https://raw.githubusercontent.com/CanDIG/candigv2-query/refs/heads/stable/query_server/openapi.yaml',
+                base: 'technical/candig-api/beacon',
+                label: 'clinical beacon api',
+                schema: 'https://raw.githubusercontent.com/CanDIG/candig-api/refs/heads/develop/beacon-schema.yml',
                 collapsed: true
             },
             {
-                base: 'technical/katsu-api',
-                label: 'katsu api',
-                schema: 'https://raw.githubusercontent.com/CanDIG/katsu/refs/heads/stable/chord_metadata_service/mohpackets/docs/schemas/schema.yml',
-                collapsed: true
-            },
-            {
-                base: 'technical/htsget/drs-api',
-                label: 'htsget drs api',
-                schema: 'https://raw.githubusercontent.com/CanDIG/htsget_app/refs/heads/stable/htsget_server/drs_openapi.yaml',
+                base: 'technical/drs/drs-api',
+                label: 'api',
+                schema: 'https://raw.githubusercontent.com/CanDIG/drs-service/refs/heads/stable/drs_server/drs_openapi.yaml',
                 collapsed: true
             },
             {
