@@ -1,5 +1,5 @@
 ---
-title: CanDIGv2 Install Guide
+title: CanDIGv3 Install Guide
 description: A guide to deploying CanDIG on your local laptop, PC or VM in a development setting
 next: false
 ---
@@ -17,7 +17,7 @@ CanDIG requires **Docker Compose v2**, which is provided alongside the latest ve
 
 ## Resource requirements
 
-We have successfully run and installed the CanDIGv2 stack on VMs with 4 CPUs and 8GB of memory.
+We have successfully run and installed the CanDIGv3 stack on VMs with 4 CPUs and 8GB of memory.
 
 We recommend giving Docker at least 4 CPUs and 4GB of memory.
 
@@ -201,17 +201,17 @@ brew install yq
 
 ## Production vs Development Environments
 
-CanDIG can be installed and deployed as below for development situations where no real data will ever be ingested into the system. For critical differences in production deployments, please see the <a href="/CanDIGv2/deployment/production/">Guide to CanDIG production deployments</a>.
+CanDIG can be installed and deployed as below for development situations where no real data will ever be ingested into the system. For critical differences in production deployments, please see the <a href="/CanDIGv3/deployment/production/">Guide to CanDIG production deployments</a>.
 
-## Initialize CanDIGv2 Repo
+## Initialize CanDIGv3 Repo
 
 If you haven't done so already
 
 ### 1. Initialize repo and submodules
 
 ```bash
-git clone -b develop https://github.com/CanDIG/CanDIGv2.git
-cd CanDIGv2
+git clone -b develop https://github.com/CanDIG/CanDIGv3.git
+cd CanDIGv3
 git submodule update --init --recursive
 ```
 
@@ -232,11 +232,15 @@ Update any of the information you want or need to customize including:
 LOCAL_IP_ADDR=xxx.xx.x.x
 # change OS
 VENV_OS=<your OS>
+# set DB backup to true when first running
+LOAD_DB_BACKUP=true
 ```
 
 :::danger
 If you are deploying a production level CanDIG deployment that will host real clinical data, see the [production deployment guide](production) for all the settings that need to be updated to ensure the deployed platform is secure.
 :::
+
+
 
 <details>
 
@@ -246,7 +250,7 @@ You need an `.env` file in the project root directory, which contains a set of g
 
 For a basic desktop sandbox setup, the example variable file needs very little (if any) modification.
 
-When deploying CanDIGv2
+When deploying CanDIGv3
 using `make`, `.env` is imported by `make` and all uncommented variables are added as environment variables via
 `export`.
 
@@ -272,16 +276,21 @@ services:
 
 </details>
 
-### 3.a: install miniconda and initialize candig virtualenv
+### 3. Download the omop database backup so that it can be loaded into postgres on startup of `candig-api`
 
-Use this option for systems installations. It installs miniconda in the candigv2 repo.
+  1. Contact a CanDIG dev to get access to the backup file called `VOCAB_bak.dump`
+  2. Put file in the `CanDIGv3/lib/candig-api/candig-api/db`
+
+### 4.a: install miniconda and initialize candig virtualenv
+
+Use this option for systems installations. It installs miniconda in the CanDIGv3 repo.
 
 ```bash
 make bin-conda  # If this fails on WSL, see the Note for WSL Systems section above
 make init-conda
 ```
 
-### 3.b: Use an existing Conda installation
+### 4.b: Use an existing Conda installation
 
 If you want to use an existing conda installation on your local at the bottom of the [.env](../etc/env/example.env#L310), set `CONDA_INSTALL` to your existing conda installation path
 
@@ -290,7 +299,7 @@ make mkdir # skip most of bin-conda, but need the dir-creating step
 make init-conda
 ```
 
-### 4. Activate the candig virtualenv. It may be necessary to restart your shell before doing this
+### 5. Activate the candig virtualenv. It may be necessary to restart your shell before doing this
 
 ```bash
 conda activate candig
@@ -305,7 +314,7 @@ Not all CanDIG modules are required for a minimal installation. The `CANDIG_MODU
 By default (if you copy the sample file from `etc/env/example.env`) the installation includes the minimal list of modules:
 
 ```
-  CANDIG_MODULES=logging keycloak vault redis postgres htsget katsu query tyk opa federation candig-ingest candig-data-portal
+  CANDIG_MODULES=logging keycloak vault redis tyk opa postgres drs candig-api htsget rnaget federation candig-data-portal
 ```
 
 Optional modules follow the `#` and include various monitoring components, workflow execution, and some older modules not generally installed.
