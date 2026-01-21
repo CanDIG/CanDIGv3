@@ -40,12 +40,10 @@ This token should be kept secure, it lasts for 30 mins
 An example call to the ingest endpoint would look something like (note you will need to replace $CANDIG_URL with the root url of your instance):
 
 ```bash
-curl -X 'POST' \
-  $CANDIG_URL'/ingest/ingest' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer '$TOKEN \
-  -d '@/absolute/path/to/dir_name_map.json>
+curl -X POST $CANDIG_URL'/candig-api/v1/datasets/upload'
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@@/absolute/path/to/dir_name_map.json>;type=application/json"
 ```
 
 If ingest worked correctly, you should get a response from the API giving you your queue_id to check the status of your ingest:
