@@ -52,6 +52,12 @@ export default defineConfig({
                 collapsed: true
             },
             {
+                base: 'technical/candig-api/authz',
+                label: 'candig api auth operations',
+                schema: 'https://raw.githubusercontent.com/CanDIG/candig-api/refs/heads/develop/authz-schema.yml',
+                collapsed: true
+            },
+            {
                 base: 'technical/candig-api/beacon',
                 label: 'clinical beacon api',
                 schema: 'https://raw.githubusercontent.com/CanDIG/candig-api/refs/heads/develop/beacon-schema.yml',
