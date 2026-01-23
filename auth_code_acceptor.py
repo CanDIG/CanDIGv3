@@ -72,11 +72,11 @@ class CustomHandler(http.server.BaseHTTPRequestHandler):
 def run(username, password, server_class=http.server.HTTPServer, handler_class=CustomHandler, refresh_token=True):
     global obtained_token
     obtained_token = ''
-    server_address = (ENV['CANDIG_ENV']['CANDIG_DOMAIN'], int(ENV['CANDIG_ENV']['AUTH_ACCEPT_PORT']))
+    server_address = ('0.0.0.0', int(ENV['CANDIG_ENV']['AUTH_ACCEPT_PORT']))
     httpd = server_class(server_address, handler_class)
 
     # We'll need to tell the user to access the Keycloak URL to login
-    print(f"To continue, please login to the server at {ENV['KEYCLOAK_REALM_URL']}/protocol/openid-connect/auth?scope=openid+email&response_type=code&client_id={ENV['CANDIG_ENV']['CANDIG_CLIENT_ID']}&response_mode=query&redirect_uri={ENV['CANDIG_ENV']['AUTH_ACCEPT_URL']}")
+    print(f"To continue, please login to the server at {ENV['KEYCLOAK_REALM_URL']}/protocol/openid-connect/auth?scope=openid+email&response_type=code&client_id={ENV['CANDIG_ENV']['KEYCLOAK_CLIENT_ID']}&response_mode=query&redirect_uri={ENV['CANDIG_ENV']['AUTH_ACCEPT_URL']}")
 
     # Tell the user what the site admin's default password is, if able
     if "DEFAULT_SITE_ADMIN_USER" in ENV['CANDIG_ENV']:
