@@ -49,14 +49,14 @@ curl -X POST $CANDIG_URL'/candig-api/v1/datasets/upload' \
 If ingest worked correctly, you should get a response from the API giving you your queue_id to check the status of your ingest:
 
 ```bash
-{"queue_id": "73c6888a-81d1-11ef-937c-0242ac12000f"}
+{"message": "File uploaded for processing.", "queue_id": "218961fad90b5c54", "url": "/v1/datasets/upload/status/218961fad90b5c54"}
 ```
 
 Since ingest is an asynchronous process, it can take some time to complete depending on the size of your clinical data. To check on the status of your ingest, use the status endpoint:
 
 ```bash
 curl -X 'GET' \
- $CANDIG_URL'/ingest/status/<your_queue_id>' \
+ $CANDIG_URL'/candig-api/v1/datasets/upload/status/218961fad90b5c54' \
  -H 'accept: application/json' \
  -H 'Content-Type: application/json' \
  -H 'Authorization: Bearer '$TOKEN
