@@ -579,6 +579,20 @@ def test_ingest_admin_omop(datasets, user_authz):
         add_dataset_authorization(dataset, curators=[ENV[f"{user}_USER"]], team_members=[f"{user}_USER"])
 
 
+def test_add_dataset_info(datasets, user_authz):
+    token = get_site_admin_token()
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+    for dataset in datasets:
+        print(dataset)
+        with open(f"etc/tests/integration/{dataset}-datasetinfo.json", "r") as f:
+            dataset_info = json.load(f)
+        response = requests.patch(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/{dataset}/info", headers=headers, json=dataset_info)
+        print(response)
+        assert response.status_code == 200 
+
+
 ## Htsget tests:
 
 # def test_ingest_not_admin_htsget():
