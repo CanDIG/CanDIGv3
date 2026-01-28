@@ -56,7 +56,7 @@ Since ingest is an asynchronous process, it can take some time to complete depen
 
 ```bash
 curl -X 'GET' \
- $CANDIG_URL'/ingest/status/<your_queue_id>' \
+ $CANDIG_URL'/candig-api/v1/datasets/upload/status/{queue_id}' \
  -H 'accept: application/json' \
  -H 'Content-Type: application/json' \
  -H 'Authorization: Bearer '$TOKEN
