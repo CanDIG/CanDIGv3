@@ -35,9 +35,9 @@ This token should be kept secure, it lasts for 30 mins
 
 ```bash
 curl -s --request POST \
- --url $CANDIG_URL'/ingest/program' \
+ --url $CANDIG_URL'/candig-api/v1/authz/dataset' \
  -H 'accept: application/json' \
  -H 'Content-Type: application/json' \
  -H 'Authorization: Bearer '$TOKEN \
- -d '{"program_id": "SYNTH_03", "program_curators": ["user2@test.ca"], "team_members": []}'
+ -d '{"dataset_id": "SYNTH_03", "dataset_curators": ["user2@test.ca"], "team_members": []}'
 ```
