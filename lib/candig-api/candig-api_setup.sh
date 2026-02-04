@@ -25,7 +25,7 @@ docker restart $ingest
 # If present, create and authorize default site admin as CanDIG authorized user:
 site_admin_token=$(python site_admin_token.py)
 if [[ $CANDIG_SITE_ADMIN_USER != "" ]]; then
-  bash $PWD/poll_until_live.sh "${CANDIG_URL}/ingest/service-info" $site_admin_token
+  bash $PWD/poll_until_live.sh "${CANDIG_URL}/candig-api/v1/authz/service-info" $site_admin_token
 
   echo ">> approving $CANDIG_SITE_ADMIN_USER as a CanDIG authorized user"
   bash $PWD/exec_with_expected.sh "curl -sX \"POST\" \"${CANDIG_URL}/candig-api/v1/authz/user/pending/request\" -H \"Authorization: Bearer ${site_admin_token}\"" "$CANDIG_SITE_ADMIN_USER"
