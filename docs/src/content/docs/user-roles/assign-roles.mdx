@@ -37,7 +37,7 @@ TOKEN=ey-pasted-jwt
 
 ## Add one or more pre-approved users <Badge text="Site admin" variant="caution" />
 
-This can only be performed by a Site admin. The Site admin can add one or many users to the list via a post to the `/ingest/user/preapproved` endpoint. The first time these users login to the CanDIG data portal, they will see a page with a 'Request Access' button but will be automatically approved as CanDIG Authorized Users after clicking the button. [This diagram](roles-overview/#pre-approval-flow) presents visual representation of this process.
+This can only be performed by a Site admin. The Site admin can add one or many users to the list via a post to the `/candig-api/v1/authz/user/preapproved` endpoint. The first time these users login to the CanDIG data portal, they will see a page with a 'Request Access' button but will be automatically approved as CanDIG Authorized Users after clicking the button. [This diagram](roles-overview/#pre-approval-flow) presents visual representation of this process.
 
 First [get a token](#getting-a-token), then:
 
@@ -45,7 +45,7 @@ First [get a token](#getting-a-token), then:
 
 ```bash
 curl --request GET \
-  --url $CANDIG_URL'/ingest/user/preapproved' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/preapproved' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN
@@ -63,7 +63,7 @@ A response where no users are on the list would look like:
 
 ```bash
 curl --request POST \
-  --url $CANDIG_URL'/ingest/user/preapproved' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/preapproved' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN \
@@ -82,7 +82,7 @@ A successful response looks like:
 
 ```bash
 curl --request GET \
-  --url $CANDIG_URL'/ingest/user/preapproved' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/preapproved' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN
@@ -107,7 +107,7 @@ First [get a token](#getting-a-token), then:
 
 ```bash
 curl --request GET \
-  --url $CANDIG_URL'/ingest/user/pending' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/pending' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN
@@ -129,7 +129,7 @@ e.g. response:
 
 ```bash
 curl --request POST \
-  --url $CANDIG_URL'/ingest/user/pending/user1@test.ca' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/pending/user1@test.ca' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN
@@ -146,7 +146,7 @@ Or a list of ids
 
 ```bash
 curl --request POST \
-  --url $CANDIG_URL'/ingest/user/pending' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/pending' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN \
@@ -176,7 +176,7 @@ e.g.
 
 ```bash
 curl --request DELETE \
-  --url $CANDIG_URL'/ingest/user/pending' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/pending' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN \
@@ -203,7 +203,7 @@ First [get a token](#getting-a-token) following the guide above, then:
 
 ```bash
 curl --request DELETE \
-  --url $CANDIG_URL'/ingest/user/user2@test.ca' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/user2@test.ca' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN 
@@ -221,7 +221,7 @@ Follow the steps in [Getting a Token](#getting-a-token) above then:
 
 ```bash
 curl --request POST \
-  --url $CANDIG_URL'/ingest/site-role/curator/email/user1@test.ca' \
+  --url $CANDIG_URL'/candig-api/v1/authz/site-role/curator/email/user1@test.ca' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN
