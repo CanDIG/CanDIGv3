@@ -1,21 +1,21 @@
 ---
 title: Ingest clinical data
-description: A step by step guide to preparing clinical data for ingest into CanDIG
+description: A step by step guide to ingesting clinical data into CanDIG
 tableOfContents:
   minHeadingLevel: 1
   maxHeadingLevel: 2
 prev: false
 ---
 
-If you have gotten this far, well done! Most of the hard work is done (hopefully). The output from the CSVConvert.py called something like $INPUT_DIR_map.json is the main file we need in order to ingest the clinical data into ingest.
+If you have gotten this far, well done! Most of the hard work is done (hopefully).
 
-Assuming that you have a configured ingest instance up and running and have access to a user with Site curator or Program curator credentials, you should be able to run through the instructions below.
+Assuming that you have a configured CanDIG instance up and running and have access to a user with Site curator or Program curator credentials, you should be able to run through the instructions below.
 
 It is preferable to attempt ingest using the API call. The API is described in ingest_openapi.md or can be explored using a swagger ui.
 
 ## Ingesting clinical data into CanDIG
 
-Before you can use the ingest endpoint, you will need an authorized bearer token. Users with Site administration, Site curator, or Program curator for the program/s being ingested are able to ingest those programs. To get a bearer token:
+Before you can use the ingest endpoint, you will need an authorized bearer token. Users with Site administration, Site curator, or dataset curator for the dataset/s being ingested are able to ingest those datasets. To get a bearer token:
 
 1. Get a token by logging into the candig data portal as Site admin and copying the API token.
 
@@ -64,29 +64,31 @@ curl -X 'GET' \
 
 While the data is still being ingested, the status will read `"status": "still in queue"`. When ingest is complete, a successful ingest will have a summary of what was ingested, you should check the numbers are as expected. If any errors were found that would prevent ingest, they will be listed in the errors key in the response.
 
-Example response from the status endpoint when ingest for a program is complete:
+Example response from the status endpoint when ingest for a dataset is complete:
 
 ```bash
 {
-  "SYNTH_01": {
-    "errors": [],
-    "results": [
-      "Of 1 programs, 1 were created",
-      "Of 24 donors, 24 were created",
-      "Of 24 primary_diagnoses, 24 were created",
-      "Of 24 specimens, 24 were created",
-      "Of 72 sample_registrations, 72 were created",
-      "Of 48 treatments, 48 were created",
-      "Of 96 systemic_therapies, 96 were created",
-      "Of 24 radiations, 24 were created",
-      "Of 24 surgeries, 24 were created",
-      "Of 14 biomarkers, 14 were created",
-      "Of 14 followups, 14 were created",
-      "Of 10 comorbidities, 10 were created",
-      "Of 10 exposures, 10 were created"
-    ]
-  }
+  "status": "Success",
+  "file_name": "etc/tests/integration/omop-sample.json",
+  "file_size": 461485,
+  "uploaded_at": "2026-02-04 18:24:27 UTC",
+  "processed_at": "2026-02-04 18:24:28 UTC",
+  "ingested_count": 12,
+  "ingested_persons": [
+    "SITE_PM2C~SYNTH_01~DONOR_0001",
+    "SITE_PM2C~SYNTH_01~DONOR_0002",
+    "SITE_PM2C~SYNTH_01~DONOR_0003",
+    "SITE_PM2C~SYNTH_01~DONOR_ALL_0001",
+    "SITE_PM2C~SYNTH_01~DONOR_NULL_0001",
+    "SITE_PM2C~SYNTH_01~DONOR_0004",
+    "SITE_PM2C~SYNTH_01~DONOR_0005",
+    "SITE_PM2C~SYNTH_02~DONOR_0006",
+    "SITE_PM2C~SYNTH_02~DONOR_0007",
+    "SITE_PM2C~SYNTH_02~DONOR_0008",
+    "SITE_PM2C~SYNTH_02~DONOR_0009",
+    "SITE_PM2C~SYNTH_02~DONOR_0010"
+  ],
+  "errors": "None"
 }
 ```
 
-Once you have successfully ingested all your clinical data, you can proceed with ingesting your genomic files and linking them the the ingested Sample Registration objects.
