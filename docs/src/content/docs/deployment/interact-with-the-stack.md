@@ -18,9 +18,9 @@ Individual services can be stopped using the docker command:
 docker container stop candigv2_<name of module>_1
 ```
 
-eg. to stop the ingest container this would be:
+eg. to stop the candig-api container this would be:
 ```bash
-docker container stop candigv2_candig-ingest_1
+docker container stop candigv2_candig-api_1
 ```
 
 ## Starting services
@@ -38,9 +38,9 @@ To start a single container, the following docker command can be used:
 ```bash
 docker container start candigv2_<name of module>_1
 ```
-e.g. for the ingest container:
+e.g. for the candig-api container:
 ```bash
-docker container start candigv2_candig-ingest_1
+docker container start candigv2_candig-api_1
 ```
 
 ## Cleaning and rebuilding individual services

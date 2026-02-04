@@ -19,7 +19,7 @@ source ./etc/venv/activate.sh
 ```
 or separately:
 ```bash
-cd CanDIGv2
+cd CanDIGv3
 conda activate candig
 pip install -r etc/venv/requirements
 ```

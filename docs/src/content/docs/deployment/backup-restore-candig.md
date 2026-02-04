@@ -45,7 +45,7 @@ You should copy these to a secure location outside of the running container and 
 
 ```bash
 docker cp candigv2_postgres-db_1:yyyy-mm-dd-genomic-backup.sql /desired/path/target
-docker cp candigv2_postgres-db_1:yyyy-mm-dd-clinical-backup.sql /desired/path/target
+# docker cp candigv2_postgres-db_1:yyyy-mm-dd-clinical-backup.sql /desired/path/target
 ```
 
 ## Restoring postgres databases
@@ -55,14 +55,15 @@ To restore the databases that we have backed up, assuming you have the CanDIG st
 1. Stop the running katsu and htsget containers which are connected to the databases
 
 ```bash
-docker stop candigv2_katsu_1
-docker stop candigv2_htsget_1
+docker stop candigv2_candig-api_1
+# docker stop candigv2_htsget_1
+# docker stor candigv2_drs_1
 ```
 
 1. Then we need to copy the `sql` backup files into the running postgres container
 
 ```bash
-docker cp /path/to/backup/yyyy-mm-dd-genomic-backup.sql candigv2_postgres-db_1:/yyyy-mm-dd-genomic-backup.sql
+# docker cp /path/to/backup/yyyy-mm-dd-genomic-backup.sql candigv2_postgres-db_1:/yyyy-mm-dd-genomic-backup.sql
 docker cp /path/to/backup/yyyy-mm-dd-clinical-backup.sql candigv2_postgres-db_1:/yyyy-mm-dd-clinical-backup.sql
 ```
 
@@ -102,8 +103,9 @@ psql -U admin -d genomic < yyyy-mm-dd-genomic-backup.sql
 1. Restart the katsu and htsget services
 
 ```bash
-docker start candigv2_katsu_1
+docker start candigv2_candig-api_1
 docker start candigv2_htsget_1
+docker start candigv2_drs_1
 ```
 
 You should be able to see the restored data in the data portal.

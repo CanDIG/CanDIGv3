@@ -281,6 +281,10 @@ services:
   1. Contact a CanDIG dev to get access to the backup file called `VOCAB_bak.dump`
   2. Put file in the `CanDIGv3/lib/candig-api/candig-api/db`
 
+:::note
+Once you have loaded the backup the first time, you can set the variable `LOAD_DB_BACKUP` to `false`, so that if you need to recompose `candig-api` it doesn't re-load the backup. If you do destroy to postgres db you will need to set the variable back to `true`.
+:::
+
 ### 4.a: install miniconda and initialize candig virtualenv
 
 Use this option for systems installations. It installs miniconda in the CanDIGv3 repo.
