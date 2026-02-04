@@ -1,6 +1,3 @@
-[submodule "lib/toil/toil-docker"]
-	path = lib/toil/toil-docker
-	url = https://github.com/DataBiosphere/toil.git
 [submodule "lib/federation-service/federation_service"]
 	path = lib/federation/federation
 	url = https://github.com/CanDIG/federation_service
@@ -10,9 +7,6 @@
 [submodule "lib/htsget/htsget_app"]
 	path = lib/htsget/htsget_app
 	url = https://github.com/CanDIG/htsget_app.git
-[submodule "lib/candig-ingest/candigv2-ingest"]
-	path = lib/candig-ingest/candigv2-ingest
-	url = https://github.com/CanDIG/candigv2-ingest
 [submodule "lib/rnaget/rnaget"]
 	path = lib/rnaget/rnaget
 	url = https://github.com/bento-platform/takuan.git
