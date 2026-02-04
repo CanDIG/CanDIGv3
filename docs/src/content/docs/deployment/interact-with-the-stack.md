@@ -93,7 +93,7 @@ Some services can't be rebuilt individually without causing issues with the stac
 
 ## Non-destructive Rebuild
 
-To rebuild the CanDIGv2 without destroying data in postgres or keycloak the make target `rebuild-keep-data` with:
+To rebuild the CanDIGv3 without destroying data in postgres or keycloak the make target `rebuild-keep-data` with:
 
 ```bash
 make rebuild-keep-data
@@ -105,10 +105,10 @@ If there are changes that have changed the structure of the database or impacted
 
 ## Destructive Cleanup 
 
-Use the following steps to clean up running CanDIGv2 services in a docker-compose configuration. 
+Use the following steps to clean up running CanDIGv3 services in a docker-compose configuration. 
 
 :::caution 
-Note that these steps are destructive and will remove **ALL** logs, containers, secrets, volumes, networks, certs, and images. If you are using docker in a shared environment (i.e. with other non-CanDIGv2 containers running) please consider running the cleanup steps manually instead.
+Note that these steps are destructive and will remove **ALL** logs, containers, secrets, volumes, networks, certs, and images. If you are using docker in a shared environment (i.e. with other non-CanDIGv3 containers running) please consider running the cleanup steps manually instead.
 :::
 
 The following steps are performed by `make clean-all`:

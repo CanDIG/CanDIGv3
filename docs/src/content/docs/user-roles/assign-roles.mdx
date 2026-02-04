@@ -231,16 +231,16 @@ curl --request POST \
  Users can be removed as Site curators by using the same endpoint with a DELETE action instead of POST/GET.
 
 
-## Assign `Program curator` and `Team member` roles <Badge text="Site admin" variant="caution" /> <Badge text="Site curator" variant="tip" /> <Badge text="Program curator" variant="success" />
+## Assign `dataset curator` and `Team member` roles <Badge text="Site admin" variant="caution" /> <Badge text="Site curator" variant="tip" /> <Badge text="dataset curator" variant="success" />
 
-Assigning Program curator and Team member roles is done through program registration. See the step-by-step guide here: [Registering programs](/CanDIGv2/ingest/register-programs). 
+Assigning dataset curator and Team member roles is done through dataset registration. See the step-by-step guide here: [Registering datasets](/CanDIGv3/ingest/register-datasets). 
 
-For each program that a curator or Team member needs to be added to, a separate program registration will need to be submitted by either a `Site admin`, `Site curator` or a `Program curator` already named on that program.
+For each dataset that a curator or Team member needs to be added to, a separate dataset registration will need to be submitted by either a `Site admin`, `Site curator` or a `dataset curator` already named on that dataset.
 
 :::caution
-A `POST` request to the `ingest/program` replaces any existing program registration data for that program. It is advisable to first use a `GET` request to see the current users authorized to a program before adding additional `program_curators` and/or `team_members` when `POST`ing to this endpoint
+A `POST` request to the `ingest/dataset` replaces any existing dataset registration data for that dataset. It is advisable to first use a `GET` request to see the current users authorized to a dataset before adding additional `dataset_curators` and/or `team_members` when `POST`ing to this endpoint
 :::
 
 ## Add or remove a Site admin <Badge text="Site admin" variant="caution" />
 
-A Site admin can be changed by following the steps on the [Production Deployment page](/CanDIGv2/deployment/production#change-the-default-site-admin).
+A Site admin can be changed by following the steps on the [Production Deployment page](/CanDIGv3/deployment/production#change-the-default-site-admin).

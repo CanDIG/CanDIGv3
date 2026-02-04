@@ -16,7 +16,7 @@ Logs can be backed up on a regular schedule and at a minimum, should be saved el
 
 Both clinical and genomic metadata are stored within databases running in the postgres container `postgres-db`. 
 
-The commands below assume that you are connected to the machine that is hosting the dockerized CanDIGv2 stack.
+The commands below assume that you are connected to the machine that is hosting the dockerized CanDIGv3 stack.
 
 To backup the data stored in these databases:
 

@@ -1,5 +1,5 @@
 ---
-title: Docker Syncing in CanDIGv2
+title: Docker Syncing in CanDIGv3
 description: Information on interacting with docker and updating submodules.
 ---
 
@@ -23,11 +23,11 @@ make init-authx
 
 After making your change inside your submodules repo (example: a title change in candig-data-portal) you should be able to do the following
 
-Current directory post changes **.../CanDIGv2/lib/module/module**
+Current directory post changes **.../CanDIGv3/lib/module/module**
 
 ```bash
 git status      # show change in submodule
-cd ../../..     # change directory to CanDIGv2
+cd ../../..     # change directory to CanDIGv3
 docker ps       # see the name of your submodule
 make build-%    # % represents the name of your module
 make compose-%  # % represents the name of your module
@@ -37,7 +37,7 @@ You can find the name of the module from the `NAMES` column in the output from `
 
 After you run these commands you should see your changes are now live. If you were making changes for candig-data-portal you will now see these on the web browser.
 
-If you want to understand how these commands are working you can find their source code in the MakeFile in CanDIGv2.
+If you want to understand how these commands are working you can find their source code in the MakeFile in CanDIGv3.
 
 ## Submodules
 
@@ -47,7 +47,7 @@ The below link should give you a better understanding of submodules.
 
 ### Viewing all submodules
 
-Current Directory **.../CanDIGv2**
+Current Directory **.../CanDIGv3**
 
 ```bash
 cd lib
@@ -58,7 +58,7 @@ git submodule
 
 If you wanted to see all the submodules you made changes to you could run the following. 
 
-Current Directory **.../CanDIGv2** 
+Current Directory **.../CanDIGv3** 
 ```bash
 git status
 ```
@@ -88,6 +88,6 @@ Untracked files:
 no changes added to commit (use "git add" and/or "git commit -a")
 ```
 
-This will allow you to see all the changes in your submodules under lib/ as well as any changes you made to CanDIGv2.
+This will allow you to see all the changes in your submodules under lib/ as well as any changes you made to CanDIGv3.
 
 You can also go into each submodules individual repo to view its specific changes.
