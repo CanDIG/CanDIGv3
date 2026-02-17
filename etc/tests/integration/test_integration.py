@@ -54,6 +54,20 @@ def user_auth_datasets():
     ]
 
 
+def user_unauth_datasets():
+    return [
+        ("CANDIG_NOT_ADMIN2", "SITE_PM2C~SYNTH_01"),
+        ("CANDIG_NOT_ADMIN", "SITE_PM2C~SYNTH_02"),
+    ]
+
+
+def dataset_size():
+    return {
+        "SITE_PM2C~SYNTH_01": 7,
+        "SITE_PM2C~SYNTH_02": 5,
+    }
+
+
 ## Keycloak tests:
 
 
@@ -591,6 +605,155 @@ def test_add_dataset_info(datasets, user_authz):
         response = requests.patch(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/{dataset}/info", headers=headers, json=dataset_info)
         print(response)
         assert response.status_code == 200 
+
+
+def sample_request_body(filter_id, granularity="record"):
+    return {
+        "meta": {
+            "apiVersion": "v2.0.0"
+        },
+        "query": {
+            "requestedGranularity": granularity,
+            "filters": [
+                {
+                    "id": filter_id
+                }
+            ]
+        }
+    }
+
+
+@pytest.mark.parametrize("user, dataset", user_auth_datasets())
+def test_beacon_query(user, dataset):
+    """Test whether a user can execute a query."""
+    token = get_token(
+        username=ENV[f"{user}_USER"],
+        password=ENV[f"{user}_PASSWORD"],
+    )
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8",
+    }
+    body = sample_request_body(f"dataset_id:{dataset}")
+
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    print(response)
+    assert response.status_code == 200
+
+    # Ensure that the dataset is included in the result
+    assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, dataset_size()[dataset])
+    assert response.json()["response"]["resultSets"][0]["resultsCount"] == dataset_size()[dataset]
+
+    # Ensure that the discovery query also matches up
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+    # Switch to a query on a specific thing
+    body = sample_request_body("ICD10:D05")
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    print(body)
+    assert response.status_code == 200
+
+    if user != "CANDIG_NOT_ADMIN2":
+        # Ensure that test user ID 37 is included in the result
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == 1
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 1
+    else:
+        # Ensure that test user ID 37 is not included
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == 0
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 0
+
+    # Ensure that the discovery query also matches up
+    assert response.json()["info"]["patients_per_program"]["SITE_PM2C~SYNTH_01"] == 1
+
+
+@pytest.mark.parametrize("user, dataset", user_auth_datasets())
+def test_beacon_granularity(user, dataset):
+    """Test whether a user can execute a query with a different requested granularity."""
+    token = get_token(
+        username=ENV[f"{user}_USER"],
+        password=ENV[f"{user}_PASSWORD"],
+    )
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8",
+    }
+    body = sample_request_body(f"dataset_id:{dataset}", "count")
+    # Ensure that the dataset does not returns individual records
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" not in response.json()
+    assert response.json()["responseSummary"]["numTotalResults"] == dataset_size()[dataset]
+
+    # Try again with boolean results
+    body = sample_request_body(f"dataset_id:{dataset}", "boolean")
+    # Ensure that the dataset does not returns individual records
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" not in response.json()
+    assert response.json()["responseSummary"]["exists"] == True
+
+
+@pytest.mark.parametrize("user, dataset", user_unauth_datasets())
+def test_beacon_granularity_unauth(user, dataset):
+    """Test whether a user can execute a query with a different requested granularity."""
+    token = get_token(
+        username=ENV[f"{user}_USER"],
+        password=ENV[f"{user}_PASSWORD"],
+    )
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8",
+    }
+    # Ensure that a request on records does not return individual records
+    body = sample_request_body(f"dataset_id:{dataset}", "record")
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" in response.json()
+    assert len(response.json()["response"]["resultSets"][0]["results"]) == 0
+    # Ensure that the discovery count is still correct
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+    # Try again with count results
+    body = sample_request_body(f"dataset_id:{dataset}", "count")
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" not in response.json()
+    assert response.json()["responseSummary"]["numTotalResults"] == 0
+    # Ensure that the discovery count is still correct
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+    # Try again with boolean results -- results should be obtainable at this granularity
+    body = sample_request_body(f"dataset_id:{dataset}", "boolean")
+    # Ensure that the dataset does not return individual records
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" not in response.json()
+    assert response.json()["responseSummary"]["exists"] == False
+    # Ensure that the discovery count is still correct
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
 
 
 ## Htsget tests:
