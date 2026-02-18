@@ -709,7 +709,7 @@ def test_beacon_granularity(user, dataset):
 
 @pytest.mark.parametrize("user, dataset", user_unauth_datasets())
 def test_beacon_granularity_unauth(user, dataset):
-    """Test whether a user can execute a query with a different requested granularity."""
+    """Test whether a user can execute queries on data they do not have access to."""
     token = get_token(
         username=ENV[f"{user}_USER"],
         password=ENV[f"{user}_PASSWORD"],
