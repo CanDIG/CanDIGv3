@@ -742,7 +742,7 @@ def test_beacon_granularity_unauth(user, dataset):
     # Ensure that the discovery count is still correct
     assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
 
-    # Try again with boolean results -- results should be obtainable at this granularity
+    # Try again with boolean results
     body = sample_request_body(f"dataset_id:{dataset}", "boolean")
     # Ensure that the dataset does not return individual records
     response = requests.post(
