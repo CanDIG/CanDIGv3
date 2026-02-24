@@ -1,0 +1,36 @@
+{
+  "study_id": "SITE_PM2C~SYNTH_03",
+  "study_name": "SYNTH_03",
+  "study_description": "A very small synthetic dataset that was transformed from MOHCCN v3 clinical data model",
+  "program_name": "MOHCCN",
+  "keywords": [
+    "cancer", "MOHCCN", "synthetic", "clinical"
+  ],
+  "status": "Completed",
+  "context": "Research",
+  "domain": [
+    "Cancer"
+  ],
+  "dac_id": "DAC-002",
+  "participant_criteria": "Randomly generated synthetic data",
+  "principal_investigators": [
+    "Marsha Mallow, University of Toronto",
+    "Ann Chovey, Dalhousie University"
+  ],
+  "lead_organizations": [
+    "University of Toronto",
+    "Dalhousie University"
+  ],
+  "collaborators": [
+    "Chris P. Bacon",
+    "Teri Dactyl",
+    "Barry Mundy"
+  ],
+  "funding_sources": [
+    "Canadian Institutes of Health Research (CIHR)",
+    "Innovation, Science and Economic Development Canada (ISED)"
+  ],
+  "publication_links": [
+    "https://doi.org/10.1016/j.ccell.2025.03.014"
+  ]
+}
