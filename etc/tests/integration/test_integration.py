@@ -35,7 +35,7 @@ class AuthzRequest:
 # fixtures
 @pytest.fixture
 def datasets():
-    return ["SITE_PM2C~SYNTH_01", "SITE_PM2C~SYNTH_02"]
+    return ["SITE_PM2C~SYNTH_01", "SITE_PM2C~SYNTH_02", "SITE_PM2C~SYNTH_03", "SITE_PM2C~SYNTH_04"]
 
 @pytest.fixture
 def user_authz():
@@ -63,8 +63,10 @@ def user_unauth_datasets():
 
 def dataset_size():
     return {
-        "SITE_PM2C~SYNTH_01": 7,
-        "SITE_PM2C~SYNTH_02": 5,
+        "SITE_PM2C~SYNTH_01": 24,
+        "SITE_PM2C~SYNTH_02": 20,
+        "SITE_PM2C~SYNTH_03": 20,
+        "SITE_PM2C~SYNTH_04": 20
     }
 
 
@@ -479,8 +481,8 @@ def test_ingest_not_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/omop-sample.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/omop-sample.json", f, "application/json")}
+    with open("etc/tests/integration/med-dataset_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/med-dataset_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
         # when the user has no admin access, they should not be allowed
         assert response.status_code == 403
@@ -500,8 +502,8 @@ def test_ingest_not_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/omop-sample.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/omop-sample.json", f, "application/json")}
+    with open("etc/tests/integration/med-dataset_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/med-dataset_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
 
     try:
@@ -516,7 +518,7 @@ def test_ingest_not_admin_omop(datasets, user_authz):
         response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
     print(response.text)
     assert response.json()["errors"] is None
-    assert response.json()["ingested_count"] == 12
+    assert response.json()["ingested_count"] == 84
     omop_response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/statistics")
     if omop_response.status_code == 200:
         omop_datasets = [x['dataset_id'] for x in omop_response.json()]
@@ -551,8 +553,8 @@ def test_ingest_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/omop-sample.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/omop-sample.json", f, "application/json")}
+    with open("etc/tests/integration/med-dataset_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/med-dataset_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
 
     # no dataset auth: should fail
@@ -563,8 +565,8 @@ def test_ingest_admin_omop(datasets, user_authz):
         add_dataset_authorization(dataset, [], team_members=[])
 
     print(f"Sending {datasets} clinical data to candig-api...")
-    with open("etc/tests/integration/omop-sample.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/omop-sample.json", f, "application/json")}
+    with open("etc/tests/integration/med-dataset_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/med-dataset_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
         print(f"Ingest response code: {response.status_code}")
 
@@ -580,7 +582,7 @@ def test_ingest_admin_omop(datasets, user_authz):
         response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
     print(response.json())
     assert response.json()["errors"] is None
-    assert response.json()["ingested_count"] == 12
+    assert response.json()["ingested_count"] == 84
     omop_response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/statistics")
     if omop_response.status_code == 200:
         omop_datasets = [x['dataset_id'] for x in omop_response.json()]
@@ -641,7 +643,6 @@ def test_beacon_query(user, dataset):
         headers = headers,
         json = body
     )
-    print(response)
     assert response.status_code == 200
 
     # Ensure that the dataset is included in the result
@@ -652,26 +653,27 @@ def test_beacon_query(user, dataset):
     assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
 
     # Switch to a query on a specific thing
-    body = sample_request_body("ICD10:D05")
+    body = sample_request_body("ICD10:C06.9")
     response = requests.post(
         f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
         headers = headers,
         json = body
     )
     print(body)
+    print(response.json())
     assert response.status_code == 200
 
     if user != "CANDIG_NOT_ADMIN2":
         # Ensure that test user ID 37 is included in the result
-        assert len(response.json()["response"]["resultSets"][0]["results"]) == 1
-        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 1
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == 2
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 2
     else:
         # Ensure that test user ID 37 is not included
         assert len(response.json()["response"]["resultSets"][0]["results"]) == 0
         assert response.json()["response"]["resultSets"][0]["resultsCount"] == 0
-
-    # Ensure that the discovery query also matches up
-    assert response.json()["info"]["patients_per_program"]["SITE_PM2C~SYNTH_01"] == 1
+        # Ensure that the discovery query also matches up
+        assert response.json()["info"]["patients_per_program"]["SITE_PM2C~SYNTH_01"] == 2
+    
 
 
 @pytest.mark.parametrize("user, dataset", user_auth_datasets())
