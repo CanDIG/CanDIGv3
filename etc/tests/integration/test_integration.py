@@ -65,6 +65,8 @@ def dataset_size():
     return {
         "SITE_PM2C~SYNTH_01": 24,
         "SITE_PM2C~SYNTH_02": 20,
+        "SITE_PM2C~SYNTH_03": 20,
+        "SITE_PM2C~SYNTH_04": 20
     }
 
 
