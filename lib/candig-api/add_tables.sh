@@ -52,3 +52,23 @@ if [ $RESULT -ne 0 ]; then
   echo -e "🚨🚨🚨 ${RED}ERROR: Failed to create 'person_in_dataset' table.${DEFAULT} 🚨🚨🚨"
   exit 1
 fi
+
+# Create sample table
+docker exec -i "${DB_CONTAINER_NAME}" psql -U "${DEFAULT_ADMIN_USER}" -d "${DB_NAME}" <<EOF
+CREATE TABLE IF NOT EXISTS ${CANDIG_SCHEMA}.sample (
+    sample_id VARCHAR(128) PRIMARY KEY,
+    sample_info JSONB DEFAULT '{}',
+    dataset_id VARCHAR(64) NOT NULL,
+    person_id INTEGER NOT NULL,
+    specimen_id INTEGER NOT NULL,
+    FOREIGN KEY (dataset_id) REFERENCES ${CANDIG_SCHEMA}.dataset(id) ON DELETE CASCADE,
+    FOREIGN KEY (person_id) REFERENCES ${CDM_SCHEMA}.person(person_id) ON DELETE CASCADE,
+    FOREIGN KEY (specimen_id) REFERENCES ${CDM_SCHEMA}.specimen(specimen_id) ON DELETE CASCADE
+);
+EOF
+RESULT=$?
+
+if [ $RESULT -ne 0 ]; then
+  echo -e "🚨🚨🚨 ${RED}ERROR: Failed to create 'sample' table.${DEFAULT} 🚨🚨🚨"
+  exit 1
+fi
