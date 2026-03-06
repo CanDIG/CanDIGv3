@@ -481,8 +481,8 @@ def test_ingest_not_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/med-dataset_omop.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/med-dataset_omop.json", f, "application/json")}
+    with open("etc/tests/integration/small_synth_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/small_synth_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
         # when the user has no admin access, they should not be allowed
         assert response.status_code == 403
@@ -502,8 +502,8 @@ def test_ingest_not_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/med-dataset_omop.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/med-dataset_omop.json", f, "application/json")}
+    with open("etc/tests/integration/small_synth_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/small_synth_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
 
     try:
@@ -553,8 +553,8 @@ def test_ingest_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/med-dataset_omop.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/med-dataset_omop.json", f, "application/json")}
+    with open("etc/tests/integration/small_synth_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/small_synth_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
 
     # no dataset auth: should fail
@@ -565,8 +565,8 @@ def test_ingest_admin_omop(datasets, user_authz):
         add_dataset_authorization(dataset, [], team_members=[])
 
     print(f"Sending {datasets} clinical data to candig-api...")
-    with open("etc/tests/integration/med-dataset_omop.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/med-dataset_omop.json", f, "application/json")}
+    with open("etc/tests/integration/small_synth_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/small_synth_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
         print(f"Ingest response code: {response.status_code}")
 
