@@ -35,7 +35,7 @@ class AuthzRequest:
 # fixtures
 @pytest.fixture
 def datasets():
-    return ["SITE_PM2C~SYNTH_01", "SITE_PM2C~SYNTH_02"]
+    return ["SITE_PM2C~SYNTH_01", "SITE_PM2C~SYNTH_02", "SITE_PM2C~SYNTH_03", "SITE_PM2C~SYNTH_04"]
 
 @pytest.fixture
 def user_authz():
@@ -52,6 +52,22 @@ def user_auth_datasets():
         # ("CANDIG_NOT_ADMIN", "TEST_2"),
         ("CANDIG_SITE_ADMIN", "SITE_PM2C~SYNTH_01"),
     ]
+
+
+def user_unauth_datasets():
+    return [
+        ("CANDIG_NOT_ADMIN2", "SITE_PM2C~SYNTH_01"),
+        ("CANDIG_NOT_ADMIN", "SITE_PM2C~SYNTH_02"),
+    ]
+
+
+def dataset_size():
+    return {
+        "SITE_PM2C~SYNTH_01": 24,
+        "SITE_PM2C~SYNTH_02": 20,
+        "SITE_PM2C~SYNTH_03": 20,
+        "SITE_PM2C~SYNTH_04": 20
+    }
 
 
 ## Keycloak tests:
@@ -465,8 +481,8 @@ def test_ingest_not_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/omop-sample.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/omop-sample.json", f, "application/json")}
+    with open("etc/tests/integration/small_synth_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/small_synth_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
         # when the user has no admin access, they should not be allowed
         assert response.status_code == 403
@@ -486,8 +502,8 @@ def test_ingest_not_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/omop-sample.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/omop-sample.json", f, "application/json")}
+    with open("etc/tests/integration/small_synth_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/small_synth_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
 
     try:
@@ -502,7 +518,7 @@ def test_ingest_not_admin_omop(datasets, user_authz):
         response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
     print(response.text)
     assert response.json()["errors"] is None
-    assert response.json()["ingested_count"] == 12
+    assert response.json()["ingested_count"] == 84
     omop_response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/statistics")
     if omop_response.status_code == 200:
         omop_datasets = [x['dataset_id'] for x in omop_response.json()]
@@ -537,8 +553,8 @@ def test_ingest_admin_omop(datasets, user_authz):
     headers = {
         "Authorization": f"Bearer {token}"
     }
-    with open("etc/tests/integration/omop-sample.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/omop-sample.json", f, "application/json")}
+    with open("etc/tests/integration/small_synth_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/small_synth_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
 
     # no dataset auth: should fail
@@ -549,8 +565,8 @@ def test_ingest_admin_omop(datasets, user_authz):
         add_dataset_authorization(dataset, [], team_members=[])
 
     print(f"Sending {datasets} clinical data to candig-api...")
-    with open("etc/tests/integration/omop-sample.json", "rb") as f:
-        files = {"file": ("etc/tests/integration/omop-sample.json", f, "application/json")}
+    with open("etc/tests/integration/small_synth_omop.json", "rb") as f:
+        files = {"file": ("etc/tests/integration/small_synth_omop.json", f, "application/json")}
         response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload", headers=headers, files=files)
         print(f"Ingest response code: {response.status_code}")
 
@@ -566,7 +582,7 @@ def test_ingest_admin_omop(datasets, user_authz):
         response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
     print(response.json())
     assert response.json()["errors"] is None
-    assert response.json()["ingested_count"] == 12
+    assert response.json()["ingested_count"] == 84
     omop_response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/statistics")
     if omop_response.status_code == 200:
         omop_datasets = [x['dataset_id'] for x in omop_response.json()]
@@ -591,6 +607,155 @@ def test_add_dataset_info(datasets, user_authz):
         response = requests.patch(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/{dataset}/info", headers=headers, json=dataset_info)
         print(response)
         assert response.status_code == 200 
+
+
+def sample_request_body(filter_id, granularity="record"):
+    return {
+        "meta": {
+            "apiVersion": "v2.0.0"
+        },
+        "query": {
+            "requestedGranularity": granularity,
+            "filters": [
+                {
+                    "id": filter_id
+                }
+            ]
+        }
+    }
+
+
+@pytest.mark.parametrize("user, dataset", user_auth_datasets())
+def test_beacon_query(user, dataset):
+    """Test whether a user can execute a query."""
+    token = get_token(
+        username=ENV[f"{user}_USER"],
+        password=ENV[f"{user}_PASSWORD"],
+    )
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8",
+    }
+    body = sample_request_body(f"dataset_id:{dataset}")
+
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert response.status_code == 200
+
+    # Ensure that the dataset is included in the result
+    assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, dataset_size()[dataset])
+    assert response.json()["response"]["resultSets"][0]["resultsCount"] == dataset_size()[dataset]
+
+    # Ensure that the discovery query also matches up
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+    # Switch to a query on a specific thing
+    body = sample_request_body("ICD10:C06.9")
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    print(body)
+    print(response.json())
+    assert response.status_code == 200
+
+    if user != "CANDIG_NOT_ADMIN2":
+        # Ensure that test user ID 37 is included in the result
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == 2
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 2
+    else:
+        # Ensure that test user ID 37 is not included
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == 0
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 0
+        # Ensure that the discovery query also matches up
+        assert response.json()["info"]["patients_per_program"]["SITE_PM2C~SYNTH_01"] == 2
+    
+
+
+@pytest.mark.parametrize("user, dataset", user_auth_datasets())
+def test_beacon_granularity(user, dataset):
+    """Test whether a user can execute a query with a different requested granularity."""
+    token = get_token(
+        username=ENV[f"{user}_USER"],
+        password=ENV[f"{user}_PASSWORD"],
+    )
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8",
+    }
+    body = sample_request_body(f"dataset_id:{dataset}", "count")
+    # Ensure that the dataset does not returns individual records
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" not in response.json()
+    assert response.json()["responseSummary"]["numTotalResults"] == dataset_size()[dataset]
+
+    # Try again with boolean results
+    body = sample_request_body(f"dataset_id:{dataset}", "boolean")
+    # Ensure that the dataset does not returns individual records
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" not in response.json()
+    assert response.json()["responseSummary"]["exists"] == True
+
+
+@pytest.mark.parametrize("user, dataset", user_unauth_datasets())
+def test_beacon_granularity_unauth(user, dataset):
+    """Test whether a user can execute queries on data they do not have access to."""
+    token = get_token(
+        username=ENV[f"{user}_USER"],
+        password=ENV[f"{user}_PASSWORD"],
+    )
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8",
+    }
+    # Ensure that a request on records does not return individual records
+    body = sample_request_body(f"dataset_id:{dataset}", "record")
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" in response.json()
+    assert len(response.json()["response"]["resultSets"][0]["results"]) == 0
+    # Ensure that the discovery count is still correct
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+    # Try again with count results
+    body = sample_request_body(f"dataset_id:{dataset}", "count")
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" not in response.json()
+    assert response.json()["responseSummary"]["numTotalResults"] == 0
+    # Ensure that the discovery count is still correct
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+    # Try again with boolean results
+    body = sample_request_body(f"dataset_id:{dataset}", "boolean")
+    # Ensure that the dataset does not return individual records
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert "response" not in response.json()
+    assert response.json()["responseSummary"]["exists"] == False
+    # Ensure that the discovery count is still correct
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
 
 
 ## Htsget tests:
