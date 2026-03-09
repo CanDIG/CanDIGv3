@@ -1,6 +1,6 @@
 ---
 title: Prepare clinical data
-description: A step by step guide to preparing clinical data for ingest into CanDIG
+description: A step by step guide to preparing clinical data for ingest into CanDIGv3
 tableOfContents:
   minHeadingLevel: 1
   maxHeadingLevel: 3
@@ -132,3 +132,5 @@ python transform_MOHCCN_to_omop.py \
   -i input_mohccn_data.json \
   -o output_omop_data.json
 ```
+
+Once you have the omop formatted json, you can proceed to ingest the file into CanDIGv3 via the `candig-api` interface.

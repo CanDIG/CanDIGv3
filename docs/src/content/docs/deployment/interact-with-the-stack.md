@@ -68,7 +68,7 @@ make clean-htsget
 This stops the container, deletes the container and deletes the image.
 
 :::note
-For services that use the postgres container to save data, i.e. htsget (genomic data) and katsu (clinical data), deleting and rebuilding the service will not delete the data in postgres. If there have been changes to the underlying database, the postgres database will need to be deleted and rebuilt. 
+For services that use the postgres container to save data, i.e. htsget (genomic data), rnaget, candig-api (clinical data), deleting and rebuilding the service will not delete the data in postgres. If there have been changes to the underlying database, the postgres database will need to be deleted and rebuilt. 
 :::
 
 To rebuild and recompose a service first run:
