@@ -32,6 +32,7 @@ docker exec -it candigv2_postgres-db_1 bash
 pg_dump -U admin -d genomic -f yyyy-mm-dd-genomic-backup.sql
 pg_dump -U admin -d clinical -f yyyy-mm-dd-clinical-backup.sql
 pg_dump -U admin -d rnaget_db -f yyyy-mm-dd-rnaget-backup.sql
+pg_dump -U admin -d drs -f yyyy-mm-dd-drs-backup.sql
 ```
 
 You should then have three files, each with a complete copy of each of the databases. 
@@ -48,6 +49,7 @@ You should copy these to a secure location outside of the running container and 
 docker cp candigv2_postgres-db_1:yyyy-mm-dd-genomic-backup.sql /desired/path/target
 # docker cp candigv2_postgres-db_1:yyyy-mm-dd-clinical-backup.sql /desired/path/target
 # docker cp candigv2_postgres-db_1:yyyy-mm-dd-rnaget-backup.sql /desired/path/target
+# docker cp candigv2_postgres-db_1:yyyy-mm-dd-drs-backup.sql /desired/path/target
 ```
 
 ## Restoring postgres databases
@@ -67,7 +69,8 @@ docker stop candigv2_candig-api_1
 
 ```bash
 # docker cp /path/to/backup/yyyy-mm-dd-genomic-backup.sql candigv2_postgres-db_1:/yyyy-mm-dd-genomic-backup.sql
-# docker cp /path/to/backup/yyyy-mm-dd-genomic-backup.sql candigv2_postgres-db_1:/yyyy-mm-dd-rnaget-backup.sql
+# docker cp /path/to/backup/yyyy-mm-dd-rnaget-backup.sql candigv2_postgres-db_1:/yyyy-mm-dd-rnaget-backup.sql
+# docker cp /path/to/backup/yyyy-mm-dd-drs-backup.sql candigv2_postgres-db_1:/yyyy-mm-dd-drs-backup.sql
 docker cp /path/to/backup/yyyy-mm-dd-clinical-backup.sql candigv2_postgres-db_1:/yyyy-mm-dd-clinical-backup.sql
 ```
 
@@ -94,6 +97,8 @@ DROP DATABASE genomic;
 CREATE DATABASE genomic;
 DROP DATABASE rnaget-db;
 CREATE DATABASE rnaget-db;
+DROP DATABASE drs;
+CREATE DATABASE drs;
 \q
 ```
 
@@ -103,6 +108,7 @@ CREATE DATABASE rnaget-db;
 psql -U admin -d clinical < yyyy-mm-dd-clinical-backup.sql
 psql -U admin -d genomic < yyyy-mm-dd-genomic-backup.sql
 psql -U admin -d rnaget-db < yyyy-mm-dd-rnaget-backup.sql
+psql -U admin -d drs < yyyy-mm-dd-drs-backup.sql
 ```
 
 1. Exit the interactive terminal with the `exit` command.
