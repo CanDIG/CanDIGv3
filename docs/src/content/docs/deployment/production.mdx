@@ -26,22 +26,6 @@ It is essential to setup a reverse proxy and firewall so that only specific port
 
 Essentially, the only two ports that should be available to the outside world are Tyk (default 5080) and Keycloak (default 8080). Usually we configure a reverse proxy so that both are on separate domains, such that e.g. https://candig.uhnresearch.ca directs to Tyk and https://candigauth.uhnresearch.ca directs to Keycloak.
 
-Some specific examples of how existing institutes have approached this are below.
-
-### HAProxy - UHN & BCGSC
-
-At UHN, the candig.uhnresearch.ca domain is under a proxy, so requests to a specific service go through the following stack:
-
-```
-[ CLIENT ] ---> | HTTPS | ---> [ UHN PROXY ] ---> | HTTP | ---> [ CANDIG_PROD / TYK ] ---> | HTTP | ---> [ CANDIG_DATA_SERVICES ]
-```
-
-Specifically, the UHN proxy forwards all candig.uhnresearch.ca and candigauth.uhnresearch.ca requests (port 443) to candig1:5080 (tyk) and candig1:8080 (keycloak) respectively, thereby acting as a firewall.  All CanDIGv3 microservices can only be accessed through Tyk.
-
-:::note
-BCGSC initially had an issue with having a double proxy which caused a double URL bug. Switching to a single proxy resolved this issue. Please [reach out](https://github.com/CanDIG/CanDIGv3/issues/new/choose) if you need help solving this.
-:::
-
 :::note
 It is essential to properly setup the reverse proxy to set the `X-Forwarded-*` headers (or the `Forwarded` header if you must) along with the `KEYCLOAK_PROXY_HEADERS` `.env` variable, or very strange errors may occur. For example, if you run your reverse proxy on the same server as CanDIG and do not properly set X-Forwarded-Host, the OIDC connections will throw errors about being unable to connect to localhost.
 :::
