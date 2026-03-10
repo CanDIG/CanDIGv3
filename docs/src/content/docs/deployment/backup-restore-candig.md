@@ -26,7 +26,7 @@ To backup the data stored in these databases:
 docker exec -it candigv2_postgres-db_1 bash
 ```
 
-1. Dump contents of the three databases to files. `-d` specifies the database to dump, `-f` specifies the filename. Below we use the date and the name of the database being backed up:
+1. Dump contents of the four databases to files. `-d` specifies the database to dump, `-f` specifies the filename. Below we use the date and the name of the database being backed up:
 
 ```bash
 pg_dump -U admin -d genomic -f yyyy-mm-dd-genomic-backup.sql
@@ -35,7 +35,7 @@ pg_dump -U admin -d rnaget_db -f yyyy-mm-dd-rnaget-backup.sql
 pg_dump -U admin -d drs -f yyyy-mm-dd-drs-backup.sql
 ```
 
-You should then have three files, each with a complete copy of each of the databases. 
+You should then have four files, each with a complete copy of each of the databases. 
 
 You can now exit the container by entering
 
