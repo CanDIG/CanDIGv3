@@ -1,0 +1,2913 @@
+{
+  "openapi_url": "https://raw.githubusercontent.com/CanDIG/katsu/develop/chord_metadata_service/mohpackets/docs/schemas/schema.yml",
+  "schema_class": "MoHSchemaV3",
+  "donors": [
+    {
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -18975,
+        "month_interval": -624
+      },
+      "gender": "Non-binary",
+      "program_id": "SYNTH_01",
+      "submitter_donor_id": "DONOR_0001",
+      "primary_diagnoses": [
+        {
+          "basis_of_diagnosis": "Histology of a metastasis",
+          "cancer_type_code": "D05",
+          "clinical_stage_group": "Stage IB",
+          "clinical_tumour_staging_system": "Lugano staging system",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "pathological_stage_group": "Stage IVAE",
+          "pathological_tumour_staging_system": "Revised International staging system (R-ISS)",
+          "primary_site": "Breast",
+          "submitter_primary_diagnosis_id": "DIAG_0001",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Pathology estimate by percent nuclei",
+              "percent_tumour_cells_range": "51-100%",
+              "reference_pathology_confirmed_diagnosis": "No",
+              "reference_pathology_confirmed_tumour_presence": "No",
+              "specimen_anatomic_location": "C16.5",
+              "specimen_collection_date": {
+                "day_interval": 20,
+                "month_interval": 0
+              },
+              "specimen_laterality": "Right",
+              "specimen_storage": "OCT embedded",
+              "submitter_specimen_id": "SPECIMEN_0001",
+              "tumour_grade": "G3",
+              "tumour_grading_system": "Nuclear grading system for DCIS",
+              "tumour_histological_type": "8854/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "Total RNA",
+                  "specimen_tissue_source": "Fetal blood",
+                  "specimen_type": "Xenograft - derived from metastatic tumour",
+                  "submitter_sample_id": "SAMPLE_0001",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "Total DNA",
+                  "specimen_tissue_source": "Whole blood",
+                  "specimen_type": "Tumour - unknown if derived from primary or metastatic tumour",
+                  "submitter_sample_id": "SAMPLE_0002",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "polyA+ RNA",
+                  "specimen_tissue_source": "Abdominal fluid",
+                  "specimen_type": "Metastatic tumour - metastasis local to lymph node",
+                  "submitter_sample_id": "SAMPLE_0003"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment_criteria_method": "Blazer score",
+              "submitter_treatment_id": "TREATMENT_0001",
+              "treatment_intent": "Screening",
+              "treatment_start_date": {
+                "day_interval": 161,
+                "month_interval": 5
+              },
+              "treatment_type": [
+                "Other",
+                "Radiation therapy",
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 78.4,
+                  "days_per_cycle": 8,
+                  "end_date": {
+                    "day_interval": 319,
+                    "month_interval": 10
+                  },
+                  "number_of_cycles": 3,
+                  "prescribed_cumulative_drug_dose": 26.3,
+                  "start_date": {
+                    "day_interval": 231
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 73.2,
+                  "days_per_cycle": 5,
+                  "drug_dose_units": "mg/m2",
+                  "drug_name": "Paclitaxel",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "36314",
+                  "number_of_cycles": 1,
+                  "prescribed_cumulative_drug_dose": 28.8,
+                  "systemic_therapy_type": "Chemotherapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "lymphovascular_invasion": "Venous (large vessel) invasion only",
+                  "margin_types_involved": [
+                    "Common bile duct margin",
+                    "Distal margin",
+                    "Not available"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Not available"
+                  ],
+                  "perineural_invasion": "Cannot be assessed",
+                  "residual_tumour_classification": "R1",
+                  "surgery_reference_database": "SNOMED",
+                  "surgery_reference_identifier": "26294005",
+                  "surgery_site": "C16.8",
+                  "surgery_type": "Radical prostatectomy",
+                  "tumour_focality": "Multifocal",
+                  "tumour_length": 8,
+                  "tumour_width": 6
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Progressive disease",
+              "response_to_treatment_criteria_method": "AML Response Criteria",
+              "status_of_treatment": "Treatment stopped due to acute toxicity",
+              "submitter_treatment_id": "TREATMENT_0002",
+              "treatment_end_date": {
+                "day_interval": 421,
+                "month_interval": 13
+              },
+              "treatment_intent": "Supportive",
+              "treatment_start_date": {
+                "day_interval": 167,
+                "month_interval": 5
+              },
+              "treatment_type": [
+                "Surgery",
+                "Stem cell transplant",
+                "Radiation therapy",
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "FINGER (INCLUDING THUMBS)",
+                  "radiation_boost": "No",
+                  "radiation_therapy_dosage": 91,
+                  "radiation_therapy_fractions": 24
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 65.7,
+                  "days_per_cycle": 24,
+                  "drug_dose_units": "IU/m2",
+                  "drug_name": "Carboplatin",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C1282",
+                  "end_date": {
+                    "day_interval": 397,
+                    "month_interval": 13
+                  },
+                  "number_of_cycles": 3,
+                  "prescribed_cumulative_drug_dose": 41.6,
+                  "start_date": {
+                    "day_interval": 380,
+                    "month_interval": 12
+                  },
+                  "systemic_therapy_type": "Chemotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 70.5,
+                  "days_per_cycle": 16,
+                  "drug_dose_units": "IU/kg",
+                  "drug_name": "Durvalumab",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "1919503",
+                  "number_of_cycles": 7,
+                  "prescribed_cumulative_drug_dose": 28.3,
+                  "systemic_therapy_type": "Immunotherapy"
+                }
+              ]
+            }
+          ],
+          "followups": [
+            {
+              "date_of_followup": {
+                "day_interval": 1965,
+                "month_interval": 64
+              },
+              "method_of_progression_status": [
+                "Tumor marker measurement (procedure)",
+                "Imaging (procedure)",
+                "Laboratory data interpretation (procedure)"
+              ],
+              "relapse_type": "Biochemical progression",
+              "submitter_follow_up_id": "FOLLOW_UP_0001"
+            }
+          ]
+        }
+      ],
+      "biomarkers": [
+        {
+          "ca125": 82,
+          "cea": 22,
+          "er_percent_positive": 61.36,
+          "er_status": "Positive",
+          "her2_ihc_status": "Cannot be determined",
+          "her2_ish_status": "Negative",
+          "hpv_ihc_status": "Cannot be determined",
+          "hpv_pcr_status": "Positive",
+          "hpv_strain": [
+            "HPV73"
+          ],
+          "pr_status": "Not available",
+          "pr_percent_positive": 17.15,
+          "psa_level": 99,
+          "test_date": {
+            "day_interval": -18039,
+            "month_interval": -593
+          }
+        }
+      ]
+    },
+    {
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -17104,
+        "month_interval": -562
+      },
+      "gender": "Woman",
+      "program_id": "SYNTH_01",
+      "sex_at_birth": "Male",
+      "submitter_donor_id": "DONOR_0002",
+      "primary_diagnoses": [
+        {
+          "cancer_type_code": "C45",
+          "clinical_stage_group": "Stage 0a",
+          "clinical_tumour_staging_system": "International Neuroblastoma Staging System",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "pathological_stage_group": "Stage B",
+          "pathological_tumour_staging_system": "Revised International staging system (R-ISS)",
+          "primary_site": "Bronchus and lung",
+          "submitter_primary_diagnosis_id": "DIAG_0002",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Image analysis",
+              "reference_pathology_confirmed_diagnosis": "Yes",
+              "reference_pathology_confirmed_tumour_presence": "Yes",
+              "specimen_anatomic_location": "C00.5",
+              "specimen_laterality": "Right",
+              "specimen_processing": "Cryopreservation - other",
+              "specimen_storage": "Paraffin block",
+              "submitter_specimen_id": "SPECIMEN_0002",
+              "tumour_grade": "Grade IV",
+              "tumour_histological_type": "9269/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "Amplified DNA",
+                  "specimen_tissue_source": "Cord blood",
+                  "specimen_type": "Tumour - unknown if derived from primary or metastatic tumour",
+                  "submitter_sample_id": "SAMPLE_0004",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "polyA+ RNA",
+                  "specimen_tissue_source": "Other",
+                  "specimen_type": "Recurrent tumour",
+                  "submitter_sample_id": "SAMPLE_0005",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "Amplified DNA",
+                  "specimen_tissue_source": "Cerebrospinal fluid",
+                  "specimen_type": "Cell line - derived from primary tumour",
+                  "submitter_sample_id": "SAMPLE_0006"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Complete remission with incomplete hematologic recovery (CRi)",
+              "response_to_treatment_criteria_method": "Response Assessment in Neuro-Oncology (RANO)",
+              "status_of_treatment": "Treatment ongoing",
+              "submitter_treatment_id": "TREATMENT_0003",
+              "treatment_end_date": {
+                "day_interval": 274,
+                "month_interval": 9
+              },
+              "treatment_start_date": {
+                "day_interval": 133,
+                "month_interval": 4
+              },
+              "treatment_type": [
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 95.5,
+                  "drug_dose_units": "Not available",
+                  "drug_name": "Atezolizumab",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "469690927",
+                  "end_date": {
+                    "day_interval": 243,
+                    "month_interval": 7
+                  },
+                  "number_of_cycles": 5,
+                  "start_date": {
+                    "day_interval": 179,
+                    "month_interval": 5
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 92.9,
+                  "days_per_cycle": 29,
+                  "end_date": {
+                    "day_interval": 273,
+                    "month_interval": 8
+                  },
+                  "number_of_cycles": 1,
+                  "prescribed_cumulative_drug_dose": 30.1,
+                  "start_date": {
+                    "day_interval": 273,
+                    "month_interval": 8
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 10,
+                  "lymphovascular_invasion": "Absent",
+                  "margin_types_involved": [
+                    "Not available",
+                    "Circumferential resection margin",
+                    "Common bile duct margin"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Common bile duct margin"
+                  ],
+                  "perineural_invasion": "Not applicable",
+                  "residual_tumour_classification": "Not available",
+                  "surgery_location": "Primary",
+                  "surgery_reference_database": "NCIt",
+                  "surgery_reference_identifier": "C185240",
+                  "surgery_site": "C41.9",
+                  "surgery_type": "Total gastrectomy",
+                  "tumour_focality": "Unifocal",
+                  "tumour_length": 3,
+                  "tumour_width": 9
+                }
+              ],
+              "followups": [
+                {
+                  "date_of_followup": {
+                    "day_interval": 593,
+                    "month_interval": 19
+                  },
+                  "method_of_progression_status": [
+                    "Laboratory data interpretation (procedure)",
+                    "Imaging (procedure)",
+                    "Physical examination procedure (procedure)"
+                  ],
+                  "relapse_type": "Biochemical progression",
+                  "submitter_follow_up_id": "FOLLOW_UP_0002"
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment": "Immune stable disease (iSD)",
+              "response_to_treatment_criteria_method": "Cheson CLL 2012 Oncology Response Criteria",
+              "status_of_treatment": "Other",
+              "submitter_treatment_id": "TREATMENT_0004",
+              "treatment_intent": "Forensic",
+              "treatment_start_date": {
+                "day_interval": 136,
+                "month_interval": 4
+              },
+              "treatment_type": [
+                "Stem cell transplant",
+                "Bone marrow transplant",
+                "Radiation therapy",
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "LEFT CHESTWALL BOOST",
+                  "radiation_boost": "No",
+                  "radiation_therapy_modality": "Teleradiotherapy using electrons (procedure)"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "days_per_cycle": 2,
+                  "drug_dose_units": "mg/m2",
+                  "drug_name": "Nivolumab",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C68814",
+                  "end_date": {
+                    "day_interval": 250,
+                    "month_interval": 8
+                  },
+                  "prescribed_cumulative_drug_dose": 39.7,
+                  "start_date": {
+                    "day_interval": 224
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 70.9,
+                  "days_per_cycle": 23,
+                  "drug_dose_units": "IU/kg",
+                  "drug_name": "Degarelix",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "16136245",
+                  "end_date": {
+                    "day_interval": 250,
+                    "month_interval": 8
+                  },
+                  "number_of_cycles": 5,
+                  "prescribed_cumulative_drug_dose": 36.9,
+                  "start_date": {
+                    "day_interval": 196
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "biomarkers": [
+        {
+          "ca125": 100,
+          "cea": 43,
+          "er_percent_positive": 22.47,
+          "er_status": "Positive",
+          "her2_ihc_status": "Cannot be determined",
+          "her2_ish_status": "Not applicable",
+          "hpv_ihc_status": "Cannot be determined",
+          "hpv_pcr_status": "Positive",
+          "pr_status": "Positive",
+          "pr_percent_positive": 38.26,
+          "psa_level": 34,
+          "submitter_specimen_id": "SPECIMEN_0002",
+          "test_date": {
+            "day_interval": -3224,
+            "month_interval": -106
+          }
+        }
+      ]
+    },
+    {
+      "cause_of_death": "Died of cancer",
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -17029,
+        "month_interval": -560
+      },
+      "date_of_death": {
+        "day_interval": 4600,
+        "month_interval": 151
+      },
+      "gender": "Non-binary",
+      "is_deceased": "Yes",
+      "program_id": "SYNTH_01",
+      "sex_at_birth": "Other",
+      "submitter_donor_id": "DONOR_0003",
+      "primary_diagnoses": [
+        {
+          "basis_of_diagnosis": "Histology of a primary tumour",
+          "cancer_type_code": "D38",
+          "clinical_stage_group": "Stage III",
+          "clinical_tumour_staging_system": "St Jude staging system",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "laterality": "Unilateral, side not specified",
+          "pathological_tumour_staging_system": "International Neuroblastoma Risk Group Staging System",
+          "primary_site": "Colon",
+          "submitter_primary_diagnosis_id": "DIAG_0003",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Genomics",
+              "percent_tumour_cells_range": "51-100%",
+              "reference_pathology_confirmed_diagnosis": "Not done",
+              "reference_pathology_confirmed_tumour_presence": "Not done",
+              "specimen_anatomic_location": "C54.8",
+              "specimen_collection_date": {
+                "day_interval": 28,
+                "month_interval": 0
+              },
+              "specimen_processing": "Cryopreservation in liquid nitrogen (dead tissue)",
+              "specimen_storage": "OCT embedded",
+              "submitter_specimen_id": "SPECIMEN_0003",
+              "tumour_grade": "High",
+              "tumour_grading_system": "Four-tier grading system",
+              "tumour_histological_type": "9021/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "Protein",
+                  "specimen_tissue_source": "Seminal fluid",
+                  "specimen_type": "Normal",
+                  "submitter_sample_id": "SAMPLE_0007",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "Total DNA",
+                  "specimen_tissue_source": "Male genital fluid",
+                  "specimen_type": "Metastatic tumour",
+                  "submitter_sample_id": "SAMPLE_0008",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "Other RNA fractions",
+                  "specimen_tissue_source": "Pancreatic fluid",
+                  "specimen_type": "Cell line - derived from xenograft tumour",
+                  "submitter_sample_id": "SAMPLE_0009"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Complete remission with incomplete hematologic recovery (CRi)",
+              "response_to_treatment_criteria_method": "Blazer score",
+              "status_of_treatment": "Treatment ongoing",
+              "submitter_treatment_id": "TREATMENT_0005",
+              "treatment_intent": "Guidance",
+              "treatment_type": [
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 64.2,
+                  "drug_dose_units": "mg",
+                  "number_of_cycles": 1,
+                  "prescribed_cumulative_drug_dose": 25.1,
+                  "systemic_therapy_type": "Chemotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 92.8,
+                  "days_per_cycle": 24,
+                  "drug_dose_units": "IU/kg",
+                  "drug_name": "Atezolizumab",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "469690927",
+                  "number_of_cycles": 2,
+                  "prescribed_cumulative_drug_dose": 43.2,
+                  "systemic_therapy_type": "Immunotherapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 3,
+                  "lymphovascular_invasion": "Present",
+                  "margin_types_involved": [
+                    "Proximal margin",
+                    "Common bile duct margin",
+                    "Not applicable"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Distal margin"
+                  ],
+                  "margin_types_not_involved": [
+                    "Proximal margin"
+                  ],
+                  "perineural_invasion": "Not applicable",
+                  "residual_tumour_classification": "R2",
+                  "surgery_reference_database": "NCIt",
+                  "surgery_reference_identifier": "C15281",
+                  "surgery_site": "C02.9",
+                  "surgery_type": "Total Mastectomy",
+                  "tumour_focality": "Unifocal",
+                  "tumour_length": 5
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment": "Physician assessed stable disease",
+              "response_to_treatment_criteria_method": "Blazer score",
+              "status_of_treatment": "Treatment stopped due to acute toxicity",
+              "submitter_treatment_id": "TREATMENT_0006",
+              "treatment_end_date": {
+                "day_interval": 208,
+                "month_interval": 6
+              },
+              "treatment_intent": "Supportive",
+              "treatment_start_date": {
+                "day_interval": 89,
+                "month_interval": 2
+              },
+              "treatment_type": [
+                "Surgery",
+                "Radiation therapy",
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "RIGHT PAROTID",
+                  "radiation_boost": "No",
+                  "radiation_therapy_modality": "Brachytherapy (procedure)",
+                  "radiation_therapy_type": "Internal"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 84.3,
+                  "days_per_cycle": 23,
+                  "drug_dose_units": "g/m2",
+                  "drug_name": "Atezolizumab",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "1792776",
+                  "prescribed_cumulative_drug_dose": 24.3,
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 75.5,
+                  "number_of_cycles": 8,
+                  "systemic_therapy_type": "Chemotherapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exposures": [
+        {
+          "pack_years_smoked": 34,
+          "tobacco_smoking_status": "Current smoker",
+          "tobacco_type": [
+            "Not available"
+          ]
+        }
+      ],
+      "biomarkers": [
+        {
+          "ca125": 57,
+          "cea": 78,
+          "er_status": "Cannot be determined",
+          "her2_ihc_status": "Equivocal",
+          "hpv_ihc_status": "Negative",
+          "hpv_pcr_status": "Not available",
+          "hpv_strain": [
+            "HPV58"
+          ],
+          "pr_status": "Not applicable",
+          "psa_level": 1,
+          "submitter_primary_diagnosis_id": "DIAG_0003",
+          "test_date": {
+            "day_interval": -7616,
+            "month_interval": -251
+          }
+        }
+      ],
+      "followups": [
+        {
+          "date_of_relapse": {
+            "day_interval": 266,
+            "month_interval": 8
+          },
+          "disease_status_at_followup": "Distant progression",
+          "method_of_progression_status": [
+            "Physical examination procedure (procedure)",
+            "Tumor marker measurement (procedure)",
+            "Histopathology test (procedure)"
+          ],
+          "relapse_type": "Biochemical progression",
+          "submitter_follow_up_id": "FOLLOW_UP_0003"
+        }
+      ]
+    },
+    {
+      "cause_of_death": "Not available",
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -18163,
+        "month_interval": -597
+      },
+      "date_of_death": {
+        "day_interval": 11977,
+        "month_interval": 393
+      },
+      "is_deceased": "Yes",
+      "program_id": "SYNTH_02",
+      "sex_at_birth": "Female",
+      "submitter_donor_id": "DONOR_0006",
+      "primary_diagnoses": [
+        {
+          "cancer_type_code": "C36",
+          "clinical_stage_group": "Stage I",
+          "clinical_tumour_staging_system": "SEER staging system",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "pathological_stage_group": "In situ",
+          "pathological_tumour_staging_system": "International Neuroblastoma Risk Group Staging System",
+          "primary_site": "Breast",
+          "submitter_primary_diagnosis_id": "DIAG_0006",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Image analysis",
+              "percent_tumour_cells_range": "20-50%",
+              "reference_pathology_confirmed_diagnosis": "Yes",
+              "reference_pathology_confirmed_tumour_presence": "Not available",
+              "specimen_anatomic_location": "C41.8",
+              "specimen_collection_date": {
+                "day_interval": 26,
+                "month_interval": 0
+              },
+              "specimen_laterality": "Not available",
+              "specimen_processing": "Cryopreservation in liquid nitrogen (dead tissue)",
+              "specimen_storage": "OCT embedded",
+              "submitter_specimen_id": "SPECIMEN_0006",
+              "tumour_grade": "Grade I",
+              "tumour_histological_type": "9663/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "Protein",
+                  "specimen_tissue_source": "Hydrocele fluid",
+                  "specimen_type": "Cell line - derived from metastatic tumour",
+                  "submitter_sample_id": "SAMPLE_0017",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "ctDNA",
+                  "specimen_tissue_source": "Fetal blood",
+                  "specimen_type": "Primary tumour",
+                  "submitter_sample_id": "SAMPLE_0018"
+                },
+                {
+                  "sample_type": "Other DNA enrichments",
+                  "specimen_tissue_source": "Bile",
+                  "specimen_type": "Xenograft - derived from primary tumour",
+                  "submitter_sample_id": "SAMPLE_0016",
+                  "tumour_normal_designation": "Normal"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment": "Molecular relapse (after CR MRD-)",
+              "response_to_treatment_criteria_method": "Not available",
+              "status_of_treatment": "Treatment incomplete because patient died",
+              "submitter_treatment_id": "TREATMENT_0012",
+              "treatment_end_date": {
+                "day_interval": 162,
+                "month_interval": 5
+              },
+              "treatment_intent": "Preventive",
+              "treatment_start_date": {
+                "day_interval": 73,
+                "month_interval": 2
+              },
+              "treatment_type": [
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "WHOLE BODY - SKIN",
+                  "radiation_boost": "No",
+                  "radiation_therapy_modality": "Teleradiotherapy protons (procedure)"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 61.7,
+                  "days_per_cycle": 30,
+                  "drug_name": "Paclitaxel",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C1411",
+                  "end_date": {
+                    "day_interval": 159,
+                    "month_interval": 5
+                  },
+                  "number_of_cycles": 10,
+                  "start_date": {
+                    "day_interval": 159,
+                    "month_interval": 5
+                  },
+                  "systemic_therapy_type": "Chemotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 66.8,
+                  "days_per_cycle": 14,
+                  "drug_dose_units": "mg/m2",
+                  "drug_name": "Fluoxymesterone",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "6446",
+                  "end_date": {
+                    "day_interval": 147,
+                    "month_interval": 4
+                  },
+                  "number_of_cycles": 8,
+                  "prescribed_cumulative_drug_dose": 27.8,
+                  "start_date": {
+                    "day_interval": 94,
+                    "month_interval": 3
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment": "Physician assessed stable disease",
+              "response_to_treatment_criteria_method": "Blazer score",
+              "submitter_treatment_id": "TREATMENT_0011",
+              "treatment_end_date": {
+                "day_interval": 424,
+                "month_interval": 13
+              },
+              "treatment_intent": "Diagnostic",
+              "treatment_start_date": {
+                "day_interval": 94,
+                "month_interval": 3
+              },
+              "treatment_type": [
+                "Systemic therapy",
+                "Surgery"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 81.5,
+                  "days_per_cycle": 27,
+                  "drug_dose_units": "mg",
+                  "drug_name": "Durvalumab",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C103194",
+                  "end_date": {
+                    "day_interval": 172,
+                    "month_interval": 5
+                  },
+                  "number_of_cycles": 3,
+                  "prescribed_cumulative_drug_dose": 38,
+                  "start_date": {
+                    "day_interval": 172,
+                    "month_interval": 5
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 70.4,
+                  "days_per_cycle": 7,
+                  "drug_dose_units": "IU/m2",
+                  "drug_name": "Nivolumab",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C68814",
+                  "end_date": {
+                    "day_interval": 190,
+                    "month_interval": 6
+                  },
+                  "number_of_cycles": 10,
+                  "prescribed_cumulative_drug_dose": 29.1,
+                  "start_date": {
+                    "day_interval": 120,
+                    "month_interval": 3
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 10,
+                  "lymphovascular_invasion": "Present",
+                  "margin_types_involved": [
+                    "Distal margin",
+                    "Common bile duct margin"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Proximal margin"
+                  ],
+                  "margin_types_not_involved": [
+                    "Circumferential resection margin"
+                  ],
+                  "perineural_invasion": "Present",
+                  "residual_tumour_classification": "R1",
+                  "surgery_location": "Primary",
+                  "surgery_reference_database": "NCIt",
+                  "surgery_reference_identifier": "C15281",
+                  "surgery_site": "C39.8",
+                  "surgery_type": "Total Mastectomy",
+                  "tumour_length": 2,
+                  "tumour_width": 7
+                }
+              ]
+            }
+          ],
+          "followups": [
+            {
+              "date_of_followup": {
+                "day_interval": 7503,
+                "month_interval": 246
+              },
+              "disease_status_at_followup": "No evidence of disease",
+              "method_of_progression_status": [
+                "Laboratory data interpretation (procedure)",
+                "Tumor marker measurement (procedure)",
+                "Histopathology test (procedure)"
+              ],
+              "relapse_type": "Local recurrence and distant metastasis",
+              "submitter_follow_up_id": "FOLLOW_UP_0004"
+            }
+          ]
+        }
+      ],
+      "biomarkers": [
+        {
+          "ca125": 52,
+          "cea": 76,
+          "er_status": "Negative",
+          "her2_ish_status": "Not available",
+          "hpv_ihc_status": "Not applicable",
+          "hpv_pcr_status": "Cannot be determined",
+          "hpv_strain": [
+            "HPV51"
+          ],
+          "pr_status": "Positive",
+          "pr_percent_positive": 88.89,
+          "submitter_treatment_id": "TREATMENT_0011",
+          "test_date": {
+            "day_interval": -16423,
+            "month_interval": -540
+          }
+        }
+      ]
+    },
+    {
+      "date_resolution": "day",
+      "gender": "Woman",
+      "program_id": "SYNTH_02",
+      "submitter_donor_id": "DONOR_0007",
+      "primary_diagnoses": [
+        {
+          "basis_of_diagnosis": "Specific tumour markers",
+          "cancer_type_code": "C87",
+          "clinical_stage_group": "Stage IV",
+          "clinical_tumour_staging_system": "Rai staging system",
+          "laterality": "Right",
+          "pathological_stage_group": "Stage III",
+          "pathological_tumour_staging_system": "St Jude staging system",
+          "primary_site": "Bronchus and lung",
+          "submitter_primary_diagnosis_id": "DIAG_0007",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Not available",
+              "percent_tumour_cells_range": "51-100%",
+              "specimen_anatomic_location": "C30.0",
+              "specimen_collection_date": {
+                "day_interval": 74,
+                "month_interval": 2
+              },
+              "specimen_processing": "Formalin fixed - buffered",
+              "specimen_storage": "Paraffin block",
+              "submitter_specimen_id": "SPECIMEN_0007",
+              "tumour_grade": "Grade IV",
+              "tumour_grading_system": "Nuclear grading system for DCIS",
+              "tumour_histological_type": "9154/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "polyA+ RNA",
+                  "specimen_tissue_source": "Amniotic fluid",
+                  "submitter_sample_id": "SAMPLE_0019",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "Protein",
+                  "specimen_tissue_source": "Whole blood",
+                  "specimen_type": "Primary tumour",
+                  "submitter_sample_id": "SAMPLE_0020",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "Total DNA",
+                  "specimen_tissue_source": "Renal cyst fluid",
+                  "specimen_type": "Primary tumour",
+                  "submitter_sample_id": "SAMPLE_0021"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment": "Hematologic relapse (after CR MRD-, CR, CRi)",
+              "response_to_treatment_criteria_method": "iRECIST",
+              "status_of_treatment": "Treatment incomplete because patient died",
+              "submitter_treatment_id": "TREATMENT_0013",
+              "treatment_end_date": {
+                "day_interval": 495,
+                "month_interval": 16
+              },
+              "treatment_intent": "Supportive",
+              "treatment_start_date": {
+                "day_interval": 114,
+                "month_interval": 3
+              },
+              "treatment_type": [
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 61.9,
+                  "days_per_cycle": 19,
+                  "drug_dose_units": "ug/m2",
+                  "drug_name": "Diethylstilbestrol",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "3390",
+                  "end_date": {
+                    "day_interval": 429,
+                    "month_interval": 14
+                  },
+                  "number_of_cycles": 7,
+                  "prescribed_cumulative_drug_dose": 31.4,
+                  "start_date": {
+                    "day_interval": 266,
+                    "month_interval": 8
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                },
+                {
+                  "days_per_cycle": 10,
+                  "drug_dose_units": "mg/m2",
+                  "drug_name": "Methotrexate",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "126941",
+                  "end_date": {
+                    "day_interval": 456,
+                    "month_interval": 14
+                  },
+                  "number_of_cycles": 6,
+                  "prescribed_cumulative_drug_dose": 43,
+                  "start_date": {
+                    "day_interval": 376,
+                    "month_interval": 12
+                  },
+                  "systemic_therapy_type": "Chemotherapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 9,
+                  "lymphovascular_invasion": "Both lymphatic and small vessel and venous (large vessel) invasion",
+                  "margin_types_involved": [
+                    "Circumferential resection margin",
+                    "Common bile duct margin"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Not applicable"
+                  ],
+                  "margin_types_not_involved": [
+                    "Not applicable"
+                  ],
+                  "perineural_invasion": "Present",
+                  "residual_tumour_classification": "R2",
+                  "surgery_location": "Local recurrence",
+                  "surgery_reference_database": "SNOMED",
+                  "surgery_reference_identifier": "26294005",
+                  "surgery_site": "C57.3",
+                  "surgery_type": "Radical prostatectomy",
+                  "tumour_focality": "Not available",
+                  "tumour_length": 9,
+                  "tumour_width": 10
+                }
+              ],
+              "followups": [
+                {
+                  "date_of_followup": {
+                    "day_interval": 688,
+                    "month_interval": 22
+                  },
+                  "disease_status_at_followup": "Complete remission",
+                  "method_of_progression_status": [
+                    "Laboratory data interpretation (procedure)",
+                    "Histopathology test (procedure)",
+                    "Physical examination procedure (procedure)"
+                  ],
+                  "relapse_type": "Distant recurrence/metastasis",
+                  "submitter_follow_up_id": "FOLLOW_UP_0005"
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Immune stable disease (iSD)",
+              "response_to_treatment_criteria_method": "RECIST 1.1",
+              "status_of_treatment": "Other",
+              "submitter_treatment_id": "TREATMENT_0014",
+              "treatment_intent": "Screening",
+              "treatment_type": [
+                "Other",
+                "Stem cell transplant",
+                "Radiation therapy",
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "LOWER BODY",
+                  "radiation_boost": "No",
+                  "radiation_therapy_type": "External"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 69.2,
+                  "days_per_cycle": 10,
+                  "drug_name": "Ipilimumab",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C2654",
+                  "number_of_cycles": 5,
+                  "prescribed_cumulative_drug_dose": 28,
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 81.6,
+                  "days_per_cycle": 24,
+                  "drug_dose_units": "mg",
+                  "drug_name": "Buserelin",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "1825",
+                  "number_of_cycles": 9,
+                  "prescribed_cumulative_drug_dose": 42.7,
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "biomarkers": [
+        {
+          "ca125": 34,
+          "cea": 83,
+          "er_percent_positive": 13.08,
+          "her2_ish_status": "Positive",
+          "hpv_ihc_status": "Negative",
+          "hpv_pcr_status": "Not applicable",
+          "hpv_strain": [
+            "HPV35"
+          ],
+          "pr_status": "Not applicable",
+          "psa_level": 95,
+          "submitter_follow_up_id": "FOLLOW_UP_0005",
+          "test_date": {
+            "day_interval": -1313,
+            "month_interval": -44
+          }
+        }
+      ]
+    },
+    {
+      "cause_of_death": "Died of cancer",
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -19265,
+        "month_interval": -633
+      },
+      "date_of_death": {
+        "day_interval": 14391,
+        "month_interval": 472
+      },
+      "gender": "Non-binary",
+      "is_deceased": "Yes",
+      "program_id": "SYNTH_02",
+      "sex_at_birth": "Female",
+      "submitter_donor_id": "DONOR_0008",
+      "primary_diagnoses": [
+        {
+          "basis_of_diagnosis": "Cytology",
+          "cancer_type_code": "D07",
+          "clinical_stage_group": "Stage IIEB",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "pathological_stage_group": "Stage IVBES",
+          "pathological_tumour_staging_system": "International Neuroblastoma Staging System",
+          "primary_site": "Colon",
+          "submitter_primary_diagnosis_id": "DIAG_0008",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Not available",
+              "percent_tumour_cells_range": "20-50%",
+              "reference_pathology_confirmed_diagnosis": "Not available",
+              "specimen_anatomic_location": "C34.8",
+              "specimen_processing": "Formalin fixed & paraffin embedded",
+              "submitter_specimen_id": "SPECIMEN_0008",
+              "tumour_grade": "G4",
+              "tumour_grading_system": "Grading system for GISTs",
+              "sample_registrations": [
+                {
+                  "specimen_tissue_source": "Pleural fluid",
+                  "specimen_type": "Xenograft - derived from tumour cell line",
+                  "submitter_sample_id": "SAMPLE_0022",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "rRNA-depleted RNA",
+                  "specimen_tissue_source": "Synovial fluid",
+                  "specimen_type": "Cell line - derived from metastatic tumour",
+                  "submitter_sample_id": "SAMPLE_0023",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "Other RNA fractions",
+                  "specimen_tissue_source": "Pancreatic fluid",
+                  "specimen_type": "Normal - tissue adjacent to primary tumour",
+                  "submitter_sample_id": "SAMPLE_0024"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Progressive disease",
+              "status_of_treatment": "Patient choice (stopped or interrupted treatment)",
+              "submitter_treatment_id": "TREATMENT_0015",
+              "treatment_end_date": {
+                "day_interval": 420,
+                "month_interval": 13
+              },
+              "treatment_start_date": {
+                "day_interval": 153,
+                "month_interval": 5
+              },
+              "treatment_type": [
+                "Radiation therapy",
+                "Photodynamic therapy",
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 65.2,
+                  "drug_name": "Pembrolizumab",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C106432",
+                  "end_date": {
+                    "day_interval": 408,
+                    "month_interval": 13
+                  },
+                  "prescribed_cumulative_drug_dose": 38.8,
+                  "start_date": {
+                    "day_interval": 362,
+                    "month_interval": 11
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 77.9,
+                  "days_per_cycle": 7,
+                  "drug_dose_units": "ug/m2",
+                  "drug_name": "Fludarabine",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C1094",
+                  "end_date": {
+                    "day_interval": 370,
+                    "month_interval": 12
+                  },
+                  "number_of_cycles": 8,
+                  "prescribed_cumulative_drug_dose": 27.1,
+                  "start_date": {
+                    "day_interval": 349,
+                    "month_interval": 11
+                  },
+                  "systemic_therapy_type": "Chemotherapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 2,
+                  "lymphovascular_invasion": "Present",
+                  "margin_types_involved": [
+                    "Proximal margin",
+                    "Not applicable",
+                    "Distal margin"
+                  ],
+                  "perineural_invasion": "Absent",
+                  "residual_tumour_classification": "Not available",
+                  "surgery_reference_database": "SNOMED",
+                  "surgery_reference_identifier": "26452005",
+                  "surgery_site": "C71.7",
+                  "surgery_type": "Total gastrectomy",
+                  "tumour_length": 7,
+                  "tumour_width": 10
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Stable disease",
+              "response_to_treatment_criteria_method": "Response Assessment in Neuro-Oncology (RANO)",
+              "status_of_treatment": "Treatment completed as prescribed",
+              "submitter_treatment_id": "TREATMENT_0016",
+              "treatment_end_date": {
+                "day_interval": 354,
+                "month_interval": 11
+              },
+              "treatment_start_date": {
+                "day_interval": 80,
+                "month_interval": 2
+              },
+              "treatment_type": [
+                "Other",
+                "Radiation therapy",
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "LEFT SUPRACLAVICULAR NODES",
+                  "radiation_boost": "No",
+                  "radiation_therapy_dosage": 30,
+                  "radiation_therapy_modality": "Radiopharmaceutical",
+                  "radiation_therapy_type": "External"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 53.2,
+                  "days_per_cycle": 9,
+                  "drug_dose_units": "mg/m2",
+                  "drug_name": "Atezolizumab",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "469690927",
+                  "end_date": {
+                    "day_interval": 341,
+                    "month_interval": 11
+                  },
+                  "number_of_cycles": 8,
+                  "prescribed_cumulative_drug_dose": 22.5,
+                  "start_date": {
+                    "day_interval": 305,
+                    "month_interval": 10
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 72.4,
+                  "days_per_cycle": 4,
+                  "drug_dose_units": "mg/kg",
+                  "drug_name": "Pembrolizumab",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "469691028",
+                  "end_date": {
+                    "day_interval": 346,
+                    "month_interval": 11
+                  },
+                  "prescribed_cumulative_drug_dose": 49,
+                  "start_date": {
+                    "day_interval": 345,
+                    "month_interval": 11
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "exposures": [
+        {
+          "tobacco_smoking_status": "Current smoker",
+          "tobacco_type": [
+            "Roll-ups",
+            "Not available"
+          ]
+        }
+      ],
+      "biomarkers": [
+        {
+          "ca125": 38,
+          "cea": 3,
+          "er_status": "Not applicable",
+          "her2_ihc_status": "Not available",
+          "her2_ish_status": "Not available",
+          "hpv_ihc_status": "Not applicable",
+          "hpv_pcr_status": "Cannot be determined",
+          "hpv_strain": [
+            "HPV73"
+          ],
+          "pr_percent_positive": 49.9,
+          "psa_level": 32,
+          "test_date": {
+            "day_interval": -706,
+            "month_interval": -24
+          }
+        }
+      ],
+      "followups": [
+        {
+          "date_of_followup": {
+            "day_interval": 10851,
+            "month_interval": 356
+          },
+          "method_of_progression_status": [
+            "Histopathology test (procedure)",
+            "Imaging (procedure)",
+            "Tumor marker measurement (procedure)"
+          ],
+          "relapse_type": "Not available",
+          "submitter_follow_up_id": "FOLLOW_UP_0006"
+        }
+      ]
+    },
+    {
+      "cause_of_death": "Died of cancer",
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -18355,
+        "month_interval": -604
+      },
+      "date_of_death": {
+        "day_interval": 4070,
+        "month_interval": 133
+      },
+      "gender": "Man",
+      "is_deceased": "Yes",
+      "program_id": "SYNTH_01",
+      "sex_at_birth": "Female",
+      "submitter_donor_id": "DONOR_ALL_0001",
+      "primary_diagnoses": [
+        {
+          "basis_of_diagnosis": "Histology of a primary tumour",
+          "cancer_type_code": "C06.9",
+          "clinical_m_category": "M1b(0)",
+          "clinical_n_category": "N1c",
+          "clinical_stage_group": "Stage IES",
+          "clinical_t_category": "T4a(m)",
+          "clinical_tumour_staging_system": "Durie-Salmon staging system",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "laterality": "Left",
+          "pathological_m_category": "M1a(0)",
+          "pathological_n_category": "N1mi",
+          "pathological_stage_group": "Stage IAS",
+          "pathological_t_category": "T2(s)",
+          "pathological_tumour_staging_system": "Rai staging system",
+          "primary_site": "Floor of mouth",
+          "submitter_primary_diagnosis_id": "DIAG_ALL_0001",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Other",
+              "percent_tumour_cells_range": "20-50%",
+              "reference_pathology_confirmed_diagnosis": "No",
+              "reference_pathology_confirmed_tumour_presence": "Yes",
+              "specimen_anatomic_location": "C41.1",
+              "specimen_collection_date": {
+                "day_interval": 21,
+                "month_interval": 0
+              },
+              "specimen_laterality": "Left",
+              "specimen_processing": "Cryopreservation in liquid nitrogen (dead tissue)",
+              "specimen_storage": "Other",
+              "submitter_specimen_id": "SPECIMEN_ALL_0001",
+              "tumour_grade": "Grade IV",
+              "tumour_grading_system": "Nuclear grading system for DCIS",
+              "tumour_histological_type": "9479/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "Protein",
+                  "specimen_tissue_source": "Pancreatic fluid",
+                  "specimen_type": "Normal",
+                  "submitter_sample_id": "SAMPLE_ALL_0001",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "rRNA-depleted RNA",
+                  "specimen_tissue_source": "Blood derived - peripheral blood",
+                  "specimen_type": "Tumour - unknown if derived from primary or metastatic tumour",
+                  "submitter_sample_id": "SAMPLE_ALL_0002",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "Total RNA",
+                  "specimen_tissue_source": "Other",
+                  "specimen_type": "Cell line - derived from normal",
+                  "submitter_sample_id": "SAMPLE_ALL_0003",
+                  "tumour_normal_designation": "Normal"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Partial remission",
+              "response_to_treatment_criteria_method": "Physician Assessed Response Criteria",
+              "status_of_treatment": "Treatment ongoing",
+              "submitter_treatment_id": "TREATMENT_ALL_0001",
+              "treatment_end_date": {
+                "day_interval": 385,
+                "month_interval": 12
+              },
+              "treatment_intent": "Preventive",
+              "treatment_start_date": {
+                "day_interval": 120,
+                "month_interval": 3
+              },
+              "treatment_type": [
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 72.5,
+                  "drug_dose_units": "Not available",
+                  "drug_name": "Ipilimumab",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "1094833",
+                  "end_date": {
+                    "day_interval": 376,
+                    "month_interval": 12
+                  },
+                  "number_of_cycles": 2,
+                  "prescribed_cumulative_drug_dose": 27.8,
+                  "start_date": {
+                    "day_interval": 355,
+                    "month_interval": 11
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "days_per_cycle": 21,
+                  "drug_dose_units": "mg/m2",
+                  "drug_name": "Buserelin",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "1825",
+                  "end_date": {
+                    "day_interval": 264,
+                    "month_interval": 8
+                  },
+                  "number_of_cycles": 2,
+                  "start_date": {
+                    "day_interval": 243,
+                    "month_interval": 7
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 10,
+                  "lymphovascular_invasion": "Present",
+                  "margin_types_involved": [
+                    "Circumferential resection margin",
+                    "Proximal margin",
+                    "Distal margin"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Proximal margin"
+                  ],
+                  "margin_types_not_involved": [
+                    "Circumferential resection margin",
+                    "Common bile duct margin"
+                  ],
+                  "perineural_invasion": "Cannot be assessed",
+                  "residual_tumour_classification": "R0",
+                  "surgery_location": "Metastatic",
+                  "surgery_reference_database": "SNOMED",
+                  "surgery_reference_identifier": "66398006",
+                  "surgery_site": "C02.9",
+                  "surgery_type": "Mastectomy with excision of regional lymph nodes",
+                  "tumour_focality": "Unifocal",
+                  "tumour_length": 6,
+                  "tumour_width": 9
+                }
+              ],
+              "followups": [
+                {
+                  "date_of_followup": {
+                    "day_interval": 851,
+                    "month_interval": 27
+                  },
+                  "disease_status_at_followup": "No evidence of disease",
+                  "method_of_progression_status": [
+                    "Laboratory data interpretation (procedure)",
+                    "Imaging (procedure)",
+                    "Assessment of symptom control (procedure)",
+                    "Tumor marker measurement (procedure)"
+                  ],
+                  "relapse_type": "Local recurrence and distant metastasis",
+                  "submitter_follow_up_id": "FOLLOW_UP_ALL_0001"
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Immune partial response (iPR)",
+              "response_to_treatment_criteria_method": "Blazer score",
+              "status_of_treatment": "Treatment stopped due to acute toxicity",
+              "submitter_treatment_id": "TREATMENT_ALL_0002",
+              "treatment_end_date": {
+                "day_interval": 363,
+                "month_interval": 11
+              },
+              "treatment_intent": "Palliative",
+              "treatment_start_date": {
+                "day_interval": 22,
+                "month_interval": 0
+              },
+              "treatment_type": [
+                "Radiation therapy",
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "UPPER RIGHT ARM",
+                  "radiation_boost": "No",
+                  "radiation_therapy_dosage": 75,
+                  "radiation_therapy_fractions": 24,
+                  "radiation_therapy_modality": "Brachytherapy (procedure)",
+                  "radiation_therapy_type": "External"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 60.5,
+                  "drug_dose_units": "mg/kg",
+                  "drug_name": "Atezolizumab",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "469690927",
+                  "end_date": {
+                    "day_interval": 301,
+                    "month_interval": 9
+                  },
+                  "number_of_cycles": 5,
+                  "start_date": {
+                    "day_interval": 32,
+                    "month_interval": 1
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "days_per_cycle": 30,
+                  "drug_dose_units": "IU/m2",
+                  "drug_name": "Diethylstilbestrol",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "3390",
+                  "end_date": {
+                    "day_interval": 90,
+                    "month_interval": 2
+                  },
+                  "number_of_cycles": 4,
+                  "prescribed_cumulative_drug_dose": 33.6,
+                  "start_date": {
+                    "day_interval": 38,
+                    "month_interval": 1
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "comorbidities": [
+        {
+          "age_at_comorbidity_diagnosis": 20,
+          "comorbidity_treatment": "Treated with Donepezil (Aricept).",
+          "comorbidity_treatment_status": "Yes",
+          "comorbidity_type_code": "F00",
+          "prior_malignancy": "No"
+        }
+      ],
+      "exposures": [
+        {
+          "tobacco_smoking_status": "Not applicable"
+        }
+      ],
+      "biomarkers": [
+        {
+          "ca125": 27,
+          "cea": 98,
+          "er_status": "Not applicable",
+          "her2_ihc_status": "Negative",
+          "her2_ish_status": "Not applicable",
+          "hpv_ihc_status": "Not available",
+          "hpv_pcr_status": "Not applicable",
+          "hpv_strain": [
+            "HPV66",
+            "HPV52",
+            "HPV73",
+            "HPV59"
+          ],
+          "pr_status": "Negative",
+          "psa_level": 99,
+          "submitter_primary_diagnosis_id": "DIAG_ALL_0001",
+          "test_date": {
+            "day_interval": -4462,
+            "month_interval": -147
+          }
+        }
+      ]
+    },
+    {
+      "date_resolution": "day",
+      "program_id": "SYNTH_01",
+      "submitter_donor_id": "DONOR_NULL_0001",
+      "primary_diagnoses": [
+        {
+          "submitter_primary_diagnosis_id": "DIAG_NULL_0001",
+          "specimens": [
+            {
+              "percent_tumour_cells_range": "51-100%",
+              "submitter_specimen_id": "SPECIMEN_NULL_0001",
+              "sample_registrations": [
+                {
+                  "submitter_sample_id": "SAMPLE_NULL_0003"
+                },
+                {
+                  "submitter_sample_id": "SAMPLE_NULL_0001"
+                },
+                {
+                  "submitter_sample_id": "SAMPLE_NULL_0002"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "submitter_treatment_id": "TREATMENT_NULL_0001",
+              "treatment_type": [
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "days_per_cycle": 7,
+                  "number_of_cycles": 5,
+                  "systemic_therapy_type": "Chemotherapy"
+                },
+                {
+                  "days_per_cycle": 5,
+                  "number_of_cycles": 9,
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "surgery_reference_database": "CCI",
+                  "surgery_type": "fSxOBynIFIkxubG"
+                }
+              ]
+            },
+            {
+              "submitter_treatment_id": "TREATMENT_NULL_0002",
+              "treatment_type": [
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "reference_radiation_treatment_id": "then"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "days_per_cycle": 26,
+                  "number_of_cycles": 5,
+                  "systemic_therapy_type": "Hormone therapy"
+                },
+                {
+                  "days_per_cycle": 29,
+                  "number_of_cycles": 5,
+                  "systemic_therapy_type": "Chemotherapy"
+                }
+              ]
+            }
+          ],
+          "followups": [
+            {
+              "date_of_followup": {
+                "day_interval": 574,
+                "month_interval": 18
+              },
+              "submitter_follow_up_id": "FOLLOW_UP_NULL_0001"
+            }
+          ]
+        }
+      ],
+      "biomarkers": [
+        {
+          "submitter_specimen_id": "SPECIMEN_NULL_0001",
+          "test_date": {
+            "month_interval": 598,
+            "day_interval": 1369
+          }
+        }
+      ]
+    },
+    {
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -15239,
+        "month_interval": -501
+      },
+      "gender": "Man",
+      "program_id": "SYNTH_01",
+      "sex_at_birth": "Male",
+      "submitter_donor_id": "DONOR_0004",
+      "primary_diagnoses": [
+        {
+          "basis_of_diagnosis": "Cytology",
+          "cancer_type_code": "C26",
+          "clinical_stage_group": "Stage C",
+          "clinical_tumour_staging_system": "Binet staging system",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "laterality": "Left",
+          "pathological_stage_group": "Stage IIIB",
+          "pathological_tumour_staging_system": "Ann Arbor staging system",
+          "primary_site": "Skin",
+          "submitter_primary_diagnosis_id": "DIAG_0004",
+          "specimens": [
+            {
+              "percent_tumour_cells_range": "51-100%",
+              "reference_pathology_confirmed_diagnosis": "No",
+              "reference_pathology_confirmed_tumour_presence": "Not available",
+              "specimen_anatomic_location": "C49.1",
+              "specimen_storage": "Not Applicable",
+              "submitter_specimen_id": "SPECIMEN_0004",
+              "tumour_grade": "G2",
+              "tumour_grading_system": "FNCLCC grading system",
+              "tumour_histological_type": "9030/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "Amplified DNA",
+                  "specimen_type": "Cell line - derived from xenograft tumour",
+                  "submitter_sample_id": "SAMPLE_0010",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "rRNA-depleted RNA",
+                  "specimen_tissue_source": "Cervical mucus",
+                  "specimen_type": "Cell line - derived from xenograft tumour",
+                  "submitter_sample_id": "SAMPLE_0011",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "ctDNA",
+                  "specimen_tissue_source": "Serum",
+                  "specimen_type": "Normal",
+                  "submitter_sample_id": "SAMPLE_0012"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "No evidence of disease (NED)",
+              "response_to_treatment_criteria_method": "Response Assessment in Neuro-Oncology (RANO)",
+              "status_of_treatment": "Treatment incomplete because patient died",
+              "submitter_treatment_id": "TREATMENT_0007",
+              "treatment_end_date": {
+                "day_interval": 271,
+                "month_interval": 8
+              },
+              "treatment_intent": "Curative",
+              "treatment_start_date": {
+                "day_interval": 44,
+                "month_interval": 1
+              },
+              "treatment_type": [
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 77.4,
+                  "days_per_cycle": 10,
+                  "drug_dose_units": "ug/m2",
+                  "drug_name": "Fludarabine",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "24698",
+                  "end_date": {
+                    "day_interval": 199,
+                    "month_interval": 6
+                  },
+                  "prescribed_cumulative_drug_dose": 38.2,
+                  "start_date": {
+                    "day_interval": 171,
+                    "month_interval": 5
+                  },
+                  "systemic_therapy_type": "Chemotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 62.5,
+                  "days_per_cycle": 1,
+                  "drug_dose_units": "mg/m2",
+                  "drug_name": "Carboplatin",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "426756",
+                  "end_date": {
+                    "day_interval": 207,
+                    "month_interval": 6
+                  },
+                  "number_of_cycles": 9,
+                  "prescribed_cumulative_drug_dose": 20.8,
+                  "start_date": {
+                    "day_interval": 145,
+                    "month_interval": 4
+                  },
+                  "systemic_therapy_type": "Chemotherapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 10,
+                  "lymphovascular_invasion": "Lymphatic and small vessel invasion only",
+                  "margin_types_involved": [
+                    "Not available",
+                    "Not applicable",
+                    "Circumferential resection margin"
+                  ],
+                  "margin_types_not_involved": [
+                    "Distal margin"
+                  ],
+                  "perineural_invasion": "Not available",
+                  "residual_tumour_classification": "Not applicable",
+                  "surgery_location": "Metastatic",
+                  "surgery_reference_database": "UMLS",
+                  "surgery_reference_identifier": "C0399839",
+                  "surgery_site": "C71.8",
+                  "surgery_type": "Bypass Gastrojejunostomy",
+                  "tumour_focality": "Not available",
+                  "tumour_length": 1,
+                  "tumour_width": 9
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Complete remission without measurable residual disease (CR MRD-)",
+              "status_of_treatment": "Treatment ongoing",
+              "submitter_treatment_id": "TREATMENT_0008",
+              "treatment_end_date": {
+                "day_interval": 166,
+                "month_interval": 5
+              },
+              "treatment_intent": "Forensic",
+              "treatment_start_date": {
+                "day_interval": 50,
+                "month_interval": 1
+              },
+              "treatment_type": [
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "BILATERAL EYES",
+                  "radiation_boost": "No",
+                  "radiation_therapy_dosage": 9,
+                  "radiation_therapy_modality": "Megavoltage radiation therapy using photons (procedure)"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 62.6,
+                  "days_per_cycle": 29,
+                  "drug_dose_units": "IU/kg",
+                  "prescribed_cumulative_drug_dose": 46.6,
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 64.3,
+                  "days_per_cycle": 8,
+                  "end_date": {
+                    "day_interval": 151,
+                    "month_interval": 4
+                  },
+                  "number_of_cycles": 6,
+                  "prescribed_cumulative_drug_dose": 33.9,
+                  "start_date": {
+                    "day_interval": 151,
+                    "month_interval": 4
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "comorbidities": [
+        {
+          "age_at_comorbidity_diagnosis": 46,
+          "comorbidity_treatment": "Hormone therapy",
+          "comorbidity_treatment_status": "Yes",
+          "comorbidity_type_code": "C35",
+          "laterality_of_prior_malignancy": "Right",
+          "prior_malignancy": "Yes"
+        }
+      ],
+      "exposures": [
+        {
+          "tobacco_smoking_status": "Lifelong non-smoker (<100 cigarettes smoked in lifetime)"
+        }
+      ]
+    },
+    {
+      "cause_of_death": "Not available",
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -18874,
+        "month_interval": -621
+      },
+      "date_of_death": {
+        "day_interval": 12834,
+        "month_interval": 421
+      },
+      "gender": "Other",
+      "is_deceased": "Yes",
+      "program_id": "SYNTH_01",
+      "submitter_donor_id": "DONOR_0005",
+      "primary_diagnoses": [
+        {
+          "cancer_type_code": "C04",
+          "clinical_stage_group": "Stage IIIAS",
+          "clinical_tumour_staging_system": "Revised International staging system (R-ISS)",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "laterality": "Bilateral",
+          "pathological_stage_group": "Stage IVBES",
+          "submitter_primary_diagnosis_id": "DIAG_0005",
+          "specimens": [
+            {
+              "percent_tumour_cells_range": "51-100%",
+              "reference_pathology_confirmed_diagnosis": "Yes",
+              "reference_pathology_confirmed_tumour_presence": "Yes",
+              "specimen_anatomic_location": "C25.1",
+              "specimen_collection_date": {
+                "day_interval": 81,
+                "month_interval": 2
+              },
+              "specimen_laterality": "Right",
+              "specimen_processing": "Fresh",
+              "specimen_storage": "RNA later frozen",
+              "submitter_specimen_id": "SPECIMEN_0005",
+              "tumour_grading_system": "ISUP grading system",
+              "tumour_histological_type": "8207/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "polyA+ RNA",
+                  "specimen_tissue_source": "Cerebrospinal fluid",
+                  "specimen_type": "Recurrent tumour",
+                  "submitter_sample_id": "SAMPLE_0013",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "Other RNA fractions",
+                  "specimen_tissue_source": "Urine",
+                  "specimen_type": "Metastatic tumour - metastasis to distant location",
+                  "submitter_sample_id": "SAMPLE_0014",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "specimen_tissue_source": "Serum",
+                  "specimen_type": "Tumour - unknown if derived from primary or metastatic tumour",
+                  "submitter_sample_id": "SAMPLE_0015"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment": "No evidence of disease (NED)",
+              "response_to_treatment_criteria_method": "RECIST 1.1",
+              "status_of_treatment": "Treatment completed as prescribed",
+              "submitter_treatment_id": "TREATMENT_0009",
+              "treatment_end_date": {
+                "day_interval": 418,
+                "month_interval": 13
+              },
+              "treatment_intent": "Preventive",
+              "treatment_start_date": {
+                "day_interval": 57,
+                "month_interval": 1
+              },
+              "treatment_type": [
+                "Radiation therapy",
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 86.8,
+                  "days_per_cycle": 1,
+                  "drug_dose_units": "mg/kg",
+                  "drug_name": "Diethylstilbestrol",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "448537",
+                  "end_date": {
+                    "day_interval": 359,
+                    "month_interval": 11
+                  },
+                  "prescribed_cumulative_drug_dose": 48.1,
+                  "start_date": {
+                    "day_interval": 250,
+                    "month_interval": 8
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 67.6,
+                  "days_per_cycle": 16,
+                  "drug_dose_units": "mg/m2",
+                  "drug_name": "Fluoxymesterone",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C507",
+                  "end_date": {
+                    "day_interval": 208,
+                    "month_interval": 6
+                  },
+                  "number_of_cycles": 1,
+                  "prescribed_cumulative_drug_dose": 46.7,
+                  "start_date": {
+                    "day_interval": 137,
+                    "month_interval": 4
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 4,
+                  "lymphovascular_invasion": "Present",
+                  "margin_types_involved": [
+                    "Proximal margin",
+                    "Not available"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Proximal margin"
+                  ],
+                  "margin_types_not_involved": [
+                    "Common bile duct margin"
+                  ],
+                  "perineural_invasion": "Present",
+                  "surgery_location": "Local recurrence",
+                  "surgery_reference_database": "SNOMED",
+                  "surgery_reference_identifier": "66398006",
+                  "surgery_site": "C11.8",
+                  "surgery_type": "Mastectomy with excision of regional lymph nodes",
+                  "tumour_focality": "Not applicable",
+                  "tumour_length": 6
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Complete response",
+              "response_to_treatment_criteria_method": "RECIST 1.1",
+              "status_of_treatment": "Treatment ongoing",
+              "submitter_treatment_id": "TREATMENT_0010",
+              "treatment_end_date": {
+                "day_interval": 491,
+                "month_interval": 16
+              },
+              "treatment_intent": "Preventive",
+              "treatment_start_date": {
+                "day_interval": 174,
+                "month_interval": 5
+              },
+              "treatment_type": [
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "radiation_boost": "No",
+                  "radiation_therapy_modality": "Brachytherapy (procedure)"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "days_per_cycle": 5,
+                  "drug_dose_units": "ug/m2",
+                  "drug_name": "Paclitaxel",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C1411",
+                  "end_date": {
+                    "day_interval": 410,
+                    "month_interval": 13
+                  },
+                  "number_of_cycles": 6,
+                  "prescribed_cumulative_drug_dose": 34.4,
+                  "start_date": {
+                    "day_interval": 303,
+                    "month_interval": 9
+                  },
+                  "systemic_therapy_type": "Chemotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 93.2,
+                  "days_per_cycle": 21,
+                  "drug_dose_units": "mg",
+                  "drug_name": "Fluoxymesterone",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "6446",
+                  "prescribed_cumulative_drug_dose": 29.5,
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "comorbidities": [
+        {
+          "age_at_comorbidity_diagnosis": 44,
+          "comorbidity_treatment": "exist",
+          "comorbidity_treatment_status": "Not available",
+          "comorbidity_type_code": "I16",
+          "prior_malignancy": "No"
+        }
+      ]
+    },
+    {
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -18319,
+        "month_interval": -602
+      },
+      "program_id": "SYNTH_02",
+      "sex_at_birth": "Male",
+      "submitter_donor_id": "DONOR_0009",
+      "primary_diagnoses": [
+        {
+          "basis_of_diagnosis": "Death certificate only",
+          "cancer_type_code": "D37",
+          "clinical_stage_group": "Stage IIAES",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "laterality": "Unilateral, side not specified",
+          "pathological_stage_group": "Stage IE",
+          "pathological_tumour_staging_system": "Ann Arbor staging system",
+          "primary_site": "Skin",
+          "submitter_primary_diagnosis_id": "DIAG_0009",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Image analysis",
+              "percent_tumour_cells_range": "20-50%",
+              "reference_pathology_confirmed_diagnosis": "No",
+              "reference_pathology_confirmed_tumour_presence": "Not available",
+              "specimen_anatomic_location": "C34.1",
+              "specimen_collection_date": {
+                "day_interval": 0,
+                "month_interval": 0
+              },
+              "specimen_laterality": "Left",
+              "specimen_processing": "Cryopreservation of live cells in liquid nitrogen",
+              "submitter_specimen_id": "SPECIMEN_0009",
+              "tumour_grading_system": "Scarff-Bloom-Richardson grading system",
+              "tumour_histological_type": "9928/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "Total DNA",
+                  "specimen_type": "Xenograft - derived from primary tumour",
+                  "submitter_sample_id": "SAMPLE_0027"
+                },
+                {
+                  "specimen_tissue_source": "Serum",
+                  "specimen_type": "Primary tumour - additional new primary",
+                  "submitter_sample_id": "SAMPLE_0025",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "rRNA-depleted RNA",
+                  "specimen_type": "Cell line - derived from normal",
+                  "submitter_sample_id": "SAMPLE_0026",
+                  "tumour_normal_designation": "Tumour"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Partial remission",
+              "response_to_treatment_criteria_method": "Not available",
+              "status_of_treatment": "Not available",
+              "submitter_treatment_id": "TREATMENT_0017",
+              "treatment_end_date": {
+                "day_interval": 253,
+                "month_interval": 8
+              },
+              "treatment_intent": "Preventive",
+              "treatment_start_date": {
+                "day_interval": 32,
+                "month_interval": 1
+              },
+              "treatment_type": [
+                "Targeted molecular therapy",
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "days_per_cycle": 10,
+                  "drug_name": "Fludarabine",
+                  "drug_reference_database": "NCI Thesaurus",
+                  "drug_reference_identifier": "C1094",
+                  "end_date": {
+                    "day_interval": 184,
+                    "month_interval": 6
+                  },
+                  "number_of_cycles": 6,
+                  "prescribed_cumulative_drug_dose": 30.7,
+                  "start_date": {
+                    "day_interval": 122,
+                    "month_interval": 4
+                  },
+                  "systemic_therapy_type": "Chemotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 68.1,
+                  "days_per_cycle": 4,
+                  "drug_name": "Degarelix",
+                  "drug_reference_database": "RxNorm",
+                  "drug_reference_identifier": "475230",
+                  "end_date": {
+                    "day_interval": 233,
+                    "month_interval": 7
+                  },
+                  "number_of_cycles": 9,
+                  "prescribed_cumulative_drug_dose": 47,
+                  "start_date": {
+                    "day_interval": 141,
+                    "month_interval": 4
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 10,
+                  "lymphovascular_invasion": "Both lymphatic and small vessel and venous (large vessel) invasion",
+                  "margin_types_involved": [
+                    "Common bile duct margin",
+                    "Not applicable"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Not available"
+                  ],
+                  "margin_types_not_involved": [
+                    "Not available"
+                  ],
+                  "perineural_invasion": "Cannot be assessed",
+                  "residual_tumour_classification": "Not applicable",
+                  "surgery_location": "Primary",
+                  "surgery_reference_database": "UMLS",
+                  "surgery_reference_identifier": "C0085704",
+                  "surgery_site": "C75.5",
+                  "surgery_type": "Exploratory laparotomy",
+                  "tumour_focality": "Not available",
+                  "tumour_length": 10,
+                  "tumour_width": 5
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment": "Physician assessed partial response",
+              "response_to_treatment_criteria_method": "iRECIST",
+              "status_of_treatment": "Treatment incomplete because patient died",
+              "submitter_treatment_id": "TREATMENT_0018",
+              "treatment_intent": "Screening",
+              "treatment_start_date": {
+                "day_interval": 154,
+                "month_interval": 5
+              },
+              "treatment_type": [
+                "Photodynamic therapy",
+                "Radiation therapy",
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "RIGHT ORBIT",
+                  "radiation_boost": "No",
+                  "radiation_therapy_dosage": 32,
+                  "radiation_therapy_modality": "Radiopharmaceutical",
+                  "radiation_therapy_type": "Internal"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 73.5,
+                  "days_per_cycle": 16,
+                  "drug_dose_units": "ug/m2",
+                  "drug_name": "Pembrolizumab",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "469691028",
+                  "end_date": {
+                    "day_interval": 239,
+                    "month_interval": 7
+                  },
+                  "number_of_cycles": 2,
+                  "prescribed_cumulative_drug_dose": 36.6,
+                  "start_date": {
+                    "day_interval": 203
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 64.2,
+                  "days_per_cycle": 9,
+                  "drug_name": "Atezolizumab",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "469690927",
+                  "end_date": {
+                    "day_interval": 296,
+                    "month_interval": 9
+                  },
+                  "number_of_cycles": 7,
+                  "prescribed_cumulative_drug_dose": 33.5,
+                  "start_date": {
+                    "day_interval": 241
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "comorbidities": [
+        {
+          "age_at_comorbidity_diagnosis": 31,
+          "comorbidity_treatment": "receive",
+          "comorbidity_treatment_status": "Not available",
+          "comorbidity_type_code": "I77",
+          "prior_malignancy": "Yes"
+        }
+      ]
+    },
+    {
+      "date_resolution": "day",
+      "date_of_birth": {
+        "day_interval": -15438,
+        "month_interval": -508
+      },
+      "gender": "Woman",
+      "program_id": "SYNTH_02",
+      "submitter_donor_id": "DONOR_0010",
+      "primary_diagnoses": [
+        {
+          "basis_of_diagnosis": "Death certificate only",
+          "cancer_type_code": "C80",
+          "clinical_stage_group": "Occult Carcinoma",
+          "date_of_diagnosis": {
+            "month_interval": 0,
+            "day_interval": 0
+          },
+          "laterality": "Not available",
+          "pathological_stage_group": "Stage IV",
+          "pathological_tumour_staging_system": "Ann Arbor staging system",
+          "submitter_primary_diagnosis_id": "DIAG_0010",
+          "specimens": [
+            {
+              "percent_tumour_cells_measurement_method": "Image analysis",
+              "percent_tumour_cells_range": "Not available",
+              "reference_pathology_confirmed_diagnosis": "Not available",
+              "reference_pathology_confirmed_tumour_presence": "Not available",
+              "specimen_anatomic_location": "C76.8",
+              "specimen_collection_date": {
+                "day_interval": 52,
+                "month_interval": 1
+              },
+              "specimen_laterality": "Right",
+              "specimen_processing": "Formalin fixed - unbuffered",
+              "submitter_specimen_id": "SPECIMEN_0010",
+              "tumour_grade": "Grade Group 2",
+              "tumour_grading_system": "WHO grading system for CNS tumours",
+              "tumour_histological_type": "8070/3",
+              "sample_registrations": [
+                {
+                  "sample_type": "ctDNA",
+                  "specimen_tissue_source": "Male genital fluid",
+                  "submitter_sample_id": "SAMPLE_0028",
+                  "tumour_normal_designation": "Normal"
+                },
+                {
+                  "sample_type": "Other DNA enrichments",
+                  "specimen_tissue_source": "Hydrocele fluid",
+                  "submitter_sample_id": "SAMPLE_0029",
+                  "tumour_normal_designation": "Tumour"
+                },
+                {
+                  "sample_type": "polyA+ RNA",
+                  "specimen_tissue_source": "Buccal cell",
+                  "specimen_type": "Xenograft - derived from primary tumour",
+                  "submitter_sample_id": "SAMPLE_0030"
+                }
+              ]
+            }
+          ],
+          "treatments": [
+            {
+              "is_primary_treatment": "Yes",
+              "response_to_treatment": "Physician assessed partial response",
+              "response_to_treatment_criteria_method": "Response Assessment in Neuro-Oncology (RANO)",
+              "status_of_treatment": "Treatment incomplete because patient died",
+              "submitter_treatment_id": "TREATMENT_0019",
+              "treatment_intent": "Forensic",
+              "treatment_start_date": {
+                "day_interval": 147,
+                "month_interval": 4
+              },
+              "treatment_type": [
+                "Other",
+                "Surgery",
+                "Systemic therapy"
+              ],
+              "systemic_therapies": [
+                {
+                  "actual_cumulative_drug_dose": 58.2,
+                  "days_per_cycle": 9,
+                  "drug_dose_units": "g/m2",
+                  "drug_name": "Fluoxymesterone",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "6446",
+                  "end_date": {
+                    "day_interval": 260,
+                    "month_interval": 8
+                  },
+                  "prescribed_cumulative_drug_dose": 35.5,
+                  "start_date": {
+                    "day_interval": 178
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                },
+                {
+                  "actual_cumulative_drug_dose": 57.7,
+                  "days_per_cycle": 12,
+                  "drug_dose_units": "ug/m2",
+                  "drug_name": "Buserelin",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "50225",
+                  "end_date": {
+                    "day_interval": 293,
+                    "month_interval": 9
+                  },
+                  "number_of_cycles": 1,
+                  "prescribed_cumulative_drug_dose": 43.9,
+                  "start_date": {
+                    "day_interval": 195
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                }
+              ],
+              "surgeries": [
+                {
+                  "greatest_dimension_tumour": 3,
+                  "lymphovascular_invasion": "Venous (large vessel) invasion only",
+                  "margin_types_involved": [
+                    "Not applicable"
+                  ],
+                  "margin_types_not_assessed": [
+                    "Not available"
+                  ],
+                  "margin_types_not_involved": [
+                    "Not applicable"
+                  ],
+                  "perineural_invasion": "Not available",
+                  "surgery_reference_database": "SNOMED",
+                  "surgery_reference_identifier": "86273004",
+                  "surgery_site": "C51.0",
+                  "surgery_type": "Biopsy",
+                  "tumour_length": 9,
+                  "tumour_width": 5
+                }
+              ]
+            },
+            {
+              "is_primary_treatment": "No",
+              "response_to_treatment": "Not available",
+              "response_to_treatment_criteria_method": "Blazer score",
+              "status_of_treatment": "Treatment incomplete due to technical or organizational problems",
+              "submitter_treatment_id": "TREATMENT_0020",
+              "treatment_end_date": {
+                "day_interval": 212,
+                "month_interval": 6
+              },
+              "treatment_intent": "Preventive",
+              "treatment_start_date": {
+                "day_interval": 119,
+                "month_interval": 3
+              },
+              "treatment_type": [
+                "Radiation therapy",
+                "Systemic therapy"
+              ],
+              "radiations": [
+                {
+                  "anatomical_site_irradiated": "INVERTED 'Y' (DOG-LEG,HOCKEY-STICK)",
+                  "radiation_boost": "No",
+                  "radiation_therapy_modality": "Radiopharmaceutical"
+                }
+              ],
+              "systemic_therapies": [
+                {
+                  "days_per_cycle": 14,
+                  "drug_dose_units": "mg",
+                  "drug_name": "Tamoxifen",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "2733526",
+                  "end_date": {
+                    "day_interval": 198,
+                    "month_interval": 6
+                  },
+                  "number_of_cycles": 3,
+                  "prescribed_cumulative_drug_dose": 35.8,
+                  "start_date": {
+                    "day_interval": 169,
+                    "month_interval": 5
+                  },
+                  "systemic_therapy_type": "Hormone therapy"
+                },
+                {
+                  "days_per_cycle": 9,
+                  "drug_dose_units": "Not available",
+                  "drug_name": "Pembrolizumab",
+                  "drug_reference_database": "PubChem",
+                  "drug_reference_identifier": "469691028",
+                  "end_date": {
+                    "day_interval": 198,
+                    "month_interval": 6
+                  },
+                  "number_of_cycles": 4,
+                  "prescribed_cumulative_drug_dose": 21.6,
+                  "start_date": {
+                    "day_interval": 167,
+                    "month_interval": 5
+                  },
+                  "systemic_therapy_type": "Immunotherapy"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "comorbidities": [
+        {
+          "age_at_comorbidity_diagnosis": 21,
+          "comorbidity_treatment": "camera",
+          "comorbidity_treatment_status": "Yes",
+          "comorbidity_type_code": "I92",
+          "prior_malignancy": "Not available"
+        }
+      ]
+    }
+  ],
+  "statistics": {
+    "required_but_missing": {
+      "donors": {
+        "submitter_donor_id": {
+          "total": 12,
+          "missing": 0
+        },
+        "gender": {
+          "total": 12,
+          "missing": 3
+        },
+        "sex_at_birth": {
+          "total": 12,
+          "missing": 5
+        },
+        "is_deceased": {
+          "total": 12,
+          "missing": 7
+        },
+        "program_id": {
+          "total": 12,
+          "missing": 0
+        },
+        "date_resolution": {
+          "total": 12,
+          "missing": 0
+        },
+        "date_of_birth": {
+          "total": 12,
+          "missing": 2
+        }
+      },
+      "primary_diagnoses": {
+        "submitter_primary_diagnosis_id": {
+          "total": 12,
+          "missing": 0
+        },
+        "date_of_diagnosis": {
+          "total": 12,
+          "missing": 2
+        },
+        "cancer_type_code": {
+          "total": 12,
+          "missing": 1
+        },
+        "primary_site": {
+          "total": 12,
+          "missing": 3
+        },
+        "basis_of_diagnosis": {
+          "total": 12,
+          "missing": 4
+        }
+      },
+      "specimens": {
+        "submitter_specimen_id": {
+          "total": 12,
+          "missing": 0
+        },
+        "specimen_collection_date": {
+          "total": 12,
+          "missing": 4
+        },
+        "specimen_storage": {
+          "total": 12,
+          "missing": 4
+        },
+        "specimen_anatomic_location": {
+          "total": 12,
+          "missing": 1
+        }
+      },
+      "sample_registrations": {
+        "submitter_sample_id": {
+          "total": 36,
+          "missing": 0
+        },
+        "specimen_tissue_source": {
+          "total": 36,
+          "missing": 6
+        },
+        "specimen_type": {
+          "total": 36,
+          "missing": 6
+        },
+        "sample_type": {
+          "total": 36,
+          "missing": 6
+        }
+      },
+      "treatments": {
+        "submitter_treatment_id": {
+          "total": 24,
+          "missing": 0
+        },
+        "treatment_type": {
+          "total": 24,
+          "missing": 0
+        },
+        "is_primary_treatment": {
+          "total": 24,
+          "missing": 2
+        },
+        "treatment_start_date": {
+          "total": 24,
+          "missing": 4
+        },
+        "treatment_end_date": {
+          "total": 24,
+          "missing": 8
+        },
+        "treatment_intent": {
+          "total": 24,
+          "missing": 5
+        }
+      },
+      "systemic_therapies": {
+        "systemic_therapy_type": {
+          "total": 48,
+          "missing": 0
+        },
+        "start_date": {
+          "total": 48,
+          "missing": 14
+        },
+        "end_date": {
+          "total": 48,
+          "missing": 14
+        },
+        "drug_reference_database": {
+          "total": 48,
+          "missing": 10
+        },
+        "drug_reference_identifier": {
+          "total": 48,
+          "missing": 10
+        },
+        "drug_name": {
+          "total": 48,
+          "missing": 10
+        }
+      },
+      "surgeries": {
+        "surgery_reference_database": {
+          "total": 12,
+          "missing": 0
+        },
+        "surgery_reference_identifier": {
+          "total": 12,
+          "missing": 1
+        },
+        "surgery_type": {
+          "total": 12,
+          "missing": 0
+        }
+      },
+      "radiations": {
+        "radiation_therapy_modality": {
+          "total": 12,
+          "missing": 3
+        },
+        "radiation_therapy_type": {
+          "total": 12,
+          "missing": 7
+        },
+        "anatomical_site_irradiated": {
+          "total": 12,
+          "missing": 2
+        },
+        "radiation_therapy_fractions": {
+          "total": 12,
+          "missing": 10
+        },
+        "radiation_therapy_dosage": {
+          "total": 12,
+          "missing": 7
+        }
+      },
+      "followups": {
+        "submitter_follow_up_id": {
+          "total": 8,
+          "missing": 0
+        },
+        "date_of_followup": {
+          "total": 8,
+          "missing": 1
+        },
+        "disease_status_at_followup": {
+          "total": 8,
+          "missing": 4
+        }
+      },
+      "biomarkers": {},
+      "exposures": {},
+      "comorbidities": {
+        "comorbidity_type_code": {
+          "total": 5,
+          "missing": 0
+        }
+      }
+    },
+    "schemas_used": [
+      "donors",
+      "primary_diagnoses",
+      "specimens",
+      "sample_registrations",
+      "treatments",
+      "systemic_therapies",
+      "surgeries",
+      "radiations",
+      "followups",
+      "biomarkers",
+      "exposures",
+      "comorbidities"
+    ],
+    "schemas_not_used": [],
+    "summary_cases": {
+      "complete_cases": 1,
+      "total_cases": 12
+    }
+  }
+}

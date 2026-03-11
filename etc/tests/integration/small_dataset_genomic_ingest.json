@@ -1,0 +1,227 @@
+{
+    "experiments": [
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "experiment_id": "SEQ_0001",
+            "submitter_sample_id": "SAMPLE_0001",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "experiment_id": "SEQ_0002",
+            "submitter_sample_id": "SAMPLE_0002",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "experiment_id": "SEQ_NULL_0001",
+            "submitter_sample_id": "SAMPLE_NULL_0001",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "experiment_id": "SEQ_NULL_0002",
+            "submitter_sample_id": "SAMPLE_NULL_0002",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "experiment_id": "SEQ_ALL_0002",
+            "submitter_sample_id": "SAMPLE_ALL_0002",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "experiment_id": "SEQ_0004",
+            "submitter_sample_id": "SAMPLE_0004",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "experiment_id": "SEQ_0009",
+            "submitter_sample_id": "SAMPLE_0009",
+            "metadata": {
+                "library_strategy": "WTS"
+            }
+        }
+    ],
+    "runs": [
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "run_id": "RUN_0001",
+            "experiment_id": "SEQ_0004",
+            "files": [
+                {
+                    "access_method": "file:////data/RUN_0001-1.fastq",
+                    "name": "RUN_0001-1.fastq"
+                },
+                {
+                    "access_method": "file:////data/RUN_0001-2.fastq",
+                    "name": "RUN_0001-2.fastq"
+                }
+            ],
+            "metadata": {
+                "run_date": "2023-03-21",
+                "filetype": "fastq"
+            }
+        }
+    ],
+    "analyses": [
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "analysis_id": "test",
+            "main": {
+                "access_method": "file:////data/test.vcf.gz",
+                "name": "test.vcf.gz"
+            },
+            "index": {
+                "access_method": "file:////data/test.vcf.gz.tbi",
+                "name": "test.vcf.gz.tbi"
+            },
+            "metadata": {
+                "analysis_type": "sequence_variation",
+                "analysis_date": "2024-10-23",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "sample_tumour",
+                    "experiment_id": "SEQ_0002"
+                },
+                {
+                    "analysis_sample_id": "sample_normal",
+                    "experiment_id": "SEQ_0001"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "analysis_id": "multisample_2",
+            "main": {
+                "access_method": "file:////data/multisample_2.vcf.gz",
+                "name": "multisample_2.vcf.gz"
+            },
+            "index": {
+                "access_method": "file:////data/multisample_2.vcf.gz.tbi",
+                "name": "multisample_2.vcf.gz.tbi"
+            },
+            "metadata": {
+                "analysis_type": "sequence_variation",
+                "analysis_date": "2024-10-23",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "TUMOR",
+                    "experiment_id": "SEQ_NULL_0001"
+                },
+                {
+                    "analysis_sample_id": "NORMAL",
+                    "experiment_id": "SEQ_NULL_0002"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "analysis_id": "HG02102-all",
+            "main": {
+                "access_method": "file:////data/HG02102.vcf.gz",
+                "name": "HG02102.vcf.gz"
+            },
+            "index": {
+                "access_method": "file:////data/HG02102.vcf.gz.tbi",
+                "name": "HG02102.vcf.gz.tbi"
+            },
+            "metadata": {
+                "analysis_type": "sequence_variation",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "HG02102",
+                    "experiment_id": "SEQ_ALL_0002"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "analysis_id": "NA02102-bam",
+            "main": {
+                "access_method": "file:////data/NA02102.bam",
+                "name": "NA02102.bam"
+            },
+            "index": {
+                "access_method": "file:////data/NA02102.bam.bai",
+                "name": "NA02102.bam.bai"
+            },
+            "metadata": {
+                "analysis_type": "reference_alignment",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "NA02102",
+                    "experiment_id": "SEQ_0004"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "analysis_id": "NA02102-cram",
+            "main": {
+                "access_method": "file:////data/NA02102.chr1.cram",
+                "name": "NA02102.chr1.cram"
+            },
+            "index": {
+                "access_method": "file:////data/NA02102.chr1.cram.crai",
+                "name": "NA02102.chr1.cram.crai"
+            },
+            "metadata": {
+                "analysis_type": "reference_alignment",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "NA02102",
+                    "experiment_id": "SEQ_0004"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_01",
+            "analysis_id": "NA18537-counts",
+            "main": {
+                "access_method": "file:////data/counts.tsv",
+                "name": "counts.tsv"
+            },
+            "metadata": {
+                "analysis_type": "sequence_annotation",
+                "analysis_attribute": {
+                    "subtype": "expression_count",
+                    "gene_id_column": "gene_id",
+                    "length_column": "length",
+                    "count_column": "expected_count"
+                },
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "SEQ_0009",
+                    "experiment_id": "SEQ_0009"
+                }
+            ]
+        }
+    ]
+}
