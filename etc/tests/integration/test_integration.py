@@ -606,7 +606,53 @@ def test_add_dataset_info(datasets, user_authz):
             dataset_info = json.load(f)
         response = requests.patch(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/{dataset}/info", headers=headers, json=dataset_info)
         print(response)
-        assert response.status_code == 200 
+        assert response.status_code == 200
+
+
+def test_ingest_genomic():
+    token = get_site_admin_token()
+    headers = {
+        "Authorization": f"Bearer {token}"
+    }
+
+    print(f"Sending genomic sample data to candig-api...")
+    with open("etc/tests/integration/small_dataset_clinical_ingest.json", "rb") as f:
+        files = {"file": ("small_dataset_clinical_ingest.json", f, "application/json")}
+        response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/samples", headers=headers, params={"site_id": "SITE_PM2C"}, files=files)
+        print(f"Ingest response code: {response.status_code} {response.text}")
+
+    try:
+        queue_id = response.json()["queue_id"]
+    except KeyError as e:
+        print("Ingest was not successful, `queue_id` not found in response, see error messages below")
+        print(response.json())
+
+    response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
+    while response.status_code == 200 and response.json()["status"] == "In Queue":
+        time.sleep(2)
+        response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
+    print(response.json())
+    assert response.json()["errors"] is None
+
+    print(f"Sending genomic data to candig-api...")
+    with open("etc/tests/integration/small_dataset_genomic_ingest.json", "rb") as f:
+        files = {"file": ("small_dataset_genomic_ingest.json", f, "application/json")}
+        response = requests.post(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/genomic", headers=headers, params={"site_id": "SITE_PM2C"}, files=files)
+        print(f"Ingest response code: {response.status_code}")
+
+    try:
+        queue_id = response.json()["queue_id"]
+    except KeyError as e:
+        print("Ingest was not successful, `queue_id` not found in response, see error messages below")
+        print(response.json())
+
+    response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
+    while response.status_code == 200 and response.json()["status"] == "In Queue":
+        time.sleep(2)
+        response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
+    print(response.json())
+    assert response.json()["errors"] is None
+    assert len(response.json()["ingested_items"]["experiments"]) == 12
 
 
 def sample_request_body(filter_id, granularity="record"):
@@ -673,7 +719,7 @@ def test_beacon_query(user, dataset):
         assert response.json()["response"]["resultSets"][0]["resultsCount"] == 0
         # Ensure that the discovery query also matches up
         assert response.json()["info"]["patients_per_program"]["SITE_PM2C~SYNTH_01"] == 2
-    
+
 
 
 @pytest.mark.parametrize("user, dataset", user_auth_datasets())

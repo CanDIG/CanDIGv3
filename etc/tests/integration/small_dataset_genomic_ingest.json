@@ -17,6 +17,22 @@
             }
         },
         {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "experiment_id": "SEQ_0062",
+            "submitter_sample_id": "SAMPLE_0062",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "experiment_id": "SEQ_0061",
+            "submitter_sample_id": "SAMPLE_0061",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
             "dataset_id": "SITE_PM2C~SYNTH_01",
             "experiment_id": "SEQ_NULL_0001",
             "submitter_sample_id": "SAMPLE_NULL_0001",
@@ -49,6 +65,30 @@
             }
         },
         {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "experiment_id": "SEQ_0072",
+            "submitter_sample_id": "SAMPLE_0072",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "experiment_id": "SEQ_0083",
+            "submitter_sample_id": "SAMPLE_0083",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "experiment_id": "SEQ_0090",
+            "submitter_sample_id": "SAMPLE_0090",
+            "metadata": {
+                "library_strategy": "WGS"
+            }
+        },
+        {
             "dataset_id": "SITE_PM2C~SYNTH_01",
             "experiment_id": "SEQ_0009",
             "submitter_sample_id": "SAMPLE_0009",
@@ -61,7 +101,7 @@
         {
             "dataset_id": "SITE_PM2C~SYNTH_02",
             "run_id": "RUN_0001",
-            "experiment_id": "SEQ_0004",
+            "experiment_id": "SEQ_0090",
             "files": [
                 {
                     "access_method": "file:////data/RUN_0001-1.fastq",
@@ -103,6 +143,33 @@
                 {
                     "analysis_sample_id": "sample_normal",
                     "experiment_id": "SEQ_0001"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "analysis_id": "multisample_1",
+            "main": {
+                "access_method": "file:////data/multisample_1.vcf.gz",
+                "name": "multisample_1.vcf.gz"
+            },
+            "index": {
+                "access_method": "file:////data/multisample_1.vcf.gz.tbi",
+                "name": "multisample_1.vcf.gz.tbi"
+            },
+            "metadata": {
+                "analysis_type": "sequence_variation",
+                "analysis_date": "2024-10-23",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "TUMOR",
+                    "experiment_id": "SEQ_0062"
+                },
+                {
+                    "analysis_sample_id": "NORMAL",
+                    "experiment_id": "SEQ_0061"
                 }
             ]
         },
@@ -196,6 +263,72 @@
                 {
                     "analysis_sample_id": "NA02102",
                     "experiment_id": "SEQ_0004"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "analysis_id": "HG00100-cram",
+            "main": {
+                "access_method": "http://s3.us-east-1.amazonaws.com/1000genomes/phase3/data/HG00100/exome_alignment/HG00100.mapped.ILLUMINA.bwa.GBR.exome.20121211.bam.cram?public=true",
+                "name": "HG00100.mapped.ILLUMINA.bwa.GBR.exome.20121211.bam.cram"
+            },
+            "index": {
+                "access_method": "http://s3.us-east-1.amazonaws.com/1000genomes/phase3/data/HG00100/exome_alignment/HG00100.mapped.ILLUMINA.bwa.GBR.exome.20121211.bam.cram.crai?public=true",
+                "name": "HG00100.mapped.ILLUMINA.bwa.GBR.exome.20121211.bam.cram.crai"
+            },
+            "metadata": {
+                "analysis_type": "reference_alignment",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "HG00100",
+                    "experiment_id": "SEQ_0072"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "analysis_id": "HG00100-chrom20-bam",
+            "main": {
+                "access_method": "http://s3.us-east-1.amazonaws.com/1000genomes/phase3/data/HG00100/exome_alignment/HG00100.chrom20.ILLUMINA.bwa.GBR.exome.20121211.bam?public=true",
+                "name": "HG00100.chrom20.ILLUMINA.bwa.GBR.exome.20121211.bam"
+            },
+            "index": {
+                "access_method": "http://s3.us-east-1.amazonaws.com/1000genomes/phase3/data/HG00100/exome_alignment/HG00100.chrom20.ILLUMINA.bwa.GBR.exome.20121211.bam.bai?public=true",
+                "name": "HG00100.chrom20.ILLUMINA.bwa.GBR.exome.20121211.bam.bai"
+            },
+            "metadata": {
+                "analysis_type": "reference_alignment",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "HG00100",
+                    "experiment_id": "SEQ_0083"
+                }
+            ]
+        },
+        {
+            "dataset_id": "SITE_PM2C~SYNTH_02",
+            "analysis_id": "NA18537-vcf",
+            "main": {
+                "access_method": "file:////data/NA18537.vcf.gz",
+                "name": "NA18537.vcf.gz"
+            },
+            "index": {
+                "access_method": "file:////data/NA18537.vcf.gz.tbi",
+                "name": "NA18537.vcf.gz.tbi"
+            },
+            "metadata": {
+                "analysis_type": "sequence_variation",
+                "reference": "hg38"
+            },
+            "samples": [
+                {
+                    "analysis_sample_id": "NA18537",
+                    "experiment_id": "SEQ_0090"
                 }
             ]
         },
