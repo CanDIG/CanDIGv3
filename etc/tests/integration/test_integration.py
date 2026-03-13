@@ -69,6 +69,21 @@ def dataset_size():
         "SITE_PM2C~SYNTH_04": 20
     }
 
+def genomic_hits_in_dataset():
+    return {
+        "SITE_PM2C~SYNTH_01": 1,
+        "SITE_PM2C~SYNTH_02": 1,
+        "SITE_PM2C~SYNTH_03": 0,
+        "SITE_PM2C~SYNTH_04": 0
+    }
+
+def genomic_and_clinical_hits_in_dataset():
+    return {
+        "SITE_PM2C~SYNTH_01": 0,
+        "SITE_PM2C~SYNTH_02": 1,
+        "SITE_PM2C~SYNTH_03": 0,
+        "SITE_PM2C~SYNTH_04": 0
+    }
 
 ## Keycloak tests:
 
@@ -674,6 +689,22 @@ def sample_request_body(filter_id, granularity="record"):
     }
 
 
+def sample_genomic_request_body(gene_id, granularity="record"):
+    {
+        "meta": {
+            "apiVersion": "v2.0.0"
+        },
+        "query": {
+            "requestedGranularity": granularity,
+            "requestParameters": {
+                "g_variant": {
+                    "gene_id": gene_id
+                }
+            }
+        }
+    }
+
+
 @pytest.mark.parametrize("user, dataset", user_auth_datasets())
 def test_beacon_query(user, dataset):
     """Test whether a user can execute a query."""
@@ -700,6 +731,31 @@ def test_beacon_query(user, dataset):
 
     # Ensure that the discovery query also matches up
     assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+    # Switch to a query on variants in a given gene
+    body = sample_genomic_request_body(f"LOC102723996")
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    #assert response.status_code == 200
+    #assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, genomic_hits_in_dataset()[dataset])
+    #assert response.json()["response"]["resultSets"][0]["resultsCount"] == genomic_hits_in_dataset()[dataset]
+    #assert response.json()["info"]["patients_per_program"][dataset] == genomic_hits_in_dataset()[dataset]
+
+    # Switch to a query on both gene and clinical feature
+    body = sample_request_body(f"dataset_id:{dataset}")
+    body["query"]["requestParameters"] = { "g_variant": { "gene_id": "LOC102723996" } }
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert response.status_code == 200
+    #assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, genomic_and_clinical_hits_in_dataset()[dataset])
+    #assert response.json()["response"]["resultSets"][0]["resultsCount"] == genomic_and_clinical_hits_in_dataset()[dataset]
+    #assert response.json()["info"]["patients_per_program"][dataset] == genomic_and_clinical_hits_in_dataset()[dataset]
 
     # Switch to a query on a specific thing
     body = sample_request_body("ICD10:C06.9")
@@ -805,6 +861,56 @@ def test_beacon_granularity_unauth(user, dataset):
     assert response.json()["responseSummary"]["exists"] == False
     # Ensure that the discovery count is still correct
     assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+
+@pytest.mark.parametrize("user, dataset", user_auth_datasets())
+def test_beacon_genomic(user, dataset):
+    """Test whether a user can execute a genomic variants quick search."""
+    token = get_token(
+        username=ENV[f"{user}_USER"],
+        password=ENV[f"{user}_PASSWORD"],
+    )
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json; charset=utf-8",
+    }
+    body = sample_genomic_request_body(f"LOC102723996")
+
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/g_variants",
+        headers = headers,
+        json = body
+    )
+    assert response.status_code == 200
+
+    # Ensure that the dataset is included in the result
+    assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, dataset_size()[dataset])
+    assert response.json()["response"]["resultSets"][0]["resultsCount"] == dataset_size()[dataset]
+
+    # Ensure that the discovery query also matches up
+    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
+
+    # Switch to a query on a specific thing
+    body = sample_request_body("ICD10:C06.9")
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    print(body)
+    print(response.json())
+    assert response.status_code == 200
+
+    if user != "CANDIG_NOT_ADMIN2":
+        # Ensure that test user ID 37 is included in the result
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == 2
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 2
+    else:
+        # Ensure that test user ID 37 is not included
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == 0
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 0
+        # Ensure that the discovery query also matches up
+        assert response.json()["info"]["patients_per_program"]["SITE_PM2C~SYNTH_01"] == 2
 
 
 ## Htsget tests:
