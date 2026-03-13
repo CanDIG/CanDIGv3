@@ -647,6 +647,7 @@ def test_ingest_genomic():
     except KeyError as e:
         print("Ingest was not successful, `queue_id` not found in response, see error messages below")
         print(response.json())
+        assert False
 
     response = requests.get(f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/upload/status/{queue_id}", headers=headers)
     while response.status_code == 200 and response.json()["status"] == "In Queue":
