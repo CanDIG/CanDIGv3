@@ -25,6 +25,7 @@ services:
       KEYCLOAK_AUTH_PREFIX: ${KEYCLOAK_AUTH_PREFIX}
       OPA_URL: ${OPA_PRIVATE_URL}
       VAULT_URL: ${VAULT_PRIVATE_URL}
+      DRS_URL: ${DRS_PRIVATE_URL}
       DEBUG_MODE: ${CANDIG_DEBUG_MODE}
       DB_PATH: "postgres-db"
       SERVER_LOCAL_DATA: /app/htsget_server/data
