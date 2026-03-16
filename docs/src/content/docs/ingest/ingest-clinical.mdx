@@ -11,7 +11,7 @@ If you have gotten this far, well done! Most of the hard work is done (hopefully
 
 Assuming that you have a configured CanDIG instance up and running and have access to a user with Site curator or Dataset curator credentials, you should be able to run through the instructions below.
 
-## Ingesting clinical data into CanDIG
+## Ingesting OMOP formatted clinical data into CanDIGv3
 
 Before you can use the ingest endpoint, you will need an authorized bearer token. Users with Site administration, Site curator, or dataset curator for the dataset/s being ingested are able to ingest those datasets. To get a bearer token:
 
@@ -41,7 +41,7 @@ An example call to the ingest endpoint would look something like (note you will 
 curl -X POST $CANDIG_URL'/candig-api/v1/datasets/upload' \
   -H "Authorization: Bearer "$TOKEN \
   -H "Content-Type: multipart/form-data" \
-  -F "file=@/absolute/path/to/dir_name_map.json;type=application/json"
+  -F "file=@/absolute/path/to/omop_map.json;type=application/json"
 ```
 
 If ingest worked correctly, you should get a response from the API giving you your queue_id to check the status of your ingest:
@@ -90,3 +90,62 @@ Example response from the status endpoint when ingest for a dataset is complete:
 }
 ```
 
+## Ingesting Sample Registration information into CanDIGv3
+
+Since OMOP doesn't handle metadata related to samples, we will ingest this data into the system separately.
+
+1. Using the MOHCCN formatted JSON that went into the mohccn-omop-etl tools, upload this to samples upload endpoint, along with the `site_id` that was used to create the OMOP-formatted json. 
+
+e.g.
+
+```bash
+curl --request POST \
+  --url $CANDIG_URL'/candig-api/v1/datasets/upload/samples?site_id=SITE_PM2C' \
+  --header 'accept: application/json' \
+  --header 'authorization: Bearer '$TOKEN \
+  --header 'content-type: multipart/form-data' \
+  --form file=@/absolute/path/to/input_mohccn_data.json
+```
+
+:::tip
+If you aren't sure about your `site_id`, check the omop file for the prefix before `~` that is prepended to the dataset_id, alternatively, take a look at the `.env` file for the `MOHCCN_SITE_ID` in the `mohccn-omop-etl` repo where you ran the transformation
+:::
+
+2. You should receive confirmation of the upload and a queue id to monitor status like:
+
+```bash
+{"message": "File uploaded for processing.", "queue_id": "0080ef5d0a648a80", "url": "/v1/datasets/upload/status/0080ef5d0a648a80"}
+```
+
+2. You can then check the status of the upload the same as earlier with:
+
+```bash
+curl -X 'GET' \
+ $CANDIG_URL'/candig-api/v1/datasets/upload/status/0080ef5d0a648a80' \
+ -H 'accept: application/json' \
+ -H 'Content-Type: application/json' \
+ -H 'Authorization: Bearer '$TOKEN
+```
+
+And once complete, should receive a message like the following, with any errors that occurred in the `errors` key: 
+
+```json
+{
+  "status": "Success",
+  "file_name": "small_dataset_clinical_ingest.json",
+  "file_size": 764056,
+  "uploaded_at": "2026-03-16 22:09:53 UTC",
+  "site_id": "SITE_PM2C",
+  "data_type": "samples",
+  "processed_at": "2026-03-16 22:09:54 UTC",
+  "ingested_count": 252,
+  "ingested_items": [
+    "SITE_PM2C~SYNTH_01~SAMPLE_0001",
+    "SITE_PM2C~SYNTH_01~SAMPLE_0002",
+    "SITE_PM2C~SYNTH_01~SAMPLE_0003",
+    "SITE_PM2C~SYNTH_01~SAMPLE_0004",
+    ...
+  ],
+  "errors": null
+}
+```

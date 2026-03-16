@@ -4,14 +4,13 @@ description: How to link clinical and genomic data through ingest
 tableOfContents: false
 ---
 
-It is preferred to use the API to post the genomic JSON as a body to the `/ingest/ingest` endpoint.
-
 :::caution
 Genomic data cannot be ingested until the clinical data that the genomic files link to is complete. Please ensure clinical ingest is complete before attempting ingest.
 :::
 
-The format of the ingest request is specified by the SequencingIngest schema in candigv2-ingest. The schema specifies two types of objects:
+The format of the ingest request is specified by the SequencingIngest schema in `drs`. The schema specifies two types of objects:
   * Experiments link the sequencing centre's names with the MoHCCN clinical data's Sample Registration identifiers
+  * Runs link experiments to fastq files if present
   * Analyses describe the particular downstream analysis performed, along with the files associated with the analysis.
 
 For example, a request which would ingest a sequence variation analysis would look like below. It links the clinical Sample Registration sample_registration_id_1 with a sequencing centre Experiment and associates the analysis with the pointers to a gzipped VCF file along with its associated tabix index file which are located within s3 storage:
@@ -20,7 +19,7 @@ For example, a request which would ingest a sequence variation analysis would lo
 {
   "experiments": [
     {
-      "program_id": "string",
+      "dataset_id": "string",
       "experiment_id": "SEQ_0001",
       "submitter_sample_id": "LOCAL-sample_registration_id_1",
       "metadata": {
@@ -30,7 +29,7 @@ For example, a request which would ingest a sequence variation analysis would lo
   ],
   "analyses": [
     {
-      "program_id": "string",
+      "dataset_id": "string",
       "analysis_id": "HG00096",
       "metadata": {
         "analysis_type": "sequence_variation",
@@ -59,29 +58,80 @@ You then send a POST request, specifying the path to a file that contains the ge
 
 ```bash
 curl -X 'POST' \
-  $CANDIG_URL'/ingest/ingest' \
+  $CANDIG_URL'/candig-api/v1/datasets/upload/genomic?site_id=SITE_PM2C' \
   -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
+  -H 'Content-Type: multipart/form-data' \
   -H 'Authorization: Bearer '$TOKEN \
-  -d '@/absolute/path/to/genomic.json>
+  --form file=@/absolute/path/to/genomic_linking.json
 ```
+
+:::tip
+If you aren't sure about your `site_id`, check the omop file for the prefix before `~` that is prepended to the dataset_id, alternatively, take a look at the `.env` file for the `MOHCCN_SITE_ID` in the `mohccn-omop-etl` repo where you ran the transformation
+:::
 
 The post request should return with a queue id that can be used to check the status of ingest.
 
 ```bash
-"queue_id": "bd36048e-8661-11ef-99d4-0242ac12000f",
+"queue_id": "dc88ad63e320cf1f",
 ```
 
 You can check the status of ingest by using the ingest status endpoint:
 
 ```bash
 curl -X 'GET' \
-  $CANDIG_URL'/ingest/status/<your_queue_id>' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/json' \
-  -H 'Authorization: Bearer '$TOKEN
+ $CANDIG_URL'/candig-api/v1/datasets/upload/status/dc88ad63e320cf1f' \
+ -H 'accept: application/json' \
+ -H 'Content-Type: application/json' \
+ -H 'Authorization: Bearer '$TOKEN
 ```
 
 While ingest is processing, you will see a message `"status": "still in queue"`.
 
 If you get a message such as `"no such sample": "sample SAMPLE_0600 does not exist in clinical data'` this means the sample the file is linking to cannot be found in the currently ingested clinical data. Please ensure you have ingested all samples being referred to in the genomic json file before attempting ingest.
+
+When the ingest is finished successfully you should get a response like the following:
+
+```json
+{
+  "status": "Success",
+  "file_name": "small_dataset_genomic_ingest.json",
+  "file_size": 7264,
+  "uploaded_at": "2026-03-16 22:27:16 UTC",
+  "site_id": "SITE_PM2C",
+  "data_type": "genomic",
+  "processed_at": "2026-03-16 22:27:35 UTC",
+  "ingested_count": 3,
+  "ingested_items": {
+    "runs": [
+      "RUN_0001"
+    ],
+    "experiments": [
+      "SEQ_0001",
+      "SEQ_0002",
+      "SEQ_NULL_0001",
+      "SEQ_NULL_0002",
+      "SEQ_ALL_0002",
+      "SEQ_0004",
+      "SEQ_0009",
+      "SEQ_0062",
+      "SEQ_0061",
+      "SEQ_0072",
+      "SEQ_0083",
+      "SEQ_0090"
+    ],
+    "analyses": [
+      "test",
+      "multisample_2",
+      "HG02102-all",
+      "NA02102-bam",
+      "NA02102-cram",
+      "NA18537-counts",
+      "multisample_1",
+      "HG00100-cram",
+      "HG00100-chrom20-bam",
+      "NA18537-vcf"
+    ]
+  },
+  "errors": null
+}
+```

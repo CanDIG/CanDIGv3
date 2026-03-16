@@ -130,8 +130,8 @@ export default defineConfig({
                         'ingest/prepare-clinical', 
                         'ingest/register-programs', 
                         'ingest/ingest-clinical',
-                        // 'ingest/prepare-genomic',
-                        // 'ingest/ingest-genomic',
+                        'ingest/prepare-genomic',
+                        'ingest/ingest-genomic',
                         'ingest/ingest-help',
                     ]
                 }

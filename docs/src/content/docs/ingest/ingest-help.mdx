@@ -54,3 +54,13 @@ This deletes the dataset authorization, the clinical data and the genomic data l
 :::tip
    Remember to replace `DATASET_ID` and `CANDIG_URL` with the actual values for your dataset and deployment.
 :::
+
+## 'User does not have permission to ingest'
+
+If you receive an error something like:
+
+```bash
+{"error": "Forbidden", "message": "User site_admin@local-test.ca does not have permission to ingest 'SITE_PM2C~SYNTH_01'"}
+```
+
+Either the user does not have permission or the dataset has not yet been registered. 
