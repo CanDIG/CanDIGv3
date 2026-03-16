@@ -77,6 +77,18 @@ def genomic_hits_in_dataset():
         "SITE_PM2C~SYNTH_04": 0
     }
 
+def genomic_variants_per_sample():
+    return {
+        "SITE_PM2C~SYNTH_02": {
+            "SAMPLE_0061": 3,
+            "SAMPLE_0062": 3
+        },
+        "SITE_PM2C~SYNTH_01": {
+            "SAMPLE_NULL_0002": 2,
+            "SAMPLE_NULL_0001": 2
+        }
+    }
+
 def genomic_and_clinical_hits_in_dataset():
     return {
         "SITE_PM2C~SYNTH_01": 0,
@@ -690,7 +702,7 @@ def sample_request_body(filter_id, granularity="record"):
 
 
 def sample_genomic_request_body(gene_id, granularity="record"):
-    {
+    return {
         "meta": {
             "apiVersion": "v2.0.0"
         },
@@ -884,33 +896,10 @@ def test_beacon_genomic(user, dataset):
     assert response.status_code == 200
 
     # Ensure that the dataset is included in the result
-    assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, dataset_size()[dataset])
-    assert response.json()["response"]["resultSets"][0]["resultsCount"] == dataset_size()[dataset]
-
-    # Ensure that the discovery query also matches up
-    assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
-
-    # Switch to a query on a specific thing
-    body = sample_request_body("ICD10:C06.9")
-    response = requests.post(
-        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
-        headers = headers,
-        json = body
-    )
-    print(body)
-    print(response.json())
-    assert response.status_code == 200
-
-    if user != "CANDIG_NOT_ADMIN2":
-        # Ensure that test user ID 37 is included in the result
-        assert len(response.json()["response"]["resultSets"][0]["results"]) == 2
-        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 2
-    else:
-        # Ensure that test user ID 37 is not included
-        assert len(response.json()["response"]["resultSets"][0]["results"]) == 0
-        assert response.json()["response"]["resultSets"][0]["resultsCount"] == 0
-        # Ensure that the discovery query also matches up
-        assert response.json()["info"]["patients_per_program"]["SITE_PM2C~SYNTH_01"] == 2
+    # print(response.json())
+    this_dataset = response.json()["estimatedResults"][dataset]
+    for sample in this_dataset:
+        assert sample["variant_count"] == genomic_variants_per_sample()[dataset][sample["submitter_sample_id"]]
 
 
 ## Htsget tests:
