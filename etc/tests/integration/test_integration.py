@@ -636,6 +636,15 @@ def test_ingest_genomic():
     print(response.json())
     assert response.json()["errors"] is None
 
+    sample_ingest_status = response.json()
+    sample_dataset_id = "~".join(sample_ingest_status["ingested_items"][0].split("~")[:2])
+    sample_list_response = requests.get(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/datasets/{sample_dataset_id}/samples",
+        headers=headers,
+    )
+    assert sample_list_response.status_code == 200
+    assert len(sample_list_response.json()) == 72
+
     print(f"Sending genomic data to candig-api...")
     with open("etc/tests/integration/small_dataset_genomic_ingest.json", "rb") as f:
         files = {"file": ("small_dataset_genomic_ingest.json", f, "application/json")}
