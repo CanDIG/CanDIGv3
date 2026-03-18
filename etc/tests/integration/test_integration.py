@@ -91,7 +91,7 @@ def genomic_variants_per_sample():
 
 def genomic_and_clinical_hits_in_dataset():
     return {
-        "SITE_PM2C~SYNTH_01": 0,
+        "SITE_PM2C~SYNTH_01": 1,
         "SITE_PM2C~SYNTH_02": 1,
         "SITE_PM2C~SYNTH_03": 0,
         "SITE_PM2C~SYNTH_04": 0
@@ -745,29 +745,31 @@ def test_beacon_query(user, dataset):
     assert response.json()["info"]["patients_per_program"][dataset] == dataset_size()[dataset]
 
     # Switch to a query on variants in a given gene
-    body = sample_genomic_request_body(f"LOC102723996")
-    response = requests.post(
-        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
-        headers = headers,
-        json = body
-    )
-    #assert response.status_code == 200
-    #assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, genomic_hits_in_dataset()[dataset])
-    #assert response.json()["response"]["resultSets"][0]["resultsCount"] == genomic_hits_in_dataset()[dataset]
-    #assert response.json()["info"]["patients_per_program"][dataset] == genomic_hits_in_dataset()[dataset]
-
-    # Switch to a query on both gene and clinical feature
-    body = sample_request_body(f"dataset_id:{dataset}")
-    body["query"]["requestParameters"] = { "g_variant": { "gene_id": "LOC102723996" } }
+    body = sample_genomic_request_body(f"SLX9")
     response = requests.post(
         f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
         headers = headers,
         json = body
     )
     assert response.status_code == 200
-    #assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, genomic_and_clinical_hits_in_dataset()[dataset])
-    #assert response.json()["response"]["resultSets"][0]["resultsCount"] == genomic_and_clinical_hits_in_dataset()[dataset]
-    #assert response.json()["info"]["patients_per_program"][dataset] == genomic_and_clinical_hits_in_dataset()[dataset]
+    if user != "CANDIG_NOT_ADMIN2":
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, genomic_hits_in_dataset()[dataset])
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == genomic_hits_in_dataset()[dataset]
+        assert response.json()["info"]["patients_per_program"][dataset] == genomic_hits_in_dataset()[dataset]
+
+    # Switch to a query on both gene and clinical feature
+    body = sample_request_body(f"dataset_id:{dataset}")
+    body["query"]["requestParameters"] = { "g_variant": { "gene_id": "SLX9" } }
+    response = requests.post(
+        f"{ENV['CANDIG_URL']}/candig-api/v1/beacon/persons",
+        headers = headers,
+        json = body
+    )
+    assert response.status_code == 200
+    if user != "CANDIG_NOT_ADMIN2":
+        assert len(response.json()["response"]["resultSets"][0]["results"]) == min(10, genomic_and_clinical_hits_in_dataset()[dataset])
+        assert response.json()["response"]["resultSets"][0]["resultsCount"] == genomic_and_clinical_hits_in_dataset()[dataset]
+        assert response.json()["info"]["patients_per_program"][dataset] == genomic_and_clinical_hits_in_dataset()[dataset]
 
     # Switch to a query on a specific thing
     body = sample_request_body("ICD10:C06.9")
@@ -776,8 +778,6 @@ def test_beacon_query(user, dataset):
         headers = headers,
         json = body
     )
-    print(body)
-    print(response.json())
     assert response.status_code == 200
 
     if user != "CANDIG_NOT_ADMIN2":
