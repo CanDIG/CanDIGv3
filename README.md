@@ -13,7 +13,7 @@ health care data.
 
 The default `develop` branch is for developers. It undergoes nightly builds and integration testing, so should generally be deployable. 
 
-The `stable` branch is the latest stable release and is the one that you should use for production deployments. 
+**Not Yet Implemented** The `stable` branch is the latest stable release and is the one that you should use for production deployments. 
 
 ## Installation
 
@@ -56,12 +56,13 @@ The following table lists the individual repos for each service and helper libra
 
 | Service/Component Name    | Source                                                                | Description                       |
 |---------------------------|-----------------------------------------------------------------------|------------------------------|
-| authx                     | [`candigv3-authx`](https://github.com/CanDIG/candigv3-authx)          | Library to facilitate interacting with AuthZ/AuthN services, Keycloak, Tyk, Opa, Vault & Access to minIO S3 objects |
+| authx                     | [`candigv2-authx`](https://github.com/CanDIG/candigv2-authx)          | Library to facilitate interacting with AuthZ/AuthN services, Keycloak, Tyk, Opa, Vault & Access to minIO S3 objects |
 | CanDIG Data Portal        | [`candig-data-portal`](https://github.com/CanDIG/candig-data-portal)  | Front-end User interface for CanDIG Services |
-| CanDIGv3 Ingest Service | [`candigv3-ingest`](https://github.com/CanDIG/candigv3-ingest) | Ingests clinical and genomic data into the CanDIG infrastructure. |
 | Federation Service        | [`federation-service`](https://github.com/CanDIG/federation_service)  | Distributes requests across each federated node of the distributed infrastructure   |
 | HTSGet                    | [`htsget_app`](https://github.com/CanDIG/htsget_app)                  | Implementation of GA4GH htsget API for retrieval of genomic data |
-| CanDIG API                | [`katsu`](https://github.com/CanDIG/CanDIG-API)                       | API access to CanDIG databases and services. Implements a GA4GH-compliant Beacon API for searching data.  |
+| DRS                       | [`DRS`](https://github.com/CanDIG/drs-service)                                                             | Implementation of GA4GH Data Repository Service API for storage and retrieval of files and associated metadata. |
+| RNAGet                    | [`RNAGet`](https://github.com/bento-platform/takuan)                                                                  | CanDIGv3 incorporates C3G's RNAGet compliant transcriptomics data service `Takuan` |
+| CanDIG API                | [`candig-api`](https://github.com/CanDIG/candig-api)                       | API access to CanDIG databases and services. Implements a GA4GH-compliant Beacon API for searching data, phenopackets for export and clinical data stored in an OMOP database.  |
 | CanDIG OPA                | [`candig-opa`](https://github.com/CanDIG/candig-opa)                  | Manages role-based access policies   |
 
 As well as in-house developed services, the CanDIG stack relies on external software which is configured to work within the stack, configurations are found in the [`/lib`](/lib) folder for each software, these include:

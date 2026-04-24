@@ -52,6 +52,12 @@ export default defineConfig({
                 collapsed: true
             },
             {
+                base: 'technical/candig-api/authz',
+                label: 'candig api auth operations',
+                schema: 'https://raw.githubusercontent.com/CanDIG/candig-api/refs/heads/develop/authz-schema.yml',
+                collapsed: true
+            },
+            {
                 base: 'technical/candig-api/beacon',
                 label: 'clinical beacon api',
                 schema: 'https://raw.githubusercontent.com/CanDIG/candig-api/refs/heads/develop/beacon-schema.yml',
@@ -59,7 +65,7 @@ export default defineConfig({
             },
             {
                 base: 'technical/drs/drs-api',
-                label: 'api',
+                label: 'DRS api',
                 schema: 'https://raw.githubusercontent.com/CanDIG/drs-service/refs/heads/stable/drs_server/drs_openapi.yaml',
                 collapsed: true
             },

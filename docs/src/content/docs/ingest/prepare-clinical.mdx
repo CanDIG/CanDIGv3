@@ -1,14 +1,21 @@
 ---
 title: Prepare clinical data
-description: A step by step guide to preparing clinical data for ingest into CanDIG
+description: A step by step guide to preparing clinical data for ingest into CanDIGv3
 tableOfContents:
   minHeadingLevel: 1
   maxHeadingLevel: 3
 ---
 
-We also call this ‘ ETL ’ or Extract, Transform Load. Basically we need to extract the data from its native database, transform it into the CanDIG data model, and load it into the CanDIG platform.
+We also call this ‘ ETL ’ or Extract, Transform Load. Basically we need to extract the data from its native database, transform it into the OMOP data model, and load it into the CanDIG platform.
 
-This step relies on CanDIG’s clinical ETL mapping tool. If you haven’t done so already, clone the repo [clinical_ETL_code: stable](https://github.com/CanDIG/clinical_ETL_code) and note where you have it, we will be using it later!
+This step relies on ETL mapping tools. 
+
+If transforming data from the MOHCCN clinical data model, you will first need to use [clinical_ETL_code: stable](https://github.com/CanDIG/clinical_ETL_code) to transform your data into an MOHCCN json file.
+
+Expand the section below to view the full details of how to transform tabular style data into an MOHCCN json file:
+
+<details>
+<summary>Tabular data to MOHCCN JSON</summary>
 
 ## A. Data export
 
@@ -106,3 +113,24 @@ This will likely be an iterative process of attempting conversion and fixing any
 :::tip
 Once you get to a final version of csv files, manifest, mapping functions, and mapping template, we recommend saving these files in a secure location as they will make it easier to update and reingest data if needed.
 :::
+
+The output file can be used to transform the data into the OMOP data model.
+
+</details>
+
+## Transform MOHCCN to OMOP
+This step is performed by tools found in the repo: [mohccn-omop-etl](https://github.com/CanDIG/mohccn-omop-etl). The prerequisites for these tools need to be installed before the tool can be run.
+
+Once the pre-requisites are setup, you can transform a mohccn formatted json into an omop formatted json by activating the virtual environment and running the command:
+
+```bash
+source venv/bin/activate
+```
+
+```bash
+python transform_MOHCCN_to_omop.py \
+  -i input_mohccn_data.json \
+  -o output_omop_data.json
+```
+
+Once you have the omop formatted json, you can proceed to ingest the file into CanDIGv3 via the `candig-api` interface.

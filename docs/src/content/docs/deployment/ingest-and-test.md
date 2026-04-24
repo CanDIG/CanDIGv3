@@ -19,7 +19,7 @@ source ./etc/venv/activate.sh
 ```
 or separately:
 ```bash
-cd CanDIGv2
+cd CanDIGv3
 conda activate candig
 pip install -r etc/venv/requirements
 ```
@@ -75,6 +75,6 @@ make compose-federation
 
 Synthetic data is ingested as part of the integration tests. By default, this data is deleted after tests are run. If you'd like to keep the data in the platform, ensure the `KEEP_TEST_DATA` variable in your .env file is set to `true`.
 
-If you would like to ingest the data separately, follow the [clinical ingest](../guides/ingest/ingest-clinical#ingesting-clinical-data-into-candig) and [genomic ingest](../guides/ingest/ingest-genomic) instructions using the test files in `lib/candig-ingest/candigv2-ingest/tests`,  using `small_dataset_clinical_ingest.json` for clinical ingest and `small_dataset_genomic_ingest.json` for genomic ingest.
+If you would like to ingest the data separately, follow the [clinical ingest](../guides/ingest/ingest-clinical#ingesting-clinical-data-into-candig) and [genomic ingest](../guides/ingest/ingest-genomic) instructions using the test files in `etc/tests/integration`,  using `omop-sample.json` for clinical ingest and `small_dataset_genomic_ingest.json` for genomic ingest.
 
 You should now see the ingested data in the [data portal](http://candig.docker.internal:5080).

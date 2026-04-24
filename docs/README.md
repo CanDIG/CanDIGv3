@@ -1,8 +1,8 @@
-# CanDIGv2 Documentation website
+# CanDIGv3 Documentation website
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-Currently being deployed to https://candig.github.io/CanDIGv2/ via github actions.
+Currently being deployed to https://candig.github.io/CanDIGv3/ via github actions.
 
 ## 🚀 Project Structure
 

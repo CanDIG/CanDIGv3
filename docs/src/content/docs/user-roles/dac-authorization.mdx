@@ -13,7 +13,7 @@ A Data Access Committee can approve access for a given user to specific data set
 
 DAC authorizations differ from other roles in the CanDIG system in that they are granted for a specific amount of time. 
 
-## Grant an authorized user read access to a program <Badge text="Site admin" variant="caution" />
+## Grant an authorized user read access to a dataset <Badge text="Site admin" variant="caution" />
 
 1. Get a token using the process below:
 
@@ -40,7 +40,7 @@ TOKEN=ey-pasted-jwt
 
 </details>
 
-2. Use the `/user/{user_id}/dac_authorization` endpoint with a body that includes the program id of the dataset the user should be given access to as well as the start and end date for the access. 
+2. Use the `/user/{user_id}/dac_authorization` endpoint with a body that includes the dataset id of the dataset the user should be given access to as well as the start and end date for the access. 
 
 :::tip
 The dates in the request must be in `YYYY-MM-DD` format.
@@ -50,20 +50,20 @@ An example request that grants `user2@test.ca` access to `LOCAL-SYNTH_01` starti
 
 ```bash
 curl --request POST \
-  --url $CANDIG_URL'/ingest/user/user2@test.ca/dac_authorization' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/user2@test.ca/dac_authorization' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN \
-  -d '{"program_id": "LOCAL-SYNTH_01", "start_date": "2025-02-05", "end_date": "2026-02-05"}'
+  -d '{"dataset_id": "LOCAL-SYNTH_01", "start_date": "2025-02-05", "end_date": "2026-02-05"}'
 ```
 
 The return from a successful request will include all the dac_authorizations for the user and should include the one that was submitted.
 
 :::note
-If you submit a subsequent `dac_authorization` for the same user and program, it will replace the information stored in the system.
+If you submit a subsequent `dac_authorization` for the same user and dataset, it will replace the information stored in the system.
 :::
 
-When logging in, the user will now have access to the given program(s) during the given time period.
+When logging in, the user will now have access to the given dataset(s) during the given time period.
 
 ## Revoke a DAC Authorization <Badge text="Site admin" variant="caution" />
 
@@ -92,16 +92,16 @@ TOKEN=ey-pasted-jwt
 
 </details>
 
-2. Use the `DELETE` method on the `/user/{user_id}/dac_authorization/{program_id}` endpoint
+2. Use the `DELETE` method on the `/user/{user_id}/dac_authorization/{dataset_id}` endpoint
 
-An example request that deletes `user2@test.ca`'s access to program `LOCAL-SYNTH_01` would look like:
+An example request that deletes `user2@test.ca`'s access to dataset `LOCAL-SYNTH_01` would look like:
 
 ```bash
 curl --request DELETE \
-  --url $CANDIG_URL'/ingest/user/user2@test.ca/dac_authorization/LOCAL-SYNTH_01' \
+  --url $CANDIG_URL'/candig-api/v1/authz/user/user2@test.ca/dac_authorization/LOCAL-SYNTH_01' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -H 'Authorization: Bearer '$TOKEN
 ```
 
-The return will show all the `dac_authorizations` for the user, the deleted one should have been removed. The user will no longer be able to access the clinical and genomic data for that program.
+The return will show all the `dac_authorizations` for the user, the deleted one should have been removed. The user will no longer be able to access the clinical and genomic data for that dataset.

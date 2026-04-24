@@ -8,7 +8,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { Steps } from '@astrojs/starlight/components';
 import { Aside } from '@astrojs/starlight/components';
 
-As new stable versions of the CanDIGv2 stack are released, it is recommended that production deployments be updated as soon as possible as deployments at different versions are unlikely to be able to be federated.
+As new stable versions of the CanDIGv3 stack are released, it is recommended that production deployments be updated as soon as possible as deployments at different versions are unlikely to be able to be federated.
 
 The process for updating depends on the changes contained in a particular release. The release notes for a particular release should indicate whether an existing deployment needs a full reinstall or can be updated without deleting any existing data. The steps in the process should follow the following general steps:
 
@@ -44,7 +44,7 @@ The process for updating depends on the changes contained in a particular releas
         </details>
     - git repos diffs - see expandable section below:
         <details>
-        <summary>Example bash script of how to save git diffs of all CanDIGv2 repos</summary>
+        <summary>Example bash script of how to save git diffs of all CanDIGv3 repos</summary>
         ```bash
         #!/bin/bash
 
@@ -79,10 +79,10 @@ The process for updating depends on the changes contained in a particular releas
         ```
         </details>
 
-2. Pull the latest stable release from the CanDIGv2 repo and update submodules
+2. Pull the latest stable release from the CanDIGv3 repo and update submodules
 
     ```bash
-    cd CanDIGv2
+    cd CanDIGv3
     git checkout stable
     git pull 
     git submodule update --init --recursive
@@ -151,7 +151,7 @@ The process for updating depends on the changes contained in a particular releas
     
         If you revoked site admin rights from `site_admin@test.ca` you can temporarily reinstate rights to run the tests and then revoke them again
 
-        1. To reinstate `site_admin@test.ca` as a site admin user, from the CanDIGv2 repo in a terminal 
+        1. To reinstate `site_admin@test.ca` as a site admin user, from the CanDIGv3 repo in a terminal 
         
         First get a token:
 
@@ -204,7 +204,7 @@ The process for updating depends on the changes contained in a particular releas
     make test-integration
     ```
 
-    If tests fail, check out the [troubleshooting section](stack-troubleshooting) or [reach out for help](https://github.com/CanDIG/CanDIGv2/issues/new/choose).
+    If tests fail, check out the [troubleshooting section](stack-troubleshooting) or [reach out for help](https://github.com/CanDIG/CanDIGv3/issues/new/choose).
 
 10. Reinstate federation with other nodes
 

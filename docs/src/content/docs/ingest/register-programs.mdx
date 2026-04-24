@@ -1,6 +1,6 @@
 ---
-title: Registering programs
-description: How to register programs you intend to ingest into CanDIG
+title: Registering datasets
+description: How to register datasets you intend to ingest into CanDIG
 tableOfContents:
   minHeadingLevel: 1
   maxHeadingLevel: 2
@@ -9,9 +9,9 @@ tableOfContents:
 import { Icon } from 'astro-icon/components';
 import { Steps } from '@astrojs/starlight/components';
 
-Before any program can be ingested into CanDIG, it needs to be registered. To first register a program, you must be either a site admin or a site curator. During program registration, you can also assign program curators and team members to the program. For more information about user roles in CanDIG, see [User roles in CanDIG](../deployment/user-roles). If you need to be made a site curator or program curator, please contact your local site administrator to assign your user profile the appropriate role.
+Before any dataset can be ingested into CanDIG, it needs to be registered. To first register a dataset, you must be either a site admin or a site curator. During dataset registration, you can also assign dataset curators and team members to the dataset. For more information about user roles in CanDIG, see [User roles in CanDIG](../deployment/user-roles). If you need to be made a site curator or dataset curator, please contact your local site administrator to assign your user profile the appropriate role.
 
-## How to register a program
+## How to register a dataset
 
 1. Get a token by logging into the CanDIG data portal as site admin or site curator and copying the API token.
 
@@ -31,7 +31,7 @@ TOKEN=ey-pasted-jwt
 This token should be kept secure, it lasts for 30 mins
 :::
 
-3. POST to the program endpoint in ingest to assign a user the program curator role for a specific program, e.g. program SYNTH_03 with user2@test.ca
+3. POST to the dataset endpoint in ingest to assign a user the dataset curator role for a specific dataset, e.g. dataset SYNTH_03 with user2@test.ca
 
 ```bash
 curl -s --request POST \
@@ -39,5 +39,5 @@ curl -s --request POST \
  -H 'accept: application/json' \
  -H 'Content-Type: application/json' \
  -H 'Authorization: Bearer '$TOKEN \
- -d '{"dataset_id": "SYNTH_03", "dataset_curators": ["user2@test.ca"], "team_members": []}'
+ -d '{"dataset_id": "LOCAL-SYNTH_01", "dataset_curators": ["user2@local-test.ca"], "team_members": []}'
 ```

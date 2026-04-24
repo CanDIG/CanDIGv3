@@ -22,7 +22,7 @@ If `test_tyk` fails, all other tests will fail because the stack relies on tyk b
 
 If any of the `ingest_admin_*` tests fail, the later query tests will fail since they rely on having data ingested into the system to get the expected query results.
 
-If any specific test is failing, looking at the individual container for the services that is failing, or the centralized log (`/tmp/logs`) is usually the best place to start debugging. If at any stage you are unsure on where to start after integration test failures, please make a [github issue](https://github.com/CanDIG/CanDIGv2/issues/new/choose).
+If any specific test is failing, looking at the individual container for the services that is failing, or the centralized log (`/tmp/logs`) is usually the best place to start debugging. If at any stage you are unsure on where to start after integration test failures, please make a [github issue](https://github.com/CanDIG/CanDIGv3/issues/new/choose).
 
 If a failure relates to any of the services listed in the `CANDIG_AUTH_MODULES` in the `.env` file, and you find you need to rebuild any of these modules, you will need to rebuild all of these modules using `make clean-authx` and `make init-authx`.
 
@@ -56,9 +56,9 @@ It is common to move around within the repo and not realise where you are. If yo
 make: *** No rule to make target `clean-candig-ingest'.  Stop.
 ```
 
-Check to make sure you are in the root of the CanDIGv2 repo as the commands only work while in the same directory as the Makefile.
+Check to make sure you are in the root of the CanDIGv3 repo as the commands only work while in the same directory as the Makefile.
 
-If you are still having trouble, feel free to [reach out to us](https://github.com/CanDIG/CanDIGv2/issues/new/choose) on GitHub.
+If you are still having trouble, feel free to [reach out to us](https://github.com/CanDIG/CanDIGv3/issues/new/choose) on GitHub.
 
 ### Common Errors
 
@@ -113,9 +113,9 @@ Your stack doesn't seem to be working and there are tyk related error messages s
 Double check your build log (`tmp/progress.txt`) for messages such as:
 
 ```
-cat: /opt/CanDIGv2/tmp/tyk/secret-key: No such file or directory
+cat: /opt/CanDIGv3/tmp/tyk/secret-key: No such file or directory
 mv: cannot stat 'tmp/secrets/tyk-secret-key': No such file or directory
-cat: /opt/CanDIGv2/tmp/tyk/secret-key: No such file or directory
+cat: /opt/CanDIGv3/tmp/tyk/secret-key: No such file or directory
 ```
 
 To fix, try regenerating the tyk secret with `make secret-tyk-secret-key`.
